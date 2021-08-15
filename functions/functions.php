@@ -37,3 +37,4 @@ function headerTemplate($title)
     ";
     echo $element;
 }
+
