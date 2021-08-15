@@ -12,3 +12,4 @@ $page = isset($_GET['page']) && file_exists($_GET['page'] . '.php') ? $_GET['pag
 include_once $page . '.php';
 
 ?>
+
