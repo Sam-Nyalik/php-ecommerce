@@ -1,7 +1,16 @@
 <?php
 
+// Start a session
+session_start();
+
 include_once "functions/functions.php";
 $pdo = databaseConnect();
+
+// Check if the administrator is already logged in, if yes redirect to the dashboard page
+if (isset($_SESSION["loggedIn"]) && ($_SESSION["loggedIn"] == true)) {
+    header("location: index.php?page=administrator/dashboard");
+    exit;
+}
 
 // Define variables and assign them empty values
 $email = $password = "";
@@ -123,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <!-- Email Address -->
                     <div class="form-group">
-                        <input type="email" autofocus autocomplete="off" name="email" placeholder="Email Address" class="form-control 
+                        <input type="email" autofocus autocomplete="off" name="email" placeholder="Email Address" value="<?php echo $email; ?>" class="form-control 
                         <?php echo (!empty($email_error)) ? 'is-invalid' : ''; ?>">
                     </div>
 
