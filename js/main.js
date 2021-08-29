@@ -13,3 +13,8 @@ function passwordView() {
     x.type = "password";
   }
 }
+
+// Logout alert popup
+function logout(){
+  confirm("Are you sure you want to sign out?");
+}
