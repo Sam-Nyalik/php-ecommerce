@@ -65,11 +65,36 @@ while ($row = $sql->fetch()) {
                             </option>
                             </select>
                         </div>
+
+                        <!-- Product Retail Price -->
+                        <div class="form-group">
+                            <label for="productRetailPrice">Product Retail Price</label>
+                            <input type="number" name="productRetailPrice" placeholder="Enter Product Retail Price" value="<?php echo htmlentities($row['productRetailPrice']) ?>" class="form-control">
+                        </div>
+
+                        <!-- Product Price -->
+                        <div class="form-group">
+                            <label for="productPrice">Product Price</label>
+                            <input type="number" name="productPrice" placeholder="Enter Product Price" value="<?php echo htmlentities($row['productPrice']) ?>" class="form-control">
+                        </div>
+
+                        <!-- Product Quantity -->
+                        <div class="form-group">
+                            <label for="productQuantity">Product Quantity</label>
+                            <input type="number" name="productQuantity" placeholder="Enter Product Quantity" value="<?php echo htmlentities($row['productQuantity']) ?>" class="form-control">
+                        </div>
+
+                        <?php } ?>
+
+                        <!-- update button -->
+                        <div class="form-group my-3">
+                            <input type="submit" value="Update Product" class="btn w-100">
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-<?php } ?>
+
 
 <?= footerTemplate(); ?>
