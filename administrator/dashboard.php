@@ -13,36 +13,37 @@ $pdo = databaseConnect();
 
 <?= headerTemplate('ADMIN | DASHBOARD'); ?>
 
-<div id="main_navbar">
-    <div class="container-fluid">
-        <div class="row pt-3 flex-nowrap justify-content-between align-items-center">
-            <div class="col-4">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
-            <div class="col-4 text-center">
-                <h5 class="main_title">E-Commerce Web App</h5>
-            </div>
-            <div class="col-4 d-flex justify-content-end align-items-center">
-                <i class="bi bi-person" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                    <h3 class="dropdown-item">
-                        <!-- Get Administrator's name from the database -->
+<!-- Main Navbar script -->
+<?php include_once "includes/main_navbar.php"; ?>
+
+<!-- Section title -->
+<div class="section-title" style="margin-top: 30px;">
+    <div class="container">
+        <div class="row">
+            <h5>Admin Dashboard</h5>
+        </div>
+    </div>
+</div>
+
+<!-- dashboard options -->
+<div id="dashboard_options">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>Phone Products</h4>
+                <h6><a href="index.php?page=administrator/phone_products/all_phone_products">
                         <?php
-                        $sql = $pdo->query("SELECT fullName FROM admin WHERE id = '" . $_SESSION['id'] . "'");
-                        while ($row = $sql->fetch()) {
-                            echo $row['fullName'];
-                        }
+                        $sql = $pdo->query("SELECT * FROM phone_products");
+                        $rowCount = $sql->rowCount();
+                        echo "Total Phone Products: " . $rowCount;
                         ?>
-                    </h3>
-                    <h5 class="dropdown-item">Administrator</h5>
-                    <hr>
-                    <h6 class="dropdown-item"><a href="">Profile</a></h6>
-                    <h6 class="dropdown-item"><a href="">Change Password</a></h6>
-                    <hr>
-                    <h6 class="dropdown-item"><a href="">Logout</a></h6>
-                </div>
+                    </a></h6>
+            </div>
+            <div class="col-md-4">
+                <h4>Laptop Products</h4>
+            </div>
+            <div class="col-md-4">
+                <h4>Other Devices</h4>
             </div>
         </div>
     </div>
