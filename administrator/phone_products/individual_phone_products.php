@@ -2,8 +2,26 @@
 // Start session
 session_start();
 
+// Error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 include_once "functions/functions.php";
 $pdo = databaseConnect();
+
+// Define variables and assign them empty values
+$productName = "";
+$productName_error = "";
+
+// Process form data when the form has been submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Validate product name
+    if (empty(trim($_POST["productName"]))) {
+        $productName_error = "Product name Field is required!";
+    } else {
+        $productName = trim($_POST["productName"]);
+    }
+}
 
 ?>
 
@@ -36,11 +54,25 @@ while ($row = $sql->fetch()) {
                     <img src="<?php echo htmlentities($row['image']); ?>" class="img-fluid" alt="">
                 </div>
                 <div class="col-md-6">
-                    <form action="" method="post" class="individual_product_form">
+                    <form action="#" method="post" class="individual_product_form">
+                        <!-- General Errors -->
+                        <div class="form-group">
+                            <span class="text-danger">
+                                <ul>
+                                    <!-- ProductName Error -->
+                                    <li><?php
+                                        if ($productName_error) {
+                                            echo $productName_error;
+                                        }
+                                        ?></li>
+                                </ul>
+                            </span>
+                        </div>
                         <!-- Product Name -->
                         <div class="form-group">
                             <label for="productName">Product Name</label>
-                            <input type="text" name="productName" placeholder="Enter Product Name" value="<?php echo htmlentities($row['productName']) ?>" class="form-control">
+                            <input type="text" name="productName" placeholder="Enter Product Name" value="<?php echo htmlentities($row['productName']) ?>" class="form-control 
+                            <?php echo (!empty($productName_error)) ? 'is-invalid' : ''; ?>">
                         </div>
 
                         <!-- Product description -->
@@ -84,12 +116,12 @@ while ($row = $sql->fetch()) {
                             <input type="number" name="productQuantity" placeholder="Enter Product Quantity" value="<?php echo htmlentities($row['productQuantity']) ?>" class="form-control">
                         </div>
 
-                        <?php } ?>
+                    <?php } ?>
 
-                        <!-- update button -->
-                        <div class="form-group my-3">
-                            <input type="submit" value="Update Product" class="btn w-100">
-                        </div>
+                    <!-- update button -->
+                    <div class="form-group my-3">
+                        <input type="submit" value="Update Product" class="btn w-100">
+                    </div>
                     </form>
                 </div>
             </div>
@@ -97,4 +129,4 @@ while ($row = $sql->fetch()) {
     </div>
 
 
-<?= footerTemplate(); ?>
+    <?= footerTemplate(); ?>
