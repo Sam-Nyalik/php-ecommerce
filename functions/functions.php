@@ -30,11 +30,29 @@ function headerTemplate($title)
             <meta name=\"author\" content=\"Sam Nyalik\">
             <meta name=\"description\" content=\"This is an e-commerce web application built with php and SQL\">
             <meta name=\"keywords\" content=\"HTML5, CSS3, Javascript, PHP, MYSQL\">
+            <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css\">
+            <link href=\"https://unpkg.com/aos@2.3.1/dist/aos.css\" rel=\"stylesheet\">
             <link rel=\"stylesheet\" type=\"text/css\" href=\"css/styles.css\">
             <link rel=\"stylesheet\" href=\"css/bootstrap.min.css\">
-            <link rel=\"shortcut icon\" href=\"\" type=\"image/x-icon\">
+            <link rel=\"shortcut icon\" href=\"../images/image2.jpg\" type=\"image/x-icon\">
         </head>
+        <body>
     ";
     echo $element;
 }
 
+// Footer template
+function footerTemplate()
+{
+    $year = date('Y');
+    $element = " 
+    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js\" > </script> 
+    <script src=\"https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js\" ></script> 
+    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM\" crossorigin=\"anonymous\"></script>
+    <script src=\"https://unpkg.com/aos@2.3.1/dist/aos.js\"></script>
+    <script src=\"js/main.js\"></script>
+    ";
+    echo $element;
+}
+
+?>
