@@ -1,6 +1,50 @@
 <?php
 
+// Error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 include_once "functions/functions.php";
+$pdo = databaseConnect();
+
+// Define variables and assign them empty values
+$firstName = $lastName = $email = $message = "";
+$firstName_error = $lastName_error = $email_error = $message_error = "";
+
+// Process form data when the form has been submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Validate firstName
+    if (empty(trim($_POST["firstName"]))) {
+        $firstName_error = "First Name field is required!";
+    } elseif (!preg_match("/^[a-zA-Z]+$/", trim($_POST["firstName"]))) {
+        $firstName_error = "First name requires only letters!";
+    } else {
+        $firstName = trim($_POST["firstName"]);
+    }
+
+    // Validate LastName
+    if (empty(trim($_POST["lastName"]))) {
+        $lastName_error = "Last Name field is required!";
+    } elseif (!preg_match("/^[a-zA-Z]+$/", trim($_POST["lastName"]))) {
+        $lastName_error = "Last name requires only letters!";
+    } else {
+        $lastName = trim($_POST["lastName"]);
+    }
+
+    // Validate Email Address
+    if (empty(trim($_POST["email"]))) {
+        $email_error = "Email Address field is required!";
+    } else {
+        $email = trim($_POST["email"]);
+    }
+
+    // Validate Message
+    if (empty(trim($_POST["message"]))) {
+        $message_error = "Message Field is required!";
+    } else {
+        $message = trim($_POST["message"]);
+    }
+}
 
 ?>
 
@@ -72,45 +116,95 @@ include_once "functions/functions.php";
 
 <!-- Contact Us -->
 <div id="contact_us">
-<div class="container">
+    <div class="container">
         <div class="row">
             <div class="col-md-7">
-                <form action="" class="contact_us_form">
+                <form action="" method="post" class="contact_us_form">
+                    <!-- General Errors -->
+                    <div class="form-group">
+                        <span class="text-danger">
+                            <ul>
+                                <!-- FirstName Error -->
+                                <li><?php
+                                    if ($firstName_error) {
+                                        echo $firstName_error;
+                                    }
+                                    ?></li>
+
+                                <!-- LastName Error -->
+                                <li><?php
+                                    if ($lastName_error) {
+                                        echo $lastName_error;
+                                    }
+                                    ?></li>
+
+                                <!-- Email Error -->
+                                <li><?php
+                                    if ($email_error) {
+                                        echo $email_error;
+                                    }
+                                    ?></li>
+
+                                <!-- Message Error -->
+                                <li><?php
+                                    if ($message_error) {
+                                        echo $message_error;
+                                    }
+                                    ?></li>
+                            </ul>
+                        </span>
+                    </div>
                     <!-- FirstName -->
                     <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="firstName">First Name</label>
-                            <input type="text" class="form-control">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" name="firstName" class="form-control 
+                                <?php echo (!empty($firstName_error)) ? 'is-invalid' : ''; ?>" value="<?php echo $firstName; ?>">
+                            </div>
                         </div>
-                        </div>
-                    
+
                         <!-- LastName -->
                         <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="lastName">Last Name</label>
-                            <input type="text" class="form-control">
-                        </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" name="lastName" class="form-control 
+                                <?php echo (!empty($lastName_error)) ? 'is-invalid' : ''; ?>" value="<?php echo $lastName; ?>">
+                            </div>
                         </div>
                     </div>
 
                     <!-- Email Address -->
                     <div class="form-group">
                         <label for="EmailAddress">Email Address</label>
-                        <input type="text" class="form-control">
+                        <input type="email" name="email" class="form-control 
+                        <?php echo (!empty($email_error)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
                     </div>
 
                     <!-- Message -->
                     <div class="form-group">
                         <label for="message">Message</label>
-                        <textarea name="" class="form-control"></textarea>
+                        <textarea name="message" class="form-control 
+                        <?php echo (!empty($message_error)) ? 'is-invalid' : ''; ?>"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-group my-3">
+                        <input type="submit" value="Send Message" class="btn w-100">
                     </div>
                 </form>
+            </div>
+
+            <!-- Google Maps -->
+            <div class="col-md-5">
+                <h4>Google Maps</h4>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Primary Footer -->
+<?= primary_footerTemplate(); ?>
 
 <!-- Footer Template -->
 <?= footerTemplate(); ?>
