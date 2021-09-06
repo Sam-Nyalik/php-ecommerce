@@ -34,9 +34,72 @@ function headerTemplate($title)
             <link href=\"https://unpkg.com/aos@2.3.1/dist/aos.css\" rel=\"stylesheet\">
             <link rel=\"stylesheet\" type=\"text/css\" href=\"css/styles.css\">
             <link rel=\"stylesheet\" href=\"css/bootstrap.min.css\">
-            <link rel=\"shortcut icon\" href=\"../images/image2.jpg\" type=\"image/x-icon\">
+            <link rel=\"shortcut icon\" href=\"../images/image3.jpg\" type=\"image/x-icon\">
         </head>
         <body>
+    ";
+    echo $element;
+}
+
+// Topbar Template
+function top_barTemplate()
+{
+    $element = " 
+    <div id=\"top-bar\">
+    <div class=\"container-fluid\">
+        <div class=\"row g-0\">
+            <div class=\"col-md-4\">
+                <div class=\"topbar-left\">
+                    <h5>Free Shipping on orders above $350</h5>
+                </div>
+            </div>
+            <div class=\"col-md-8\">
+                <div class=\"topbar-right\">
+                    <h6><a href=\"#\">User</a></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    ";
+    echo $element;
+}
+
+// Primary Footer
+function primary_footerTemplate(){
+    $element = "
+    <div id=\"primary_footer\">
+    <div class=\"container\">
+        <div class=\"row\">
+            <div class=\"col-md-4\">
+               <div class=\"title_footer\">
+               <h2>E-commerce.</h2>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam voluptas quasi, corporis laboriosam suscipit architecto, corrupti ipsam porro explicabo amet ratione vero a dolor fuga? Repellendus, labore totam!</p>
+                <h5>E-commerce. | All Rights Reserved &copy; <?php echo date('Y') ?></h5>
+               </div>
+            </div>
+            <div class=\"col-md-4\">
+                <h2>Menu -</h2>
+                <div class=\"menu_links\">
+                    <ul>
+                        <li><a href=\"index.php?page=home\">Home</a></li>
+                        <li><a href=\"\">All Products</a></li>
+                        <li><a href=\"\">Contact</a></li>
+                    </ul>
+                </div>
+                <div class=\"logins\">
+                    <h2>Login Links</h2>
+                    <h5><a href=\"index.php?page=administrator/login\">Administrator</a></h5>
+                    <h5><a href=\"\">Visitor</a></h5>
+                </div>
+            </div>
+            <div class=\"col-md-4\">
+                <h2>Latest Events</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
     ";
     echo $element;
 }
@@ -54,5 +117,3 @@ function footerTemplate()
     ";
     echo $element;
 }
-
-?>
