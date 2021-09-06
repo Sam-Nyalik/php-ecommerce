@@ -163,10 +163,13 @@ nav {
   border-radius: 50px;
   border: 1px solid var(--border-color);
   /* border-bottom: 2px solid var(--border-color); */
+  width: 30%;
+  transition: 0.4s ease;
 }
 
 #search_bar .search_bar_form .form-control:focus {
   border: 1px solid var(--heading-color);
+  width: 100%;
 }
 
 #search_bar .search_bar_form .form-control::placeholder {
@@ -491,7 +494,7 @@ nav {
 #mobile_phones .card {
   margin-top: 10px;
   border-color: var(--secondary-color);
-  transition: .3s ease-in;
+  transition: 0.3s ease-in;
 }
 
 #mobile_phones .card:hover {
@@ -546,8 +549,8 @@ nav {
   border: 3px solid var(--dark-color);
 }
 
-@media(max-width: 427px){
-  #mobile_phones .card img{
+@media (max-width: 427px) {
+  #mobile_phones .card img {
     height: 200px;
   }
 }
@@ -595,6 +598,7 @@ nav {
 
 #main-advertisement .advertisement-description a:hover {
   border-bottom: 3px solid var(--secondary-color);
+  color: var(--dark-color);
 }
 
 @media (min-width: 376px) and (max-width: 767px) {
@@ -663,7 +667,7 @@ nav {
   font-weight: 400;
 }
 
-@media(max-width: 427px){
+@media (max-width: 427px) {
   #about-orders {
     margin-bottom: 25px;
   }
@@ -682,7 +686,7 @@ nav {
     font-weight: 400;
   }
 
-  #about-orders  .card{
+  #about-orders .card {
     margin-bottom: 20px;
   }
 }
@@ -737,7 +741,7 @@ nav {
   border: 2px solid var(--heading-color);
 }
 
-@media(max-width: 427px){
+@media (max-width: 427px) {
   #newsletter {
     margin-bottom: 45px;
     margin-top: 15px;
@@ -947,7 +951,7 @@ nav {
   color: var(--border-color);
 }
 
-@media(max-width: 427px){
+@media (max-width: 427px) {
   #main_navbar {
     height: 70px;
   }
@@ -957,7 +961,7 @@ nav {
     margin-left: 10px;
   }
 
-  #main_navbar .col-4 .bar:nth-child(2){
+  #main_navbar .col-4 .bar:nth-child(2) {
     width: 15px;
   }
 
@@ -1036,6 +1040,7 @@ nav {
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 2px;
+  transition: 0.4s ease-in;
 }
 
 #phone_products_btn .btn a:hover {
@@ -1118,7 +1123,8 @@ nav {
 /* Profile */
 #profile {
   margin-top: 50px;
-  background: var(--heading-color);
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0.6)),
+    url("../images/image10.jpg") no-repeat center center / cover;
   margin-bottom: 50px;
 }
 
@@ -1153,20 +1159,22 @@ nav {
 }
 
 #profile .profile_form .form-group .form-control::placeholder {
-  color: var(--main-color);;
+  color: var(--main-color);
   font-size: 12px;
   text-transform: uppercase;
 }
 
 #profile .profile_form .form-group .btn {
-    color: var(--main-color) ;
-    background: var(--border-color);
-    padding: 8px 18px;
-    border-radius: 0;
+  color: var(--main-color);
+  background: var(--border-color);
+  padding: 8px 18px;
+  border-radius: 0;
+  text-transform: uppercase;
 }
 
 #profile .profile_form .form-group .btn:hover {
-  background: var(--dark-color);
+  background: var(--secondary-color);
+  color: var(--dark-color);
 }
 
 #profile .profile_form .form-group ul {
@@ -1181,6 +1189,7 @@ nav {
   color: var(--main-color);
   font-size: 16px;
   margin: 30px;
+  margin-left: 20px;
 }
 
 #profile .profile_form h5 span {
@@ -1208,7 +1217,7 @@ nav {
   border: 1px solid var(--border-color);
 }
 
-@media(max-width: 427px){
+@media (max-width: 427px) {
   #profile .profile_form .form-group {
     margin: 0;
     margin-bottom: 30px;
@@ -1217,7 +1226,7 @@ nav {
   #profile .profile_form .form-group .btn {
     width: 100%;
   }
-  
+
   #profile .profile_form h5 {
     margin: 0;
   }
@@ -1237,7 +1246,7 @@ nav {
 #social_links .social_icons i {
   margin-right: 20px;
   font-size: 25px;
-  transition: .4s ease-in-out;
+  transition: 0.4s ease-in-out;
 }
 
 #social_links .social_icons .bi-facebook:hover {
@@ -1256,7 +1265,7 @@ nav {
   color: var(--instagram-color);
 }
 
-@media(max-width: 427px){
+@media (max-width: 427px) {
   #social_links h2 {
     font-size: 18px;
   }
@@ -1264,8 +1273,9 @@ nav {
 
 /* Primary Footer */
 #primary_footer {
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url("../images/image12.jpg") no-repeat center center / cover;
-  height: 400px;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)),
+    url("../images/image8.jpg") no-repeat center center / cover;
+  height: 500px;
   border: none;
   background-attachment: fixed;
   color: var(--main-color);
@@ -1316,9 +1326,87 @@ nav {
   border-bottom: 1px solid var(--border-color);
 }
 
-@media(max-width: 427px){
+@media (max-width: 427px) {
   #primary_footer {
     padding: 10px;
     height: 100%;
   }
+}
+
+/* Contact Header */
+#contact_header {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)),
+    url("../images//image10.jpg") no-repeat center center / cover;
+  background-attachment: fixed;
+  height: 300px;
+  margin-bottom: 45px;
+}
+
+#contact_header .contact_header_description {
+  color: var(--main-color);
+  margin-top: 110px;
+}
+
+#contact_header .contact_header_description h3 {
+  font-weight: 700;
+  font-size: 50px;
+}
+
+#contact_header .contact_header_description h5 {
+  font-weight: lighter;
+  font-size: 25px;
+}
+
+/* Contact_Us */
+#contact_us .contact_us_form .form-group .form-control {
+  outline: none;
+  box-shadow: none;
+  border-radius: 0;
+  border: 1px solid var(--border-color);
+}
+
+#contact_us .contact_us_form .form-group .form-control:focus {
+  border: 1px solid var(--dark-color);
+}
+
+#contact_us .contact_us_form .form-group {
+  margin-bottom: 10px;
+}
+
+#contact_us .contact_us_form .form-group label {
+  text-transform: uppercase;
+  color: var(--heading-color);
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+#contact_us .contact_us_form .form-group textarea:focus {
+  border: 1px solid var(--heading-color);
+}
+
+#contact_us .contact_us_form .form-group .btn {
+  border: none;
+  margin-bottom: 45px;
+  border-radius: 0;
+  font-size: 12px;
+  padding: 12px 22px;
+  background: var(--border-color);
+  outline: none;
+  box-shadow: none;
+  color: var(--main-color);
+  text-transform: uppercase;
+  transition: 0.3s ease-in-out;
+}
+
+#contact_us .contact_us_form .form-group .btn:hover {
+  background: var(--heading-color);
+}
+
+#contact_us .contact_us_form .form-group ul {
+  list-style-type: none;
+}
+
+#contact_us .contact_us_form .form-group ul li {
+  margin-left: -30px;
+  font-size: 12px;
 }
