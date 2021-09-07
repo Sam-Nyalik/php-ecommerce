@@ -308,7 +308,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <!-- Google Maps -->
             <div class="col-md-5">
-                <h4>Google Maps</h4>
+                <div id="google_map"></div>
+                <div class="contact_description">
+                <h5><span>Reach us on the hotline:</span> +2547123456</h5>
+                <h5><span>Opening Hours: </span</h5>
+                <ul>
+                    <li>Monday - Friday: 8am - 6pm</li>
+                    <li>Saturday: 10am - 4pm</li>
+                    <li>Sunday: 10am - 1pm</li>
+                </ul>
+                </div>
             </div>
         </div>
     </div>
