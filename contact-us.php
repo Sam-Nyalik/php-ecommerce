@@ -8,8 +8,12 @@ include_once "functions/functions.php";
 $pdo = databaseConnect();
 
 // Define variables and assign them empty values
-$firstName = $lastName = $email = $message = "";
-$firstName_error = $lastName_error = $email_error = $message_error = "";
+$firstName = $lastName = $email = $subject = $message = $recaptcha = $success = "";
+$firstName_error = $lastName_error = $email_error = $subject_error = $message_error = $recaptcha_error = $general_error = "";
+
+// Google reCAPTCHA API key configuration
+$site_key = "6LeyX04cAAAAAOZiUSPypBh5G-wwyC1jozGbU1qc";
+$secret_key = "6LeyX04cAAAAAEhgmzA9eE_FRr-y6qzyqnXcoUnX";
 
 // Process form data when the form has been submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -38,12 +42,73 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = trim($_POST["email"]);
     }
 
+    // Validate subject
+    if (empty(trim($_POST["subject"]))) {
+        $subject_error = "Subject Field is required!";
+    } else {
+        $subject = trim($_POST["subject"]);
+    }
+
     // Validate Message
     if (empty(trim($_POST["message"]))) {
         $message_error = "Message Field is required!";
     } else {
         $message = trim($_POST["message"]);
     }
+
+    // Check for errors before dealing with the database
+    if (empty($firstName_error) && empty($lastName_error) && empty($email_error) && empty($subject_error) && empty($message_error)) {
+        // Validate the reCAPTCHA box
+        if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])) {
+            // Verify the reCAPTCHA response
+            $response_verify = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret_key . '&response=' . $_POST['g-recaptcha-response']);
+
+            // Decode JSON data
+            $response_data = json_decode($response_verify);
+
+            // If the reCAPTCHA response is valid
+            if ($response_data->success) {
+                //Prepare an INSERT statement
+                $sql = "INSERT INTO contact_queries(firstName, lastName, email, subject, message) VALUES(
+                    :firstName, :lastName, :email, :subject, :message)";
+
+                if ($stmt = $pdo->prepare($sql)) {
+                    // Bind variables to the prepared statement as parameters
+                    $stmt->bindParam(":firstName", $param_firstName, PDO::PARAM_STR);
+                    $stmt->bindParam(":lastName", $param_lastName, PDO::PARAM_STR);
+                    $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
+                    $stmt->bindParam(":subject", $param_subject, PDO::PARAM_STR);
+                    $stmt->bindParam(":message", $param_message, PDO::PARAM_STR);
+
+                    // Set parameters
+                    $param_firstName = $firstName;
+                    $param_lastName = $lastName;
+                    $param_email = $email;
+                    $param_subject = $subject;
+                    $param_message = $message;
+
+                    // Attempt to execute
+                    if ($stmt->execute()) {
+                        $success = "Your contact query has been received successfully!";
+                    } else {
+                        echo "There was an error. Please try again!";
+                    }
+
+                    // Close the statement
+                    unset($stmt);
+                }
+            } else {
+                $recaptcha_error = "reCAPTCHA verification failed. Please try again!";
+            }
+        } else {
+            $recaptcha_error = "The reCAPTCHA verification field is required!";
+        }
+    } else {
+        $general_error = "All fields are required!";
+    }
+
+    // Close the connection
+    unset($pdo);
 }
 
 ?>
@@ -119,7 +184,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container">
         <div class="row">
             <div class="col-md-7">
-                <form action="" method="post" class="contact_us_form">
+                <form action="index.php?page=contact-us" method="post" class="contact_us_form">
+                    <!-- General Success -->
+                    <div class="form-group">
+                        <span class="text-success">
+                            <ul>
+                                <!-- Success Message -->
+                                <li><?php
+                                    if ($success) {
+                                        echo $success;
+                                    }
+                                    ?></li>
+                            </ul>
+                        </span>
+                    </div>
                     <!-- General Errors -->
                     <div class="form-group">
                         <span class="text-danger">
@@ -145,10 +223,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     }
                                     ?></li>
 
+                                <!-- Subject Error -->
+                                <li><?php
+                                    if ($subject_error) {
+                                        echo $subject_error;
+                                    }
+                                    ?></li>
+
                                 <!-- Message Error -->
                                 <li><?php
                                     if ($message_error) {
                                         echo $message_error;
+                                    }
+                                    ?></li>
+
+                                <!-- Recaptcha Error -->
+                                <li><?php
+                                    if ($recaptcha_error) {
+                                        echo $recaptcha_error;
+                                    }
+                                    ?></li>
+
+                                <!-- General Error -->
+                                <li><?php
+                                    if ($general_error) {
+                                        echo $general_error;
                                     }
                                     ?></li>
                             </ul>
@@ -160,7 +259,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="form-group">
                                 <label for="firstName">First Name</label>
                                 <input type="text" name="firstName" class="form-control 
-                                <?php echo (!empty($firstName_error)) ? 'is-invalid' : ''; ?>" value="<?php echo $firstName; ?>">
+                                <?php echo (!empty($firstName_error)) ? 'is-invalid' : ''; ?>" value="<?php echo !empty($_POST['firstName']) ? $_POST['firstName'] : ''; ?>">
                             </div>
                         </div>
 
@@ -169,7 +268,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="form-group">
                                 <label for="lastName">Last Name</label>
                                 <input type="text" name="lastName" class="form-control 
-                                <?php echo (!empty($lastName_error)) ? 'is-invalid' : ''; ?>" value="<?php echo $lastName; ?>">
+                                <?php echo (!empty($lastName_error)) ? 'is-invalid' : ''; ?>" value="<?php echo !empty($_POST['lastName']) ? $_POST['lastName'] : ''; ?>">
                             </div>
                         </div>
                     </div>
@@ -178,14 +277,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="form-group">
                         <label for="EmailAddress">Email Address</label>
                         <input type="email" name="email" class="form-control 
-                        <?php echo (!empty($email_error)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
+                        <?php echo (!empty($email_error)) ? 'is-invalid' : ''; ?>" value="<?php echo !empty($_POST['email']) ? $_POST['email'] : ''; ?>">
+                    </div>
+
+                    <!-- Subject -->
+                    <div class="form-group">
+                        <label for="subject">subject</label>
+                        <input type="text" name="subject" class="form-control 
+                        <?php echo (!empty($subject_error)) ? 'is-invalid' : ''; ?>" value="<?php echo !empty($_POST['subject']) ? $_POST['subject'] : ''; ?>">
                     </div>
 
                     <!-- Message -->
                     <div class="form-group">
                         <label for="message">Message</label>
                         <textarea name="message" class="form-control 
-                        <?php echo (!empty($message_error)) ? 'is-invalid' : ''; ?>"></textarea>
+                        <?php echo (!empty($message_error)) ? 'is-invalid' : ''; ?>"><?php echo !empty($_POST['message']) ? $_POST['message'] : ''; ?></textarea>
+                    </div>
+
+                    <!-- Google Captcha -->
+                    <div class="form-group">
+                        <div class="g-recaptcha" name="recaptcha" data-sitekey="<?php echo $site_key ?>"></div>
                     </div>
 
                     <!-- Submit Button -->
