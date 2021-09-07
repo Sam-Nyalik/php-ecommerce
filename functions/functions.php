@@ -34,6 +34,7 @@ function headerTemplate($title)
             <link href=\"https://unpkg.com/aos@2.3.1/dist/aos.css\" rel=\"stylesheet\">
             <link rel=\"stylesheet\" type=\"text/css\" href=\"css/styles.css\">
             <link rel=\"stylesheet\" href=\"css/bootstrap.min.css\">
+            <script src=\"https://www.google.com/recaptcha/api.js\" async defer></script>
             <link rel=\"shortcut icon\" href=\"../images/image3.jpg\" type=\"image/x-icon\">
         </head>
         <body>
@@ -56,6 +57,7 @@ function top_barTemplate()
             <div class=\"col-md-8\">
                 <div class=\"topbar-right\">
                     <h6><a href=\"#\">User</a></h6>
+                </span>
                 </div>
             </div>
         </div>
@@ -113,6 +115,7 @@ function footerTemplate()
     <script src=\"https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js\" ></script> 
     <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM\" crossorigin=\"anonymous\"></script>
     <script src=\"https://unpkg.com/aos@2.3.1/dist/aos.js\"></script>
+    <script src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyCYiduC0VtcteVlIGb7pVZCW4rQIA0EQbY&callback=myMap&libraries=&v=weekly\" async></script>
     <script src=\"js/main.js\"></script>
     ";
     echo $element;
