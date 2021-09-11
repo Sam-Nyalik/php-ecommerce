@@ -30,15 +30,15 @@ $pdo = databaseConnect();
     <div class="container">
         <div class="row text-center">
 
-        <!-- Phone Products -->
+            <!-- Phone Products -->
             <div class="col-md-4">
                 <h4>Phone Products</h4>
                 <h6><a href="index.php?page=administrator/phone_products/all_phone_products">
-                <!-- Prepare a SELECT Query to get all the phone products from the database -->
+                        <!-- Prepare a SELECT Query to get all the phone products from the database -->
                         <?php
-                            $sql = $pdo->prepare("SELECT * FROM phone_products");
-                            $sql->execute();
-                            $database_phone_products = $sql->rowCount();
+                        $sql = $pdo->prepare("SELECT * FROM all_products WHERE productType = 'Mobile phone'");
+                        $sql->execute();
+                        $database_phone_products = $sql->rowCount();
                         ?>
                         Total Phone Products: <?php echo $database_phone_products; ?>
                     </a></h6>
@@ -54,9 +54,9 @@ $pdo = databaseConnect();
                 <h4>Recently Added Products</h4>
                 <h6><a href="">
                         <?php
-                            $sql = $pdo->prepare("SELECT * FROM recently_added_products");
-                            $sql->execute();
-                            $database_recently_added_products = $sql->rowCount();
+                        $sql = $pdo->prepare("SELECT * FROM recently_added_products");
+                        $sql->execute();
+                        $database_recently_added_products = $sql->rowCount();
                         ?>
                         Total Recently Added products: <?php echo $database_recently_added_products; ?>
                     </a></h6>
@@ -65,20 +65,27 @@ $pdo = databaseConnect();
             <!-- All Products -->
             <div class="col-md-4 my-4">
                 <h4>All Products</h4>
-                <a href="index.php?page=administrator/all_products">All Products</a>
+                <h6><a href="index.php?page=administrator/all_products">
+                        <?php
+                        $sql = $pdo->prepare("SELECT * FROM all_products");
+                        $sql->execute();
+                        $database_all_products = $sql->rowCount();
+                        ?>
+                        Total Products: <?php echo $database_all_products; ?>
+                    </a></h6>
             </div>
-            
+
             <!-- Product Types -->
             <div class="col-md-4 my-4">
                 <h4>Product Types</h4>
                 <h6><a href="index.php?page=administrator/all_product_types">
-                    <!-- Prepare a SELECT query to get the number of all product types from the database -->
-                    <?php 
+                        <!-- Prepare a SELECT query to get the number of all product types from the database -->
+                        <?php
                         $sql = $pdo->prepare("SELECT * FROM product_types");
                         $sql->execute();
                         $database_product_types = $sql->rowCount();
-                    ?>
-                    Total Product Types: <?php echo $database_product_types ?>
+                        ?>
+                        Total Product Types: <?php echo $database_product_types ?>
                     </a></h6>
             </div>
 
