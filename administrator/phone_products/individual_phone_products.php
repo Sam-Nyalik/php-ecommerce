@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($productName_error) && empty($productDescription_error) && empty($productBrand_error) && empty($productRetailPrice_error) && empty($productPrice_error) && empty($productQuantity_error)) {
         // Prepare an update statement
 
-        $sql = "UPDATE phone_products SET productName = :productName, productDescription = :productDescription, productBrand = :productBrand, productRetailPrice = :productRetailPrice, productPrice = :productPrice, productQuantity = :productQuantity WHERE id = :id";
+        $sql = "UPDATE all_products SET productName = :productName, productDescription = :productDescription, productBrand = :productBrand, productRetailPrice = :productRetailPrice, productPrice = :productPrice, productQuantity = :productQuantity WHERE productType = 'Mobile Phone' AND id = :id";
 
         if ($stmt = $pdo->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
@@ -111,19 +111,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </div> -->
 <?php
-    // Fetch the product from the database
+// Fetch the product from the database
 $id = false;
-if (isset($_GET['id'])) {
+if (!empty($_GET['id'])) {
     $id = $_GET['id'];
 }
-$sql = $pdo->query("SELECT * FROM phone_products JOIN phone_products_images ON phone_products.id = phone_products_images.id WHERE phone_products.id = '$id'");
-while ($row = $sql->fetch()) {
+$sql = $pdo->prepare("SELECT * FROM all_products WHERE productType = 'Mobile Phone' AND id = '$id'");
+$sql->execute();
+$database_individual_phone_products = $sql->fetchAll(PDO::FETCH_ASSOC);
 ?>
+<?php foreach ($database_individual_phone_products as $individual_product) : ?>
     <!-- Section title -->
     <div class="section-title" style="margin-top: 30px;">
         <div class="container">
             <div class="row">
-                <h5><?php echo htmlentities($row['productName']); ?></h5>
+                <h5>Edit <?= $individual_product['productName']; ?></h5>
             </div>
         </div>
     </div>
@@ -132,7 +134,7 @@ while ($row = $sql->fetch()) {
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <img src="<?php echo htmlentities($row['image']); ?>" class="img-fluid" alt="">
+                    <img src="<?= $individual_product['productImage']; ?>" class="img-fluid" alt="<?= $individual_product['productName']; ?>">
                 </div>
                 <div class="col-md-6">
                     <form action="#" method="post" class="individual_product_form">
@@ -187,7 +189,7 @@ while ($row = $sql->fetch()) {
                         <!-- Product Name -->
                         <div class="form-group">
                             <label for="productName">Product Name</label>
-                            <input type="text" name="productName" placeholder="Enter Product Name" value="<?php echo htmlentities($row['productName']) ?>" class="form-control 
+                            <input type="text" name="productName" placeholder="Enter Product Name" value="<?= $individual_product['productName']; ?>" class="form-control 
                             <?php echo (!empty($productName_error)) ? 'is-invalid' : ''; ?>">
                         </div>
 
@@ -195,7 +197,7 @@ while ($row = $sql->fetch()) {
                         <div class="form-group">
                             <label for="productDescription">Product Description</label>
                             <textarea name="productDescription" placeholder="enter Product Description" class="w-100 
-                            <?php echo (!empty($productDescription_error)) ? 'is-invalid' : ''; ?>"><?php echo htmlentities($row['productDescription']) ?></textarea>
+                            <?php echo (!empty($productDescription_error)) ? 'is-invalid' : ''; ?>"><?= $individual_product['productDescription']; ?></textarea>
                         </div>
 
                         <!-- Product Brand -->
@@ -203,15 +205,17 @@ while ($row = $sql->fetch()) {
                             <label for="productBrand">Product Brand</label>
                             <select name="productBrand" class="form-control 
                             <?php echo (!empty($productBrand_error)) ? 'is-invalid' : ''; ?>">
-                                <option value=""><?php echo htmlentities($row['productBrand']) ?>
+                                <option value="" disabled>Select Product Brand
                                     <?php
-                                    $sql = $pdo->query("SELECT * FROM phone_brands");
-                                    while ($brand = $sql->fetch()) {
+                                    $sql = $pdo->prepare("SELECT * FROM phone_brands");
+                                    $sql->execute();
+                                    $database_phone_brands = $sql->fetchAll(PDO::FETCH_ASSOC);
                                     ?>
+                                    <?php foreach ($database_phone_brands as $brand) : ?>
                                 <option value="<?php echo htmlentities($brand['brandName']) ?>">
-                                    <?php echo htmlentities($brand['brandName']) ?>
+                                    <?= $brand['brandName']; ?>
                                 </option>
-                            <?php } ?>
+                            <?php endforeach; ?>
                             </option>
                             </select>
                         </div>
@@ -219,25 +223,25 @@ while ($row = $sql->fetch()) {
                         <!-- Product Retail Price -->
                         <div class="form-group">
                             <label for="productRetailPrice">Product Retail Price</label>
-                            <input type="number" name="productRetailPrice" placeholder="Enter Product Retail Price" value="<?php echo htmlentities($row['productRetailPrice']) ?>" class="form-control 
+                            <input type="number" name="productRetailPrice" placeholder="Enter Product Retail Price" value="<?= $individual_product['productRetailPrice']; ?>" class="form-control 
                             <?php echo (!empty($productRetailPrice_error)) ? 'is-invalid' : ''; ?>">
                         </div>
 
                         <!-- Product Price -->
                         <div class="form-group">
                             <label for="productPrice">Product Price</label>
-                            <input type="number" name="productPrice" placeholder="Enter Product Price" value="<?php echo htmlentities($row['productPrice']) ?>" class="form-control 
+                            <input type="number" name="productPrice" placeholder="Enter Product Price" value="<?= $individual_product['productPrice']; ?>" class="form-control 
                             <?php echo (!empty($productPrice_error)) ? 'is-invalid' : ''; ?>">
                         </div>
 
                         <!-- Product Quantity -->
                         <div class="form-group">
                             <label for="productQuantity">Product Quantity</label>
-                            <input type="number" name="productQuantity" placeholder="Enter Product Quantity" value="<?php echo htmlentities($row['productQuantity']) ?>" class="form-control 
+                            <input type="number" name="productQuantity" placeholder="Enter Product Quantity" value="<?= $individual_product['productQuantity']; ?>" class="form-control 
                             <?php echo (!empty($productQuantity_error)) ? 'is-invalid' : ''; ?>">
                         </div>
 
-                    <?php } ?>
+                    <?php endforeach; ?>
 
                     <!-- Update button -->
                     <div class="form-group my-3">
