@@ -69,6 +69,7 @@ function top_barTemplate()
 
 // Primary Footer
 function primary_footerTemplate(){
+    $date = date('Y');
     $element = "
     <div id=\"primary_footer\">
     <div class=\"container\">
@@ -77,7 +78,7 @@ function primary_footerTemplate(){
                <div class=\"title_footer\">
                <h2>E-commerce.</h2>
                 <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam voluptas quasi, corporis laboriosam suscipit architecto, corrupti ipsam porro explicabo amet ratione vero a dolor fuga? Repellendus, labore totam!</p>
-                <h5>E-commerce. | All Rights Reserved &copy; <?php echo date('Y') ?></h5>
+                <h5>E-commerce. | All Rights Reserved &copy; $date </h5>
                </div>
             </div>
             <div class=\"col-md-4\">
@@ -85,8 +86,8 @@ function primary_footerTemplate(){
                 <div class=\"menu_links\">
                     <ul>
                         <li><a href=\"index.php?page=home\">Home</a></li>
-                        <li><a href=\"\">All Products</a></li>
-                        <li><a href=\"\">Contact</a></li>
+                        <li><a href=\"index.php?page=all_products\">All Products</a></li>
+                        <li><a href=\"index.php?page=contact-us\">Contact</a></li>
                     </ul>
                 </div>
                 <div class=\"logins\">
