@@ -137,11 +137,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         Categories
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a href="" class="dropdown-item">Apple</a>
-                        <a href="" class="dropdown-item">Samsung</a>
-                        <a href="" class="dropdown-item">Huawei</a>
-                        <a href="" class="dropdown-item">Dell</a>
-                        <a href="" class="dropdown-item">Hp</a>
+                        <a href="index.php?page=all_product_categories/apple_products" class="dropdown-item">Apple</a>
+                        <a href="index.php?page=all_product_categories/samsung_products" class="dropdown-item">Samsung</a>
+                        <a href="index.php?page=all_product_categories/huawei_products" class="dropdown-item">Huawei</a>
+                        <a href="index.php?page=all_product_categories/dell_products" class="dropdown-item">Dell</a>
+                        <a href="index.php?page=all_product_categories/hp_products" class="dropdown-item">Hp</a>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -149,9 +149,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         Products
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a href="" class="dropdown-item">All Products</a>
+                        <a href="index.php?page=all_products" class="dropdown-item">All Products</a>
                         <a href="index.php?page=phone_products" class="dropdown-item">Phone Products</a>
-                        <a href="" class="dropdown-item">Laptop Products</a>
+                        <a href="index.php?page=laptop_products" class="dropdown-item">Laptop Products</a>
                     </ul>
 
                 </li>
@@ -160,12 +160,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </li>
             </ul>
             <span class="navbar-icons">
-                <i class="bi bi-bag" style="margin-right: 30px;"><span class="text-dark">(0)</span></i>
+                <a href="index.php?page=cart"><i class="bi bi-bag active" style="margin-right: 30px;"><span class="text-dark">(0)</span></i></a>
                 <i class="bi bi-heart" style="margin-right: 45px;"><span class="text-dark">(0)</span></i>
             </span>
         </div>
     </div>
 </nav>
+
+<!-- Search bar -->
+<?= searchBarTemplate(); ?>
 
 <!-- Contact Header -->
 <div id="contact_header">
@@ -290,7 +293,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <!-- Message -->
                     <div class="form-group">
                         <label for="message">Message</label>
-                        <textarea name="message" class="form-control 
+                        <textarea name="message" id="user_input" class="form-control 
                         <?php echo (!empty($message_error)) ? 'is-invalid' : ''; ?>"><?php echo !empty($_POST['message']) ? $_POST['message'] : ''; ?></textarea>
                     </div>
 
@@ -301,7 +304,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <!-- Submit Button -->
                     <div class="form-group my-3">
-                        <input type="submit" value="Send Message" class="btn w-100">
+                        <input type="submit" id="submit" value="Send Message" class="btn w-100">
                     </div>
                 </form>
             </div>
@@ -310,13 +313,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="col-md-5">
                 <div id="google_map"></div>
                 <div class="contact_description">
-                <h5><span>Reach us on the hotline:</span> +2547123456</h5>
-                <h5><span>Opening Hours: </span</h5>
-                <ul>
-                    <li>Monday - Friday: 8am - 6pm</li>
-                    <li>Saturday: 10am - 4pm</li>
-                    <li>Sunday: 10am - 1pm</li>
-                </ul>
+                    <h5><span>Reach us on the hotline:</span> +2547123456</h5>
+                    <h5><span>Opening Hours: </span></h5>
+                            <ul>
+                                <li>Monday - Friday: 8am - 6pm</li>
+                                <li>Saturday: 10am - 4pm</li>
+                                <li>Sunday: 10am - 1pm</li>
+                            </ul>
                 </div>
             </div>
         </div>
