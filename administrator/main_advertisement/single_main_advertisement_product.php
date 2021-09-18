@@ -69,13 +69,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check for errors before dealing with the database
     if (empty($productName_error) && empty($productDescription_error) && empty($productType_error) && empty($productBrand_error) && empty($productRetailPrice_error) && empty($productPrice_error) && empty($productQuantity_error)) {
+        $id = false;
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+        }
         // Upload the updated image
         if (!empty($_FILES['productImage']['name'])) {
             move_uploaded_file($_FILES['productImage']['tmp_name'], "administrator/allProductImages/" . $_FILES['productImage']['name']);
             $productImage = "administrator/allProductImages/" . $_FILES['productImage']['name'];
 
             // Prepare an UPDATE statement
-            $sql = "UPDATE main_advertisement SET productName = :productName, productDescription = :productDescription, productType = :productType, productBrand = :productBrand, productRetailPrice = :productRetailPrice, productPrice = :productPrice, productQuantity = :productQuantity, productImage = :productImage";
+            $sql = "UPDATE main_advertisement SET productName = :productName, productDescription = :productDescription, productType = :productType, productBrand = :productBrand, productRetailPrice = :productRetailPrice, productPrice = :productPrice, productQuantity = :productQuantity, productImage = :productImage WHERE id = '$id'";
 
             if ($stmt = $pdo->prepare($sql)) {
                 // Bind variables to the prepared statement as parameters
