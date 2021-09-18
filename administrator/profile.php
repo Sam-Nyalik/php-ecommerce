@@ -12,8 +12,8 @@ include_once "functions/functions.php";
 $pdo = databaseConnect();
 
 // Define variables and assign them empty values
-$fullName =  "";
-$fullName_error = "";
+$fullName = $profileImage = "";
+$fullName_error = $profileImage_error = "";
 
 // Process form data when the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -30,23 +30,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_SESSION['id'])) {
             $id = $_SESSION['id'];
         }
-        // Prepare an update statement
-        $sql = "UPDATE admin SET fullName = :fullName WHERE id = '$id'";
+        if (!empty($_FILES['profileImage']['name'])) {
+            move_uploaded_file($_FILES['profileImage']['tmp_name'], "administrator/profileImages/" . $_FILES['profileImage']['name']);
+            $profileImage = "administrator/profileImages/" . $_FILES['profileImage']['name'];
 
-        if ($stmt = $pdo->prepare($sql)) {
-            // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":fullName", $param_fullName, PDO::PARAM_STR);
-            // Set parameters
-            $param_fullName = $fullName;
-            // Attempt to execute
-            if ($stmt->execute()) {
-                echo "<script>alert('Admin profile has been updated successfully!');</script>";
-            } else {
-                echo "There was an error. Please try again!";
+            // Prepare an update statement
+            $sql = "UPDATE admin SET fullName = :fullName, profileImage = :profileImage WHERE id = '$id'";
+
+            if ($stmt = $pdo->prepare($sql)) {
+                // Bind variables to the prepared statement as parameters
+                $stmt->bindParam(":fullName", $param_fullName, PDO::PARAM_STR);
+                $stmt->bindParam(":profileImage", $param_profileImage, PDO::PARAM_STR);
+                // Set parameters
+                $param_fullName = $fullName;
+                $param_profileImage = $profileImage;
+                // Attempt to execute
+                if ($stmt->execute()) {
+                    echo "<script>alert('Admin profile has been updated successfully!');</script>";
+                } else {
+                    echo "There was an error. Please try again!";
+                }
+
+                // Close the statement
+                unset($stmt);
             }
-
-            // Close the statement
-            unset($stmt);
         }
     }
 }
@@ -69,22 +76,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!-- Admin Profile -->
 <div class="container">
     <div id="profile">
-        <div class="row">
+        <div class="row d-flex justify-content-center">
             <div class="col-md-5">
                 <!-- Fetch admin data from the database -->
                 <?php
-                $sql = $pdo->prepare("SELECT * FROM admin");
+                $sql = $pdo->prepare("SELECT * FROM admin WHERE id = '$id'");
                 $sql->execute();
                 $admin_data = $sql->fetchAll(PDO::FETCH_ASSOC);
                 ?>
                 <?php foreach ($admin_data as $data) :  ?>
-                    <form action="index.php?page=administrator/profile" method="post" class="profile_form">
+                    <form action="index.php?page=administrator/profile" method="post" enctype="multipart/form-data" class="profile_form">
                         <!-- Creation Date Time -->
-                        <h5><span>Creation Date: </span><?=$data['creationDate']; ?></h5>
-                        <h5><span>Last Updation Date: </span><?php 
-                        if($data['updationDate']){ 
-                            echo $data['updationDate'];
-                            }; ?></h5>
+                        <h5><span>Creation Date: </span><?= $data['creationDate']; ?></h5>
+                        <h5><?php
+                            if ($data['updationDate']) : ?>
+                                <span>Last Updation Date: </span> <?php echo $data['updationDate']; ?>
+
+                            <?php endif; ?>
+                        </h5>
+
                         <!-- General Errors -->
                         <div class="form-group">
                             <span class="text-danger">
@@ -103,6 +113,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <label for="fullName">Full Name</label>
                             <input type="text" name="fullName" placeholder="Enter Full Name" value="<?= $data['fullName']; ?>" class="form-control 
                             <?php echo (!empty($fullName_error)) ? 'is-invalid' : ''; ?>">
+                        </div>
+
+                        <!-- Profile Image -->
+                        <div class="form-group">
+                            <label for="profileImage">Profile Image</label>
+                            <input type="file" accept=".jpeg, .jpg, .png" name="profileImage" class="form-control 
+                            <?php echo (!empty($profileImage_error)) ? 'is-invalid' : ''; ?>">
                         </div>
 
                         <!-- Email Address -->
