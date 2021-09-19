@@ -7,10 +7,10 @@ include_once "functions/functions.php";
 $pdo = databaseConnect();
 
 // Check if the administrator is already logged in, if yes redirect to the dashboard page
-if (isset($_SESSION["loggedIn"]) && ($_SESSION["loggedIn"] == true)) {
-    header("location: index.php?page=administrator/dashboard");
-    exit;
-}
+// if (isset($_SESSION["loggedIn"]) && ($_SESSION["loggedIn"] == true)) {
+//     header("location: index.php?page=administrator/dashboard");
+//     exit;
+// }
 
 // Define variables and assign them empty values
 $email = $password = "";
@@ -138,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <!-- Password -->
                     <div class="form-group">
-                        <input type="password" name="password" id="pwd" placeholder="Password" class="form-control 
+                        <input type="password" name="password" id="user_input" placeholder="Password" class="form-control 
                         <?php echo (!empty($password_error)) ? 'is-invalid' : ''; ?>">
                     </div>
 
@@ -148,7 +148,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
 
                     <div class="form-group my-3">
-                        <input type="submit" class="btn" value="Login">
+                        <input type="submit" id="submit" class="btn" value="Login">
                     </div>
                 </form>
             </div>
