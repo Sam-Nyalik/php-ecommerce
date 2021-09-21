@@ -6,6 +6,9 @@ $pdo = databaseConnect();
 
 ?>
 
+<!-- Total Number of items in the cart -->
+<?php include_once "number_of_items_in_cart.php"; ?>
+
 <!-- Include the header template -->
 <?= headerTemplate('HOME'); ?>
 
@@ -53,7 +56,7 @@ $pdo = databaseConnect();
                 </li>
             </ul>
             <span class="navbar-icons">
-                <a href="index.php?page=cart"><i class="bi bi-bag active" style="margin-right: 30px;"><span class="text-dark">(0)</span></i></a>
+                <a href="index.php?page=cart"><i class="bi bi-bag active" style="margin-right: 30px;"><span class="text-dark">(<?php echo $total_items_in_cart; ?>)</span></i></a>
                 <i class="bi bi-heart" style="margin-right: 45px;"><span class="text-dark">(0)</span></i>
             </span>
         </div>
@@ -171,10 +174,10 @@ $pdo = databaseConnect();
 
 <!-- Main Advertisement Section -->
 <div id="main-advertisement">
-    <div class="container"> -->
+    <div class="container">
         <!-- Get main advertisement details from the database -->
         <?php
-        $stmt = $pdo->prepare("SELECT * FROM main_advertisement LIMIT 1");
+        $stmt = $pdo->prepare("SELECT * FROM main_advertisement ORDER BY date_added DESC LIMIT 1");
         $stmt->execute();
         $main_advert = $stmt->fetchAll(PDO::FETCH_ASSOC);
         ?>
@@ -191,7 +194,7 @@ $pdo = databaseConnect();
             </div>
         <?php endforeach; ?>
     </div>
-</div> -->
+</div> 
 
 <!-- about-orders -->
 <div id="about-orders">
