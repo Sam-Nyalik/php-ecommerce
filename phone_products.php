@@ -5,11 +5,14 @@ $pdo = databaseConnect();
 
 ?>
 
+<!-- Total Number of items in the cart -->
+<?php include_once "number_of_items_in_cart.php" ?>
+
 <!-- Header Template -->
-<?= headerTemplate("PHONE-PRODUCTS"); ?>
+<?= headerTemplate("PHONE_PRODUCTS"); ?>
 
 <!-- TopBar -->
-<?=top_barTemplate()?>
+<?= top_barTemplate() ?>
 
 
 <!-- Navbar -->
@@ -29,11 +32,11 @@ $pdo = databaseConnect();
                         Categories
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a href="" class="dropdown-item">Apple</a>
-                        <a href="" class="dropdown-item">Samsung</a>
-                        <a href="" class="dropdown-item">Huawei</a>
-                        <a href="" class="dropdown-item">Dell</a>
-                        <a href="" class="dropdown-item">Hp</a>
+                        <a href="index.php?page=all_product_categories/apple_products" class="dropdown-item">Apple</a>
+                        <a href="index.php?page=all_product_categories/samsung_products" class="dropdown-item">Samsung</a>
+                        <a href="index.php?page=all_product_categories/huawei_products" class="dropdown-item">Huawei</a>
+                        <a href="index.php?page=all_product_categories/dell_products" class="dropdown-item">Dell</a>
+                        <a href="index.php?page=all_product_categories/hp_products" class="dropdown-item">Hp</a>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -43,7 +46,7 @@ $pdo = databaseConnect();
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a href="index.php?page=all_products" class="dropdown-item">All Products</a>
                         <a href="index.php?page=phone_products" class="dropdown-item active">Phone Products</a>
-                        <a href="" class="dropdown-item">Laptop Products</a>
+                        <a href="index.php?page=laptop_products" class="dropdown-item">Laptop Products</a>
                     </ul>
 
                 </li>
@@ -52,13 +55,15 @@ $pdo = databaseConnect();
                 </li>
             </ul>
             <span class="navbar-icons">
-                <i class="bi bi-bag" style="margin-right: 30px;"><span class="text-dark">(0)</span></i>
+                <a href="index.php?page=cart"><i class="bi bi-bag active" style="margin-right: 30px;"><span class="text-dark">(<?php echo $total_items_in_cart; ?>)</span></i></a>
                 <i class="bi bi-heart" style="margin-right: 45px;"><span class="text-dark">(0)</span></i>
-                <i class="bi bi-search"></i>
             </span>
         </div>
     </div>
 </nav>
+
+<!-- Search bar -->
+<?= searchBarTemplate(); ?>
 
 <!-- Section Title -->
 <div class="section-title">
@@ -73,20 +78,21 @@ $pdo = databaseConnect();
 <div id="products">
     <div class="container">
         <div class="row text-center">
-            <!-- Fetch phone product name from the database -->
+            <!-- Fetch phone products from the database -->
             <?php
-            $sql = $pdo->query("SELECT * FROM all_products WHERE productType = 'Mobile Phone' ORDER BY date_added DESC");
-            while ($row = $sql->fetch()) {
+            $sql = $pdo->prepare("SELECT * FROM all_products WHERE productType = 'Mobile Phone' ORDER BY date_added DESC");
+            $sql->execute();
+            $database_phone_products = $sql->fetchAll(PDO::FETCH_ASSOC);
             ?>
-
+            <?php foreach ($database_phone_products as $phone_products) : ?>
                 <div class="col-md-3 col-sm-6">
-                    <a href="index.php?page=individual_product&id=<?php echo htmlentities($row['id']); ?>">
+                    <a href="index.php?page=individual_product&id=<?= $phone_products['id']; ?>">
                         <div class="card">
                             <div>
-                                <img src="<?php echo htmlentities($row['productImage']) ?>" alt="" class="img-card-top img-fluid">
+                                <img src="<?= $phone_products['productImage']; ?>" alt="<?= $phone_products['productName']; ?>" class="img-card-top img-fluid">
                             </div>
                             <div class="card-body">
-                                <h5><?php echo htmlentities($row['productName']) ?></h5>
+                                <h5><?= $phone_products['productName']; ?></h5>
                                 <h6 class="ratings">
                                     <i class="bi bi-star-fill"></i>
                                     <i class="bi bi-star-fill"></i>
@@ -95,21 +101,21 @@ $pdo = databaseConnect();
                                     <i class="bi bi-star-fill"></i>
                                 </h6>
                                 <hr>
-                                <small class="text-muted"><s style="font-size: 16px;"><?php echo htmlentities($row['productRetailPrice']) ?></s></small>
-                                <h6 class="text-dark" style="font-weight: 600;">&dollar;<?php echo htmlentities($row['productPrice']) ?></h6>
+                                <?php if ($phone_products['productRetailPrice'] > 0) : ?>
+                                    <small class="text-muted"><s style="font-size: 16px;"><?= $phone_products['productRetailPrice']; ?></s></small>
+                                <?php endif; ?>
+                                <h6 class="text-dark" style="font-weight: 600;">&dollar;<?= $phone_products['productPrice']; ?></h6>
                             </div>
                         </div>
                     </a>
                 </div>
-            <?php } ?>
+            <?php endforeach; ?>
         </div>
     </div>
 </div>
 
 <!-- Primary Footer -->
-<?=primary_footerTemplate(); ?>
+<?= primary_footerTemplate(); ?>
 
 <!-- Footer Template -->
 <?= footerTemplate(); ?>
-
-
