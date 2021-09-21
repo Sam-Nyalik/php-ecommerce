@@ -5,6 +5,9 @@ $pdo = databaseConnect();
 
 ?>
 
+<!-- Total Number of items in the cart -->
+<?php include_once "number_of_items_in_cart.php" ?>
+
 <!-- Header Template -->
 <?= headerTemplate('LAPTOP_PRODUCTS'); ?>
 
@@ -28,11 +31,11 @@ $pdo = databaseConnect();
                         Categories
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a href="" class="dropdown-item">Apple</a>
-                        <a href="" class="dropdown-item">Samsung</a>
-                        <a href="" class="dropdown-item">Huawei</a>
-                        <a href="" class="dropdown-item">Dell</a>
-                        <a href="" class="dropdown-item">Hp</a>
+                        <a href="index.php?page=all_product_categories/apple_products" class="dropdown-item">Apple</a>
+                        <a href="index.php?page=all_product_categories/samsung_products" class="dropdown-item">Samsung</a>
+                        <a href="index.php?page=all_product_categories/huawei_products" class="dropdown-item">Huawei</a>
+                        <a href="index.php?page=all_product_categories/dell_products" class="dropdown-item">Dell</a>
+                        <a href="index.php?page=all_product_categories/hp_products" class="dropdown-item">Hp</a>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -51,13 +54,15 @@ $pdo = databaseConnect();
                 </li>
             </ul>
             <span class="navbar-icons">
-                <i class="bi bi-bag" style="margin-right: 30px;"><span class="text-dark">(0)</span></i>
+                <a href="index.php?page=cart"><i class="bi bi-bag active" style="margin-right: 30px;"><span class="text-dark">(<?php echo $total_items_in_cart; ?>)</span></i></a>
                 <i class="bi bi-heart" style="margin-right: 45px;"><span class="text-dark">(0)</span></i>
-                <i class="bi bi-search"></i>
             </span>
         </div>
     </div>
 </nav>
+
+<!-- Search bar -->
+<?= searchBarTemplate(); ?>
 
 <!-- Section Title -->
 <div class="section-title">
