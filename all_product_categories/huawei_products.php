@@ -10,6 +10,9 @@ $database_huawei_products = $sql->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
+<!-- Total Number of items in the cart -->
+<?php include_once "number_of_items_in_cart.php" ?>
+
 <!-- Header Template -->
 <?= headerTemplate('HUAWEI_PRODUCTS'); ?>
 
@@ -56,7 +59,7 @@ $database_huawei_products = $sql->fetchAll(PDO::FETCH_ASSOC);
                 </li>
             </ul>
             <span class="navbar-icons">
-                <i class="bi bi-bag" style="margin-right: 30px;"><span class="text-dark">(0)</span></i>
+                <a href="index.php?page=cart"> <i class="bi bi-bag" style="margin-right: 30px;"><span class="text-dark">(<?php echo $total_items_in_cart; ?>)</span></i></a>
                 <i class="bi bi-heart" style="margin-right: 45px;"><span class="text-dark">(0)</span></i>
             </span>
         </div>
