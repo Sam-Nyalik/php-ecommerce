@@ -115,7 +115,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <div id="login" style="margin-bottom: 45px;">
     <div class="container">
         <div class="row">
-
             <!-- LOGIN -->
             <div class="col-md-6">
                 <h5 class="text-center">User Login</h5>
