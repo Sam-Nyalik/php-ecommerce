@@ -12,7 +12,7 @@ $pdo = databaseConnect();
 <?= headerTemplate('LAPTOP_PRODUCTS'); ?>
 
 <!-- Top Bar -->
-<?= top_barTemplate(); ?>
+<?php include_once "inc/top-bar.php"; ?>
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light" id="header">

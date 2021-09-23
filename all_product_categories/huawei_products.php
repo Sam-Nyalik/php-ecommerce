@@ -17,7 +17,7 @@ $database_huawei_products = $sql->fetchAll(PDO::FETCH_ASSOC);
 <?= headerTemplate('HUAWEI_PRODUCTS'); ?>
 
 <!-- Top Bar -->
-<?= top_barTemplate(); ?>
+<?php include_once "inc/top-bar.php"; ?>
 
 <!-- Main Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light" id="header">

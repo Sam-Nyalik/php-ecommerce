@@ -3,6 +3,10 @@
 // Start a session
 session_start();
 
+// Error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 // Check if the administrator is logged in
 include_once "includes/check_login.php";
 include_once "functions/functions.php";
@@ -61,9 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             unset($stmt);
         }
     }
-
-    // Close the connection
-    unset($pdo);
 }
 ?>
 
@@ -84,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 <div class="container">
     <div id="profile">
-        <div class="row">
+        <div class="row d-flex justify-content-center">
             <div class="col-md-5">
                 <form action="index.php?page=administrator/change_password" method="post" class="profile_form">
                     <h5 class="text-light">Fill in the form below:</h5>

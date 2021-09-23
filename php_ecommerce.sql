@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 15, 2021 at 08:51 AM
+-- Generation Time: Sep 19, 2021 at 10:13 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -34,15 +34,16 @@ CREATE TABLE `admin` (
   `gender` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `creationDate` datetime DEFAULT current_timestamp(),
-  `updationDate` datetime DEFAULT NULL ON UPDATE current_timestamp()
+  `updationDate` datetime DEFAULT NULL ON UPDATE current_timestamp(),
+  `profileImage` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`id`, `fullName`, `emailAddress`, `gender`, `password`, `creationDate`, `updationDate`) VALUES
-(1, 'Sam Nyalik', 'samjunior@gmail.com', 'Male', '$2y$10$XPPOnIByK0gAnnVDA6rcieS9bgHiTr6l.kAlLRgdhSWmXtvnhJAXG', '2021-08-27 11:37:35', '2021-09-11 16:52:18');
+INSERT INTO `admin` (`id`, `fullName`, `emailAddress`, `gender`, `password`, `creationDate`, `updationDate`, `profileImage`) VALUES
+(4, 'Sam Junior', 'samjunior@gmail.com', 'Male', '$2y$10$laGBkdyJUl8uCSOIjYiinehxJ5ZCu/jobl3ThcpnFl0nQnODZsx9e', '2021-09-18 15:32:25', '2021-09-18 16:17:24', 'administrator/profileImages/IMG_20200606_002359_731 (1).jpg');
 
 -- --------------------------------------------------------
 
@@ -113,22 +114,26 @@ INSERT INTO `contact_queries` (`id`, `firstName`, `lastName`, `email`, `subject`
 
 CREATE TABLE `main_advertisement` (
   `id` int(11) NOT NULL,
-  `productName` varchar(255) NOT NULL,
+  `productName` varchar(100) NOT NULL,
   `productDescription` text NOT NULL,
-  `productImage` text NOT NULL,
-  `productRetailPrice` decimal(7,2) NOT NULL DEFAULT 0.00,
+  `productType` varchar(50) NOT NULL,
+  `productBrand` varchar(50) NOT NULL,
+  `productRetailPrice` decimal(7,2) DEFAULT 0.00,
   `productPrice` decimal(7,2) NOT NULL,
   `productQuantity` int(11) NOT NULL,
-  `dateAdded` datetime NOT NULL DEFAULT current_timestamp(),
-  `updationDate` datetime DEFAULT NULL ON UPDATE current_timestamp()
+  `productImage` text NOT NULL,
+  `date_added` datetime DEFAULT current_timestamp(),
+  `updation_date` datetime DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `main_advertisement`
 --
 
-INSERT INTO `main_advertisement` (`id`, `productName`, `productDescription`, `productImage`, `productRetailPrice`, `productPrice`, `productQuantity`, `dateAdded`, `updationDate`) VALUES
-(1, 'HP ENVY 17', 'Enjoy up to a 4K Ultra HD display with Delta E less than 27 color accuracy for vibrant colors.\r\n', 'images/image16.jpg', '1300.00', '1000.00', 12, '2021-08-22 21:50:43', '2021-08-23 21:56:24');
+INSERT INTO `main_advertisement` (`id`, `productName`, `productDescription`, `productType`, `productBrand`, `productRetailPrice`, `productPrice`, `productQuantity`, `productImage`, `date_added`, `updation_date`) VALUES
+(6, 'HP Envy', 'hp envy', 'Laptop', 'HP', '950.00', '750.00', 10, 'administrator/allProductImages/image8.jpg', '2021-09-17 22:35:09', '2021-09-18 22:52:41'),
+(7, 'Macbook Pro', 'Macbook pro', 'Laptop', 'Apple', '1550.00', '1050.00', 5, 'administrator/allProductImages/image4.jpg', '2021-09-17 22:42:59', '2021-09-18 22:51:28'),
+(8, 'iphone SE 2', 'The iPhone SE appears to feature the same 4.7-inch display that was used in the iPhone 8 with a resolution of 1334 by 750 with 326 pixels per inch and a 1400:1 contrast ratio. It features multi-touch capabilities, P3 wide color support for rich, true-to-life colors, and 625 nits max brightness.', 'Mobile Phone', 'Apple', '550.00', '350.00', 10, 'administrator/allProductImages/image22.jpg', '2021-09-18 22:44:53', '2021-09-18 22:50:40');
 
 -- --------------------------------------------------------
 
@@ -141,28 +146,6 @@ CREATE TABLE `newsletter_subscription` (
   `email` varchar(100) NOT NULL,
   `dateAdded` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `phone_brands`
---
-
-CREATE TABLE `phone_brands` (
-  `id` int(11) NOT NULL,
-  `brandName` varchar(100) NOT NULL,
-  `dateAdded` datetime NOT NULL DEFAULT current_timestamp(),
-  `updationDate` datetime DEFAULT NULL ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `phone_brands`
---
-
-INSERT INTO `phone_brands` (`id`, `brandName`, `dateAdded`, `updationDate`) VALUES
-(1, 'Apple', '2021-08-27 22:53:19', NULL),
-(2, 'Samsung', '2021-08-27 22:53:19', NULL),
-(3, 'Huawei', '2021-08-27 22:53:19', NULL);
 
 -- --------------------------------------------------------
 
@@ -245,12 +228,6 @@ ALTER TABLE `newsletter_subscription`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `phone_brands`
---
-ALTER TABLE `phone_brands`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `product_brands`
 --
 ALTER TABLE `product_brands`
@@ -270,7 +247,7 @@ ALTER TABLE `product_types`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `all_products`
@@ -288,19 +265,13 @@ ALTER TABLE `contact_queries`
 -- AUTO_INCREMENT for table `main_advertisement`
 --
 ALTER TABLE `main_advertisement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `newsletter_subscription`
 --
 ALTER TABLE `newsletter_subscription`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `phone_brands`
---
-ALTER TABLE `phone_brands`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `product_brands`

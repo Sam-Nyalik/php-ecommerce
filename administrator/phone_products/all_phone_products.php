@@ -23,20 +23,22 @@ $pdo = databaseConnect();
     </div>
 </div>
 
-<div id="recently-added-products">
+<!-- Phone products -->
+<div id="products">
     <div class="container">
         <div class="row text-center">
             <?php
-            $stmt = $pdo->prepare("SELECT * FROM phone_products JOIN phone_products_images ON phone_products.id = phone_products_images.id");
+            // Prepare a SELECT statement to fetch all products from the database whose productType is Mobile Phone
+            $stmt = $pdo->prepare("SELECT * FROM all_products WHERE productType = 'Mobile Phone'");
             $stmt->execute();
             $all_phone_products = $stmt->fetchAll(PDO::FETCH_ASSOC);
             ?>
             <?php foreach ($all_phone_products as $phone_products) : ?>
                 <div class="col-md-3 col-sm-6 my-3 my-md-0">
-                    <a href="index.php?page=administrator/phone_products/individual_phone_products&id=<?= $phone_products['id']; ?>">
+                    <a href="index.php?page=administrator/phone_products/single_phone_product&id=<?= $phone_products['id']; ?>">
                         <div class="card">
                             <div>
-                                <img src="<?= $phone_products['image']; ?>" class="img-fluid card-img-top" alt="<?= $phone_products['productName']; ?>" srcset="">
+                                <img src="<?= $phone_products['productImage']; ?>" class="img-fluid card-img-top" alt="<?= $phone_products['productName']; ?>" srcset="">
                             </div>
                             <div class="card-body">
                                 <h5><?= $phone_products['productName']; ?></h5>
@@ -50,13 +52,5 @@ $pdo = databaseConnect();
     </div>
 </div>
 
-<!-- Add More Products -->
-<div id="phone_products_btn">
-    <div class="container">
-        <div class="row text-center">
-            <button class="btn"><a href="index.php?page=administrator/phone_products/add_phone_product">Add Phone Product</a></button>
-        </div>
-    </div>
-</div>
-
+<!-- Footer Template -->
 <?= footerTemplate(); ?>

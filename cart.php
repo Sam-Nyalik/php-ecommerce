@@ -92,13 +92,17 @@ if ($products_in_cart) {
         $subtotal += (float)$product['productPrice'] * (int)$products_in_cart[$product['id']];
     }
 }
+
+// Total number of items in the cart
+$total_items_in_cart = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
+
 ?>
 
 <!-- Header Template -->
 <?= headerTemplate('SHOPPING_CART'); ?>
 
 <!-- Top Bar -->
-<?= top_barTemplate(); ?>
+<?php include_once "inc/top-bar.php"; ?>
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light" id="header">
@@ -140,7 +144,7 @@ if ($products_in_cart) {
                 </li>
             </ul>
             <span class="navbar-icons">
-                <a href="index.php?page=cart"><i class="bi bi-bag active" style="margin-right: 30px;"><span class="text-dark">(0)</span></i></a>
+                <a href="index.php?page=cart"><i class="bi bi-bag active" style="margin-right: 30px;"><span class="text-dark">(<?php echo $total_items_in_cart; ?>)</span></i></a>
                 <i class="bi bi-heart" style="margin-right: 45px;"><span class="text-dark">(0)</span></i>
             </span>
         </div>
@@ -191,8 +195,8 @@ if ($products_in_cart) {
                                             </td>
                                             <td>
                                                 <h5><a href="index.php?page=individual_product&id=<?= $product['id']; ?>"><?= $product['productName']; ?></a></h5>
-                                                <p><span>Brand: </span> <?=$product['productBrand'];?></p>
-                                                
+                                                <p><span>Brand: </span> <?= $product['productBrand']; ?></p>
+
                                                 <a href="index.php?page=cart&remove=<?= $product['id']; ?>" class="btn">Remove</a>
                                             </td>
 
@@ -203,19 +207,27 @@ if ($products_in_cart) {
 
                                             <!-- Quantity Column -->
                                             <td>
-                                                <input type="number" name="product_quantity-<?=$product['id'];?>" value="<?=$products_in_cart[$product['id']];?>" min="1" class="form-control" max="<?=$product['productQuantity'];?>" class="form-control">
+                                                <input type="number" name="product_quantity-<?= $product['id']; ?>" value="<?= $products_in_cart[$product['id']]; ?>" min="1" class="form-control" max="<?= $product['productQuantity']; ?>" class="form-control">
                                             </td>
 
                                             <!-- Price Column -->
                                             <td>
-                                                &dollar;<?=$product['productPrice'] * $products_in_cart[$product['id']];?>
+                                                &dollar;<?= $product['productPrice'] * $products_in_cart[$product['id']]; ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
-
                             </tbody>
                         </table>
+                    </div>
+
+                    <div class="subtotal">
+                        <h5>Order Total: <span class="text-muted">&dollar;<?= $subtotal ?></span></h5>
+                    </div>
+
+                    <div class="checkout">
+                        <button class="update-btn" name="update">Update</button>
+                        <input type="submit" name="checkout" value="Checkout" class="btn">
                     </div>
                 </form>
             </div>

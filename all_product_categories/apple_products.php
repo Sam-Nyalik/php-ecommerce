@@ -17,7 +17,7 @@ $database_apple_products = $sql->fetchAll(PDO::FETCH_ASSOC);
 <?= headerTemplate('APPLE_PRODUCTS'); ?>
 
 <!-- Top Bar Template -->
-<?= top_barTemplate(); ?>
+<?php include_once "inc/top-bar.php"; ?>
 
 <!-- Main Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light" id="header">

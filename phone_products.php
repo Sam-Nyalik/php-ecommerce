@@ -12,7 +12,7 @@ $pdo = databaseConnect();
 <?= headerTemplate("PHONE_PRODUCTS"); ?>
 
 <!-- TopBar -->
-<?= top_barTemplate() ?>
+<?php include_once "inc/top-bar.php"; ?>
 
 
 <!-- Navbar -->

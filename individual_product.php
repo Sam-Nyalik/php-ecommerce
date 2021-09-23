@@ -28,7 +28,7 @@ if (isset($_GET["id"])) {
 <?= headerTemplate('INDIVIDUAL_PRODUCT'); ?>
 
 <!-- Top Bar -->
-<?= top_barTemplate(); ?>
+<?php include_once "inc/top-bar.php"; ?>
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light" id="header">

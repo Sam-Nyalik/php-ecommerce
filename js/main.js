@@ -5,12 +5,21 @@ AOS.init({
 
 // Script to see password on admin login
 function passwordView() {
-  const x = document.getElementById("pwd");
+  const x = document.querySelector("#user_input");
 
   if (x.type === "password") {
     x.type = "text";
   } else {
     x.type = "password";
+  }
+}
+
+function confirmPass(){
+  const y = document.querySelector("#passConfirm");
+  if(y.type === "password"){
+    y.type = "text";
+  } else {
+    y.type = "password";
   }
 }
 
@@ -36,17 +45,19 @@ function myMap() {
 // Button disabled when the password field is empty
 document.addEventListener("DOMContentLoaded", function () {
   const submit = document.querySelector("#submit");
-  const password_input = document.querySelector("#pwd");
+  const user_input = document.querySelector("#user_input");
 
   // By default the submit is disabled
   submit.disabled = true;
 
   // Listen for input to be typed into the password input field
-  password_input.onkeyup = () => {
-    if (password_input.value.length >= 8) {
+  user_input.onkeyup = () => {
+    if (user_input.value.length > 0) {
       submit.disabled = false;
     } else {
       submit.disabled = true;
     }
   };
 });
+
+

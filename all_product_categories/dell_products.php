@@ -17,7 +17,7 @@ $database_dell_products = $sql->fetchAll(PDO::FETCH_ASSOC);
 <?= headerTemplate('SAMSUNG_PRODUCTS'); ?>
 
 <!-- Top bar -->
-<?= top_barTemplate(); ?>
+<?php include_once "inc/top-bar.php"; ?>
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light" id="header">

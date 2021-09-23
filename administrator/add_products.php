@@ -71,8 +71,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($productName_error) && empty($productDescription_error) && empty($productType_error) && empty($productBrand_error) && empty($productRetailPrice_error) && empty($productQuantity_error) && empty($productPrice_error)) {
         // Upload the product image
         if (!empty($_FILES["productImage"]["name"])) {
-            move_uploaded_file($_FILES["productImage"]["tmp_name"], "/opt/lampp/htdocs/php-ecommerce/administrator/allProductImages/" . $_FILES["productImage"]["name"]);
-            $productImage = "/opt/lampp/htdocs/php-ecommerce/administrator/allProductImages/" . $_FILES["productImage"]["name"];
+            move_uploaded_file($_FILES["productImage"]["tmp_name"], "administrator/allProductImages/" . $_FILES["productImage"]["name"]);
+            $productImage = "administrator/allProductImages/" . $_FILES["productImage"]["name"];
 
             // Prepare an INSERT statement
             $sql = "INSERT INTO all_products(productName, productDescription, productType, productBrand, productRetailPrice, productPrice, productQuantity, productImage) VALUES (
@@ -292,7 +292,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <!-- Product image -->
                     <div class="form-group">
                         <label for="productImage">Product Image</label>
-                        <input type="file" name="productImage" class="form-control 
+                        <input type="file" accept=".jpg, .jpeg, .png" name="productImage" class="form-control 
                         <?php echo (!empty($productImage_error)) ? 'is-invalid' : ''; ?>">
                     </div>
 

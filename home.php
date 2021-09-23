@@ -13,7 +13,7 @@ $pdo = databaseConnect();
 <?= headerTemplate('HOME'); ?>
 
 <!-- TopBar -->
-<?= top_barTemplate() ?>
+<?php include_once "inc/top-bar.php"; ?>
 
 
 <!-- Navbar -->
@@ -153,7 +153,9 @@ $pdo = databaseConnect();
                                     <i class="bi bi-star-fill"></i>
                                 </h6>
                                 <hr>
-                                <small class="text-muted"><s style="font-size: 16px;">&dollar;<?= $recentProduct['productRetailPrice']; ?></s></small>
+                                <?php if ($recentProduct['productRetailPrice'] > 0) : ?>
+                                    <small class="text-muted"><s style="font-size: 16px;">&dollar;<?= $recentProduct['productRetailPrice']; ?></s></small>
+                                <?php endif; ?>
                                 <h6 class="text-dark" style="font-weight:600;">&dollar;<?= $recentProduct['productPrice']; ?></h6>
                             </div>
                         </div>
@@ -194,7 +196,7 @@ $pdo = databaseConnect();
             </div>
         <?php endforeach; ?>
     </div>
-</div> 
+</div>
 
 <!-- about-orders -->
 <div id="about-orders">

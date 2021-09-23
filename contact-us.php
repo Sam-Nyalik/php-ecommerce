@@ -120,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?= headerTemplate('CONTACT US'); ?>
 
 <!-- Topbar -->
-<?= top_barTemplate() ?>
+<?php include_once "inc/top-bar.php"; ?>
 
 <!-- Main Navbar -->
 <!-- Navbar -->

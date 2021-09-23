@@ -7,10 +7,10 @@ include_once "functions/functions.php";
 $pdo = databaseConnect();
 
 // Check if the administrator is already logged in, if yes redirect to the dashboard page
-// if (isset($_SESSION["loggedIn"]) && ($_SESSION["loggedIn"] == true)) {
-//     header("location: index.php?page=administrator/dashboard");
-//     exit;
-// }
+if (isset($_SESSION["admin_loggedIn"]) && ($_SESSION["admin_loggedIn"] == true)) {
+    header("location: index.php?page=administrator/dashboard");
+    exit;
+}
 
 // Define variables and assign them empty values
 $email = $password = "";
@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             session_start();
 
                             // Store data in session variables
-                            $_SESSION['loggedIn'] = true;
+                            $_SESSION['admin_loggedIn'] = true;
                             $_SESSION['id'] = $id;
                             $_SESSION['email'] = $email;
 

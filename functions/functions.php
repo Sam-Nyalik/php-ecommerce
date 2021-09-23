@@ -42,31 +42,6 @@ function headerTemplate($title)
     echo $element;
 }
 
-// Topbar Template
-function top_barTemplate()
-{
-    $element = " 
-    <div id=\"top-bar\">
-    <div class=\"container-fluid\">
-        <div class=\"row g-0\">
-            <div class=\"col-md-4\">
-                <div class=\"topbar-left\">
-                    <h5>Free Shipping on orders above $350</h5>
-                </div>
-            </div>
-            <div class=\"col-md-8\">
-                <div class=\"topbar-right\">
-                    <h6><a href=\"#\">User</a></h6>
-                </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-    ";
-    echo $element;
-}
-
 // Primary Footer
 function primary_footerTemplate(){
     $date = date('Y');
@@ -99,6 +74,26 @@ function primary_footerTemplate(){
             <div class=\"col-md-4\">
                 <h2>Latest Events</h2>
             </div>
+        </div>
+    </div>
+</div>
+
+    ";
+    echo $element;
+}
+
+// Search Bar Template
+function searchBarTemplate()
+{
+    $element = "
+    <div id=\"search_bar\">
+    <div class=\"container\">
+        <div class=\"row\">
+            <form action=\"\" class=\"search_bar_form\">
+                <div class=\"form-group\">
+                    <input type=\"text\" name=\"search\" placeholder=\"Search here...\" class=\"form-control\">
+                </div>
+            </form>
         </div>
     </div>
 </div>
