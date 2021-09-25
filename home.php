@@ -1,8 +1,14 @@
 <?php
+// Start a session
+session_start();
+
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 
 // Include the functions file
 include_once "functions/functions.php";
 $pdo = databaseConnect();
+
 
 ?>
 
@@ -246,8 +252,25 @@ $pdo = databaseConnect();
             <div class="col-md-12">
                 <h3>Subscribe to our Newsletter</h3>
                 <form action="#" class="newsletter-form">
-                    <input type="email" name="newsletter-email" autocomplete="off" placeholder="Email Address..." class="form-control">
-                    <button class="btn">Subscribe</button>
+                    <?php
+                    if (isset($_SESSION['loggedIn']) && ($_SESSION['loggedIn'] == true)) {
+                        $id = false;
+                        if (isset($_SESSION['id'])) {
+                            $id = $_SESSION['id'];
+                        }
+                        // Prepare a SELECT statement to fetch the logged in user's email
+                        $sql = $pdo->prepare("SELECT * FROM users WHERE id = '$id'");
+                        $sql->execute();
+                        $database_user_email = $sql->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
+                        <?php foreach ($database_user_email as $user_email) : ?>
+                            <input type="email" name="newsletter-email" autocomplete="off" placeholder="Email Address..." class="form-control" value="<?= $user_email['email']; ?>">
+                            <button class="btn">Subscribe</button>
+                        <?php endforeach; ?>
+                    <?php  } else { ?>
+                        <input type="email" name="newsletter-email" autocomplete="off" placeholder="Email Address..." class="form-control" value="">
+                        <button class="btn">Subscribe</button>
+                    <?php    } ?>
                 </form>
             </div>
         </div>
