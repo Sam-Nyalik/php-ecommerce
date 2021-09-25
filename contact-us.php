@@ -1,5 +1,8 @@
 <?php
 
+// Start session
+session_start();
+
 // Error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
@@ -14,6 +17,11 @@ $firstName_error = $lastName_error = $email_error = $subject_error = $message_er
 // Google reCAPTCHA API key configuration
 $site_key = "6LeyX04cAAAAAOZiUSPypBh5G-wwyC1jozGbU1qc";
 $secret_key = "6LeyX04cAAAAAEhgmzA9eE_FRr-y6qzyqnXcoUnX";
+
+$id = false;
+if (isset($_SESSION['id'])) {
+    $id = $_SESSION['id'];
+}
 
 // Process form data when the form has been submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -264,8 +272,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="firstName">First Name</label>
-                                <input type="text" name="firstName" class="form-control 
+                                <!-- Prepare a SELECT statement to fetch the logged in user's info from the database -->
+                                <?php
+                                if (isset($_SESSION['loggedIn']) && ($_SESSION['loggedIn'] == true)) {
+                                    $sql = $pdo->prepare("SELECT * FROM users WHERE id = '$id'");
+                                    $sql->execute();
+                                    $database_firstName = $sql->fetchAll(PDO::FETCH_ASSOC);
+                                ?>
+                                    <?php foreach ($database_firstName as $firstName) : ?>
+                                        <input type="text" name="firstName" class="form-control 
+                                <?php echo (!empty($firstName_error)) ? 'is-invalid' : ''; ?>" value="<?= $firstName['firstName']; ?>">
+                                    <?php endforeach; ?>
+                                <?php } else { ?>
+                                    <input type="text" name="firstName" class="form-control 
                                 <?php echo (!empty($firstName_error)) ? 'is-invalid' : ''; ?>" value="<?php echo !empty($_POST['firstName']) ? $_POST['firstName'] : ''; ?>">
+                                <?php } ?>
                             </div>
                         </div>
 
@@ -273,8 +294,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="lastName">Last Name</label>
-                                <input type="text" name="lastName" class="form-control 
+                                <?php
+                                if (isset($_SESSION['loggedIn']) && ($_SESSION['loggedIn'] == true)) {
+                                    $sql = $pdo->prepare("SELECT * FROM users WHERE id = '$id'");
+                                    $sql->execute();
+                                    $database_lastName = $sql->fetchAll(PDO::FETCH_ASSOC);
+                                ?>
+                                    <?php foreach ($database_lastName as $lastName) : ?>
+                                        <input type="text" name="lastName" class="form-control 
+                                <?php echo (!empty($lastName_error)) ? 'is-invalid' : ''; ?>" value="<?= $lastName['lastName']; ?>">
+                                    <?php endforeach; ?>
+                                <?php } else { ?>
+                                    <input type="text" name="lastName" class="form-control 
                                 <?php echo (!empty($lastName_error)) ? 'is-invalid' : ''; ?>" value="<?php echo !empty($_POST['lastName']) ? $_POST['lastName'] : ''; ?>">
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -282,8 +315,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <!-- Email Address -->
                     <div class="form-group">
                         <label for="EmailAddress">Email Address</label>
-                        <input type="email" name="email" class="form-control 
+                        <?php
+                        if (isset($_SESSION['loggedIn']) && ($_SESSION['loggedIn'] == true)) {
+                            $sql = $pdo->prepare("SELECT * FROM users WHERE id = '$id'");
+                            $sql->execute();
+                            $database_email = $sql->fetchAll(PDO::FETCH_ASSOC);
+                        ?>
+                            <?php foreach ($database_email as $email) : ?>
+                                <input type="email" name="email" class="form-control 
+                        <?php echo (!empty($email_error)) ? 'is-invalid' : ''; ?>" value="<?= $email['email']; ?>">
+                            <?php endforeach; ?>
+                        <?php } else { ?>
+                            <input type="email" name="email" class="form-control 
                         <?php echo (!empty($email_error)) ? 'is-invalid' : ''; ?>" value="<?php echo !empty($_POST['email']) ? $_POST['email'] : ''; ?>">
+                        <?php } ?>
                     </div>
 
                     <!-- Subject -->
@@ -297,7 +342,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="form-group">
                         <label for="message">Message</label>
                         <textarea name="message" id="user_input" class="form-control 
-                        <?php echo (!empty($message_error)) ? 'is-invalid' : ''; ?>"><?php echo !empty($_POST['message']) ? $_POST['message'] : ''; ?></textarea>
+                        <?php echo (!empty($message_error)) ? 'is-invalid' : ''; ?>"></textarea>
                     </div>
 
                     <!-- Google Captcha -->
@@ -318,11 +363,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="contact_description">
                     <h5><span>Reach us on the hotline:</span> +2547123456</h5>
                     <h5><span>Opening Hours: </span></h5>
-                            <ul>
-                                <li>Monday - Friday: 8am - 6pm</li>
-                                <li>Saturday: 10am - 4pm</li>
-                                <li>Sunday: 10am - 1pm</li>
-                            </ul>
+                    <ul>
+                        <li>Monday - Friday: 8am - 6pm</li>
+                        <li>Saturday: 10am - 4pm</li>
+                        <li>Sunday: 10am - 1pm</li>
+                    </ul>
                 </div>
             </div>
         </div>
