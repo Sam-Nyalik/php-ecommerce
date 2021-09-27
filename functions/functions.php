@@ -68,7 +68,7 @@ function primary_footerTemplate(){
                 <div class=\"logins\">
                     <h2>Login Links</h2>
                     <h5><a href=\"index.php?page=administrator/login\">Administrator</a></h5>
-                    <h5><a href=\"\">Visitor</a></h5>
+                    <h5><a href=\"index.php?page=user/login\">Visitor</a></h5>
                 </div>
             </div>
             <div class=\"col-md-4\">
