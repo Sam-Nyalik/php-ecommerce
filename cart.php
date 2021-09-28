@@ -163,6 +163,11 @@ $total_items_in_cart = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
     </div>
 </div>
 
+<div class="container">
+    <div class="row">
+        <p><a class="text-secondary" href="index.php?page=all_products"><i class="bi bi-arrow-left-circle"></i> Continue Shopping</a></p>
+    </div>
+</div>
 <!-- Shopping Cart Form -->
 <div id="shopping_cart">
     <div class="container">
@@ -186,6 +191,9 @@ $total_items_in_cart = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
                                     </tr>
                                 <?php else : ?>
                                     <?php foreach ($products as $product) : ?>
+                                        <?php
+                                        $_SESSION['product_id'] = $product['id'];
+                                        ?>
                                         <tr>
                                             <!-- Item Column-->
                                             <td>
