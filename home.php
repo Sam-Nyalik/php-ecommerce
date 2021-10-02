@@ -23,13 +23,15 @@ $pdo = databaseConnect();
 
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light" id="header">
+ <nav class="navbar navbar-expand-lg navbar-light" id="header">
     <div class="container">
         <h3 class="navbar-brand"><a href="index.php?page=home">E-Commerce.</a></h3>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
+        <div class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="index.php?page=home">Home</a>
@@ -67,7 +69,7 @@ $pdo = databaseConnect();
             </span>
         </div>
     </div>
-</nav>
+</nav>  
 
 <!-- Search bar -->
 <?= searchBarTemplate(); ?>
@@ -133,7 +135,7 @@ $pdo = databaseConnect();
 <div id="products">
     <div class="container">
         <div class="row text-center">
-            <div class="section-title">
+            <div class="section-title1">
                 <h5><span>Recently Added</span> Products</h5>
             </div>
             <?php
