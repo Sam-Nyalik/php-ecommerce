@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 19, 2021 at 10:13 AM
+-- Generation Time: Oct 06, 2021 at 10:39 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -43,7 +43,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `fullName`, `emailAddress`, `gender`, `password`, `creationDate`, `updationDate`, `profileImage`) VALUES
-(4, 'Sam Junior', 'samjunior@gmail.com', 'Male', '$2y$10$laGBkdyJUl8uCSOIjYiinehxJ5ZCu/jobl3ThcpnFl0nQnODZsx9e', '2021-09-18 15:32:25', '2021-09-18 16:17:24', 'administrator/profileImages/IMG_20200606_002359_731 (1).jpg');
+(4, 'Sam Junior', 'samjunior@gmail.com', 'Male', '$2y$10$rzXfdbYaAsIegNxt1zWsfOOkp8gQuh2x2uNBcnXZQLFgy.mqJFVga', '2021-09-18 15:32:25', '2021-10-06 23:33:18', 'administrator/profileImages/IMG_20210629_005001_716.jpg');
 
 -- --------------------------------------------------------
 
@@ -72,12 +72,27 @@ CREATE TABLE `all_products` (
 INSERT INTO `all_products` (`id`, `productName`, `productDescription`, `productType`, `productBrand`, `productRetailPrice`, `productPrice`, `productQuantity`, `productImage`, `date_added`, `updation_date`) VALUES
 (1, 'iphone x', 'This is an iphone x', 'Mobile Phone', 'Apple', '1000.00', '850.00', 30, 'administrator/allProductImages/image7.jpg', '2021-09-10 16:08:36', '2021-09-11 16:18:14'),
 (3, 'Samsung s21', 'This is a Samsung s21', 'Mobile Phone', 'Samsung', '1100.00', '550.00', 20, 'administrator/allProductImages/image5.jpg', '2021-09-10 16:15:41', '2021-09-10 22:21:37'),
-(8, 'Huawei Mate 30', 'This is a Huawei Mate 30', 'Mobile Phone', 'Huawei', '880.00', '450.00', 10, 'administrator/allProductImages/image13.jpg', '2021-09-10 23:10:12', NULL),
+(8, 'Huawei Mate', 'This is a Huawei Mate 30', 'Mobile Phone', 'Huawei', '880.00', '450.00', 10, 'administrator/allProductImages/image13.jpg', '2021-09-10 23:10:12', '2021-09-19 16:34:17'),
 (9, 'HP Envy', 'HP Envy Laptop 4', 'Laptop', 'HP', '650.00', '350.00', 10, 'administrator/allProductImages/image8.jpg', '2021-09-11 15:09:31', '2021-09-12 22:39:00'),
 (10, 'Samsung s20', 'This is a Samsung s20', 'Mobile Phone', 'Samsung', '880.00', '740.00', 8, 'administrator/allProductImages/image15.jpg', '2021-09-11 15:41:23', NULL),
 (11, 'Dell Alienware', 'Dell Alienware 17 is a Windows 10 Home laptop with a 17.30-inch display that has a resolution of 1920x1080 pixels. It is powered by a Core i7 processor and it comes with 16GB of RAM. The Dell Alienware 17 packs 1TB of HDD storage. Graphics are powered by Intel Integrated Integrated Graphics 5500.', 'Laptop', 'Dell', '1500.00', '1350.00', 15, 'administrator/allProductImages/image18.jpg', '2021-09-11 16:39:42', '2021-09-12 22:40:41'),
 (12, 'Macbook Pro', 'Apple MacBook Pro is a macOS laptop with a 13.30-inch display that has a resolution of 2560x1600 pixels. It is powered by a Core i5 processor and it comes with 12GB of RAM. The Apple MacBook Pro packs 512GB of SSD storage.', 'Laptop', 'Apple', '1150.00', '900.00', 10, 'administrator/allProductImages/image20.jpg', '2021-09-12 22:42:36', '2021-09-13 23:50:34'),
-(13, 'iphone 12', 'The iPhone 12 features a 6.1-inch (15 cm) display with Super Retina XDR OLED technology at a resolution of 2532×1170 pixels and a pixel density of about 460 ppi. The iPhone 12 Mini features a 5.4-inch (14 cm) display with the same technology at a resolution of 2340×1080 pixels and a pixel density of about 476 ppi.', 'Mobile Phone', 'Apple', '1200.00', '980.00', 12, 'administrator/allProductImages/image21.jpg', '2021-09-15 08:37:28', NULL);
+(13, 'iphone 12', 'The iPhone 12 features a 6.1-inch (15 cm) display with Super Retina XDR OLED technology at a resolution of 2532×1170 pixels and a pixel density of about 460 ppi. The iPhone 12 Mini features a 5.4-inch (14 cm) display with the same technology at a resolution of 2340×1080 pixels and a pixel density of about 476 ppi.', 'Mobile Phone', 'Apple', '1200.00', '980.00', 12, 'administrator/allProductImages/image21.jpg', '2021-09-15 08:37:28', NULL),
+(14, 'airpods', 'Comfort earbuds', 'earbuds', 'Apple', '200.00', '150.00', 10, 'administrator/allProductImages/daniel-romero-AgLMrojqjAM-unsplash.jpg', '2021-09-19 16:32:52', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `city`
+--
+
+CREATE TABLE `city` (
+  `id` int(11) NOT NULL,
+  `region_id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `date_added` datetime NOT NULL DEFAULT current_timestamp(),
+  `updation_date` datetime DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -97,14 +112,6 @@ CREATE TABLE `contact_queries` (
   `admin_response` longtext DEFAULT NULL,
   `is_read` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `contact_queries`
---
-
-INSERT INTO `contact_queries` (`id`, `firstName`, `lastName`, `email`, `subject`, `message`, `posting_date`, `updation_date`, `admin_response`, `is_read`) VALUES
-(1, 'John', 'Doe', 'johndoe@gmail.com', 'Website Enquiry', 'How did you make this?', '2021-09-07 15:37:33', NULL, NULL, NULL),
-(2, 'zinzi', 'nyalk', 'znyalik@gmail.com', 'swiss', 'id like to suck some dick', '2021-09-09 14:04:11', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -150,6 +157,26 @@ CREATE TABLE `newsletter_subscription` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `order_id` int(100) NOT NULL,
+  `firstName` varchar(200) NOT NULL,
+  `lastName` varchar(200) NOT NULL,
+  `emailAddress` varchar(100) NOT NULL,
+  `phoneNumber` varchar(100) NOT NULL,
+  `date_added` datetime NOT NULL DEFAULT current_timestamp(),
+  `updation_date` datetime DEFAULT NULL ON UPDATE current_timestamp(),
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `product_grand_price` decimal(7,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `product_brands`
 --
 
@@ -190,7 +217,51 @@ CREATE TABLE `product_types` (
 
 INSERT INTO `product_types` (`id`, `productType`, `date_added`, `updation_date`) VALUES
 (4, 'Laptop', '2021-09-09 14:45:52', NULL),
-(5, 'Mobile Phone', '2021-09-09 14:46:06', NULL);
+(5, 'Mobile Phone', '2021-09-09 14:46:06', NULL),
+(6, 'earbuds', '2021-09-19 16:28:36', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `region`
+--
+
+CREATE TABLE `region` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `date_added` datetime NOT NULL DEFAULT current_timestamp(),
+  `updation_date` datetime DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `region`
+--
+
+INSERT INTO `region` (`id`, `name`, `date_added`, `updation_date`) VALUES
+(1, 'Nairobi', '2021-09-26 16:27:50', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `firstName` varchar(200) NOT NULL,
+  `lastName` varchar(200) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phoneNumber` int(50) NOT NULL,
+  `gender` varchar(50) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `region` varchar(100) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `date_added` datetime DEFAULT current_timestamp(),
+  `updation_date` datetime DEFAULT NULL ON UPDATE current_timestamp(),
+  `password` varchar(255) NOT NULL,
+  `success` varchar(100) DEFAULT 'NULL',
+  `userIP` binary(16) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
@@ -206,6 +277,12 @@ ALTER TABLE `admin`
 -- Indexes for table `all_products`
 --
 ALTER TABLE `all_products`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `city`
+--
+ALTER TABLE `city`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -228,6 +305,12 @@ ALTER TABLE `newsletter_subscription`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `product_brands`
 --
 ALTER TABLE `product_brands`
@@ -237,6 +320,18 @@ ALTER TABLE `product_brands`
 -- Indexes for table `product_types`
 --
 ALTER TABLE `product_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `region`
+--
+ALTER TABLE `region`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -253,13 +348,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `all_products`
 --
 ALTER TABLE `all_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `city`
+--
+ALTER TABLE `city`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `contact_queries`
 --
 ALTER TABLE `contact_queries`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `main_advertisement`
@@ -274,6 +375,12 @@ ALTER TABLE `newsletter_subscription`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `product_brands`
 --
 ALTER TABLE `product_brands`
@@ -283,7 +390,19 @@ ALTER TABLE `product_brands`
 -- AUTO_INCREMENT for table `product_types`
 --
 ALTER TABLE `product_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `region`
+--
+ALTER TABLE `region`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
