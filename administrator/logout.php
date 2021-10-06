@@ -3,6 +3,8 @@
     session_start();
 
     //Destroy sessions
+    $_SESSION = array();
+
     session_destroy();
 
     // Redirect the admin to the login page

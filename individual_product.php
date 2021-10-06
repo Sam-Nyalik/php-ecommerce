@@ -110,7 +110,7 @@ if (isset($_GET["id"])) {
 </div>
 
 <!-- Similar Product -->
-<div id="similar_products">
+<!-- <div id="similar_products">
     <div class="container">
         <div class="row">
             <div class="similar_product_title">
@@ -118,7 +118,7 @@ if (isset($_GET["id"])) {
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- Primary Footer -->
 <?= primary_footerTemplate(); ?>

@@ -74,9 +74,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 
 <!-- Admin Profile -->
+<div id="login">
 <div class="container">
-    <div id="profile">
-        <div class="row d-flex justify-content-center">
+        <div class="row">
             <div class="col-md-5">
                 <!-- Fetch admin data from the database -->
                 <?php
@@ -85,12 +85,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $admin_data = $sql->fetchAll(PDO::FETCH_ASSOC);
                 ?>
                 <?php foreach ($admin_data as $data) :  ?>
-                    <form action="index.php?page=administrator/profile" method="post" enctype="multipart/form-data" class="profile_form">
+                    <form action="index.php?page=administrator/profile" method="post" enctype="multipart/form-data" class="login-form">
                         <!-- Creation Date Time -->
-                        <h5><span>Creation Date: </span><?= $data['creationDate']; ?></h5>
-                        <h5><?php
+                        <h5 class="text-muted"><span class="text-dark">Creation Date: </span><?= $data['creationDate']; ?></h5>
+                        <h5 class="text-muted"><?php
                             if ($data['updationDate']) : ?>
-                                <span>Last Updation Date: </span> <?php echo $data['updationDate']; ?>
+                                <span class="text-dark">Last Updation Date: </span> <?php echo $data['updationDate']; ?>
 
                             <?php endif; ?>
                         </h5>

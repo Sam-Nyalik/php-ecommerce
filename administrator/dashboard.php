@@ -130,7 +130,7 @@ $pdo = databaseConnect();
             <!-- Total Users -->
             <div class="col-md-4 my-4">
                 <h4>Total Users</h4>
-                <h6><a href="index.php?page=administrator/all_users">
+                <h6><a href="index.php?page=administrator/users/all_users">
                     <!-- Prepare a  SELECT statement to fetch all the users from the database -->
                     <?php 
                         $sql = $pdo->prepare("SELECT * FROM users WHERE success = '1'");
@@ -139,6 +139,20 @@ $pdo = databaseConnect();
                     ?>
                     Total Users: <?php echo $database_users; ?>
                 </a></h6>
+            </div>
+
+            <!-- Total Regions -->
+            <div class="col-md-4 my-4">
+                <h4>Total Regions</h4>
+                <h6><a href="index.php?page=administrator/all_regions">
+                <!-- Prepare a SELECT statement to fetch the total number of regions -->
+                <?php 
+                    $sql = $pdo->prepare("SELECT * FROM region");
+                    $sql->execute();
+                    $database_region = $sql->rowCount();
+                ?>
+                Total Regions: <?php echo $database_region; ?>
+            </a></h6>
             </div>
         </div>
     </div>

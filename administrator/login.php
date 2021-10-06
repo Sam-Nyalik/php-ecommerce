@@ -12,9 +12,13 @@ if (isset($_SESSION["admin_loggedIn"]) && ($_SESSION["admin_loggedIn"] == true))
     exit;
 }
 
+// Google reCAPTCHA API key configuration
+$site_key = "6LeyX04cAAAAAOZiUSPypBh5G-wwyC1jozGbU1qc";
+$secret_key = "6LeyX04cAAAAAEhgmzA9eE_FRr-y6qzyqnXcoUnX";
+
 // Define variables and assign them empty values
-$email = $password = "";
-$email_error = $password_error = "";
+$email = $password = $recaptcha = "";
+$email_error = $password_error = $recaptcha_error = "";
 
 // Process form data when the form has been submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -34,49 +38,62 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check for errors before dealing with the database
     if (empty($email_error) && empty($password_error)) {
-        // Prepare a SELECT statement
-        $sql = "SELECT id, emailAddress, password FROM admin WHERE emailAddress = :email ";
+        // Validate the reCAPTCHA box
+        if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])) {
+            // Verify the recaptcha response
+            $verify_response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret_key . '&response=' . $_POST['g-recaptcha-response']);
+            // Decode JSON data
+            $response_data = json_decode($verify_response);
+            if ($response_data->success) {
+                // Prepare a SELECT statement
+                $sql = "SELECT id, emailAddress, password FROM admin WHERE emailAddress = :email ";
 
-        if ($stmt = $pdo->prepare($sql)) {
-            // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
-            // Set parameters
-            $param_email = $email;
-            // Attempt to execute
-            if ($stmt->execute()) {
-                // Check if the email address exists
-                if ($stmt->rowCount() == 1) {
-                    if ($row = $stmt->fetch()) {
-                        $id = $row['id'];
-                        $email = $row['emailAddress'];
-                        $hashed_password = $row['password'];
+                if ($stmt = $pdo->prepare($sql)) {
+                    // Bind variables to the prepared statement as parameters
+                    $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
+                    // Set parameters
+                    $param_email = $email;
+                    // Attempt to execute
+                    if ($stmt->execute()) {
+                        // Check if the email address exists
+                        if ($stmt->rowCount() == 1) {
+                            if ($row = $stmt->fetch()) {
+                                $id = $row['id'];
+                                $email = $row['emailAddress'];
+                                $hashed_password = $row['password'];
 
-                        // Verify the user input password and the password in the database
-                        if (password_verify($password, $hashed_password)) {
-                            // Password is correct, start a new session
-                            session_start();
+                                // Verify the user input password and the password in the database
+                                if (password_verify($password, $hashed_password)) {
+                                    // Password is correct, start a new session
+                                    session_start();
 
-                            // Store data in session variables
-                            $_SESSION['admin_loggedIn'] = true;
-                            $_SESSION['id'] = $id;
-                            $_SESSION['email'] = $email;
+                                    // Store data in session variables
+                                    $_SESSION['admin_loggedIn'] = true;
+                                    $_SESSION['id'] = $id;
+                                    $_SESSION['email'] = $email;
 
-                            // Redirect the admin to the dashboard
-                            header("location: index.php?page=administrator/dashboard");
-                            exit;
+                                    // Redirect the admin to the dashboard
+                                    header("location: index.php?page=administrator/dashboard");
+                                    exit;
+                                } else {
+                                    $password_error = "Wrong Password!";
+                                }
+                            }
                         } else {
-                            $password_error = "Wrong Password!";
+                            $email_error = "User does not exist!";
                         }
+                    } else {
+                        echo "There was an error. Please try again!";
                     }
-                } else {
-                    $email_error = "User does not exist!";
+
+                    // Close the statement
+                    unset($stmt);
                 }
             } else {
-                echo "There was an error. Please try again!";
+                $recaptcha_error = "Invalid reCAPTCHA response!";
             }
-
-            // Close the statement
-            unset($stmt);
+        } else {
+            $recaptcha_error = "reCAPTCHA field is required!";
         }
     }
 
@@ -140,11 +157,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="form-group">
                         <input type="password" name="password" id="user_input" placeholder="Password" class="form-control 
                         <?php echo (!empty($password_error)) ? 'is-invalid' : ''; ?>">
+                        <i class="bi bi-eye" onclick="passwordView()" style="cursor: pointer; float: right; margin-right: 10px; margin-top: -33px; position: relative"></i>
                     </div>
 
-                    <!-- Remember Me Checkbox -->
+                    <!-- Google reCAPTCHA -->
                     <div class="form-group">
-                        <input type="checkbox" class="checkbox" onclick="passwordView()"> <span style="font-size: 14px;">Show Password</span>
+                        <div class="g-recaptcha" name="recaptcha" data-sitekey="<?php echo $site_key; ?>"></div>
+                        <span class="errors"><?php echo $recaptcha_error; ?></span>
                     </div>
 
                     <div class="form-group my-3">

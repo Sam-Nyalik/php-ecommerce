@@ -13,8 +13,8 @@ include_once "functions/functions.php";
 $pdo = databaseConnect();
 
 // Define variables and assign them empty values
-$newPassword = $newPasswordConfirm = "";
-$newPassword_error = $newPasswordConfirm_error = "";
+$current_password = $new_password = $confirm_new_password = $success = "";
+$current_password_error = $new_password_error = $confirm_new_password_error = $general_error = "";
 
 $id = false;
 if (isset($_SESSION['id'])) {
@@ -22,41 +22,27 @@ if (isset($_SESSION['id'])) {
 }
 // Process form data when the form has been submitted
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    // Validate New Password
-    if (empty(trim($_POST["newPassword"]))) {
-        $newPassword_error = "New Password Field is required!";
-    } else if (strlen(trim($_POST["newPassword"])) < 8) {
-        $newPassword_error = "New Password must have more than 8 characters!";
+    // Validate Current Password and ensure it matches with the one in the database
+    if (empty(trim($_POST['current_password']))) {
+        $current_password_error = "Field is required!";
     } else {
-        $newPassword = trim($_POST["newPassword"]);
-    }
-
-    // Validate new password confirm
-    if (empty(trim($_POST["newPasswordConfirm"]))) {
-        $newPasswordConfirm_error = "New Password confirm field is required!";
-    } else {
-        $newPasswordConfirm = trim($_POST["newPasswordConfirm"]);
-
-        // Check if the passwords match
-        if (empty($newPassword_error) && ($newPassword !== $newPasswordConfirm)) {
-            $newPasswordConfirm_error = "Passwords do not match!";
-        }
-    }
-
-    // Check for errors before dealing with the database
-    if (empty($newPassword_error) && empty($newPasswordConfirm_error)) {
-        // Prepare an UPDATE statement
-        $sql = "UPDATE admin SET password = :newPassword WHERE id = '$id'";
-
+        $sql = "SELECT password FROM users WHERE id = :id";
         if ($stmt = $pdo->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":newPassword", $param_newPassword, PDO::PARAM_STR);
+            $stmt->bindParam(":id", $param_id, PDO::PARAM_INT);
             // Set parameters
-            $param_newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+            $param_id = $id;
             // Attempt to execute
             if ($stmt->execute()) {
-                // Redirect back to the login page
-                header("location: index.php?page=administrator/logout");
+                if ($row = $stmt->fetch()) {
+                    $hashed_password = $row['password'];
+
+                    if (password_verify($_POST['current_password'], $hashed_password)) {
+                        $current_password = trim($_POST['current_password']);
+                    } else {
+                        $current_password_error = "Current Passwords do not match!";
+                    }
+                }
             } else {
                 echo "There was an error. Please try again!";
             }
@@ -65,7 +51,51 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             unset($stmt);
         }
     }
+
+    // Validate New Password
+    if (empty(trim($_POST['new_password']))) {
+        $new_password_error = "Field is required!";
+    } else if (strlen(trim($_POST['new_password'])) < 8) {
+        $new_password_error = "Password must have at least 8 characters!";
+    } else {
+        $new_password = trim($_POST['new_password']);
+    }
+
+    // Validate New Password Confirm
+    if (empty(trim($_POST['confirm_new_password']))) {
+        $confirm_new_password_error = "Field is required!";
+    } else {
+        $confirm_new_password = trim($_POST['confirm_new_password']);
+
+        if (empty($new_password_error) && ($new_password !== $confirm_new_password)) {
+            $confirm_new_password_error = "Passwords do not match!";
+        }
+    }
+
+    // Check for errors before dealing with the database
+    if (empty($current_password_error) && empty($new_password_error) && empty($confirm_new_password_error)) {
+        // Prepare an UPDATE statement on the password row
+        $sql = "UPDATE admin SET password = :new_password WHERE id = :id";
+        if ($stmt = $pdo->prepare($sql)) {
+            // Bind variables to the prepared statement as parameters
+            $stmt->bindParam(":new_password", $param_new_password, PDO::PARAM_STR);
+            $stmt->bindParam(":id", $param_id, PDO::PARAM_INT);
+            // Set parameters
+            $param_new_password = password_hash($new_password, PASSWORD_DEFAULT);
+            $param_id = $id;
+            // Attempt to execute
+            if ($stmt->execute()) {
+                $success = "Your password has been updated successfully!";
+            } else {
+                $general_error = "There was an error. Please try again!";
+            }
+
+            // Close the statement
+            unset($stmt);
+        }
+    }
 }
+
 ?>
 
 <!-- Header Template -->
@@ -83,48 +113,62 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     </div>
 </div>
 
-<div class="container">
-    <div id="profile">
-        <div class="row d-flex justify-content-center">
+<div id="login">
+    <div class="container">
+        <div class="row">
             <div class="col-md-5">
-                <form action="index.php?page=administrator/change_password" method="post" class="profile_form">
-                    <h5 class="text-light">Fill in the form below:</h5>
-                    <!-- General Errors -->
+                <form action="index.php?page=administrator/change_password" method="post" class="login-form">
+                    <!-- General Error -->
                     <div class="form-group">
-                        <span class="text-danger">
+                        <span class="errors">
                             <ul>
-                                <!-- New Password Error -->
                                 <li><?php
-                                    if ($newPassword_error) {
-                                        echo $newPassword_error;
-                                    }
-                                    ?></li>
-
-                                <!-- New Password confirm Error -->
-                                <li><?php
-                                    if ($newPasswordConfirm_error) {
-                                        echo $newPasswordConfirm_error;
+                                    if ($general_error) {
+                                        echo $general_error;
                                     }
                                     ?></li>
                             </ul>
                         </span>
                     </div>
 
+                    <!-- Success Message -->
+                    <div class="form-group">
+                        <span class="text-success">
+                            <ul>
+                                <li><?php
+                                    if ($success) {
+                                        echo $success;
+                                    }
+                                    ?></li>
+                            </ul>
+                        </span>
+                    </div>
+
+                    <!-- Current Password -->
+                    <div class="form-group">
+                        <label for="CurrentPassword">Current Password</label>
+                        <input type="password" name="current_password" class="form-control 
+                        <?php echo (!empty($current_password_error)) ? 'is-invalid' : ''; ?>">
+                        <span class="errors"><?php echo $current_password_error; ?></span>
+                    </div>
+
                     <!-- New Password -->
                     <div class="form-group">
                         <label for="NewPassword">New Password</label>
-                        <input type="password" autocomplete="off" autofocus name="newPassword" placeholder="New Password" class="form-control 
-                    <?php echo (!empty($newPassword_error)) ? 'is-invalid' : ''; ?>">
+                        <input type="password" name="new_password" class="form-control 
+                        <?php echo (!empty($new_password_error)) ? 'is-invalid' : ''; ?>">
+                        <span class="errors"><?php echo $new_password_error; ?></span>
                     </div>
 
                     <!-- Confirm New Password -->
                     <div class="form-group">
-                        <label for="NewPasswordConfirm">Confirm New Password</label>
-                        <input type="password" name="newPasswordConfirm" placeholder="Confirm New Password" class="form-control 
-                    <?php echo (!empty($newPasswordConfirm_error)) ? 'is-invalid' : ''; ?>">
+                        <label for="ConfirmNewPassword">Confirm New Password</label>
+                        <input type="password" name="confirm_new_password" class="form-control 
+                        <?php echo (!empty($confirm_new_password_error)) ? 'is-invalid' : ''; ?>">
+                        <span class="errors"><?php echo $confirm_new_password_error; ?></span>
                     </div>
 
-                    <!-- Submit button -->
+                    <!-- Submit Btn -->
                     <div class="form-group my-3">
                         <input type="submit" value="Change Password" class="btn w-100">
                     </div>

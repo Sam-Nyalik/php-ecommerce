@@ -36,6 +36,10 @@ if (isset($_POST['product_id'], $_POST['product_quantity']) && is_numeric($_POST
         }
     }
 
+    // Store product id and product quantity in session variables
+    $_SESSION['product_id']= $product_id;
+    $_SESSION['product_quantity'] = $product_quantity;
+
     // Prevent form resubmission
     header("location: index.php?page=cart");
     exit;
