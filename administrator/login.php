@@ -16,7 +16,7 @@ if (isset($_SESSION["admin_loggedIn"]) && ($_SESSION["admin_loggedIn"] == true))
 // Go to goggle's reCAPTCHA, and request for a site key
 $site_key = "";
 
-// Go to goggle's reCAPTCHA, and request for a secret key
+// Go to goggle's reCAPTCHA and request for a secret key
 $secret_key = "";
 
 // Define variables and assign them empty values
