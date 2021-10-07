@@ -15,8 +15,13 @@ $firstName = $lastName = $email = $subject = $message = $recaptcha = $success = 
 $firstName_error = $lastName_error = $email_error = $subject_error = $message_error = $recaptcha_error = $general_error = "";
 
 // Google reCAPTCHA API key configuration
-$site_key = "6LeyX04cAAAAAOZiUSPypBh5G-wwyC1jozGbU1qc";
-$secret_key = "6LeyX04cAAAAAEhgmzA9eE_FRr-y6qzyqnXcoUnX";
+
+
+// Go to goggle's reCAPTCHA, and request for a site key
+$site_key = "";
+
+// Go to goggle's reCAPTCHA, and request for a secret key
+$secret_key = "";
 
 $id = false;
 if (isset($_SESSION['id'])) {
