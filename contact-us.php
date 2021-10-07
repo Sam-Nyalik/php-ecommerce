@@ -16,7 +16,6 @@ $firstName_error = $lastName_error = $email_error = $subject_error = $message_er
 
 // Google reCAPTCHA API key configuration
 
-
 // Go to goggle's reCAPTCHA, and request for a site key
 $site_key = "";
 
