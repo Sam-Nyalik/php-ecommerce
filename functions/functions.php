@@ -27,6 +27,7 @@ function headerTemplate($title)
             <meta charset=\"UTF-8\">
             <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
             <meta http-eqiuv=\"X-UA-Compatible\" content=\"IE=edge\">
+            <meta http-equiv=\"refresh\" content=\"900;url=index.php?page=user/logout\">            
             <meta name=\"author\" content=\"Sam Nyalik\">
             <meta name=\"description\" content=\"This is an e-commerce web application built with php and SQL\">
             <meta name=\"keywords\" content=\"HTML5, CSS3, Javascript, PHP, MYSQL\">
@@ -35,7 +36,7 @@ function headerTemplate($title)
             <link rel=\"stylesheet\" type=\"text/css\" href=\"css/styles.css\">
             <link rel=\"stylesheet\" href=\"css/bootstrap.min.css\">
             <script src=\"https://www.google.com/recaptcha/api.js\" async defer></script>
-            <link rel=\"shortcut icon\" href=\"../images/image3.jpg\" type=\"image/x-icon\">
+            <link rel=\"icon\" href=\"images/image7.jpg\" sizes=\"16*16\">
         </head>
         <body>
     ";
