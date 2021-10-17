@@ -13,11 +13,9 @@ if (isset($_SESSION["admin_loggedIn"]) && ($_SESSION["admin_loggedIn"] == true))
 }
 
 // Google reCAPTCHA API key configuration
-// Go to goggle's reCAPTCHA, and request for a site key
-$site_key = "";
+$site_key = "6LeyX04cAAAAAOZiUSPypBh5G-wwyC1jozGbU1qc";
+$secret_key = "6LeyX04cAAAAAEhgmzA9eE_FRr-y6qzyqnXcoUnX";
 
-// Go to goggle's reCAPTCHA and request for a secret key
-$secret_key = "";
 
 // Define variables and assign them empty values
 $email = $password = $recaptcha = "";

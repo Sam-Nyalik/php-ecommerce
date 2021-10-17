@@ -32,7 +32,7 @@ $pdo = databaseConnect();
 
             <!-- All Products -->
             <div class="col-md-4">
-            <h4>All Products</h4>
+                <h4>All Products</h4>
                 <h6><a href="index.php?page=administrator/all_products">
                         <?php
                         $sql = $pdo->prepare("SELECT * FROM all_products");
@@ -73,7 +73,7 @@ $pdo = databaseConnect();
 
             <!-- Phone Products -->
             <div class="col-md-4 my-4">
-            <h4>Phone Products</h4>
+                <h4>Phone Products</h4>
                 <h6><a href="index.php?page=administrator/phone_products/all_phone_products">
                         <!-- Prepare a SELECT Query to get all the phone products from the database -->
                         <?php
@@ -103,56 +103,70 @@ $pdo = databaseConnect();
             <div class="col-md-4 my-4">
                 <h4>Product Brands</h4>
                 <h6><a href="index.php?page=administrator/all_product_brands">
-                <!-- Prepare SELECT statement to get the total number of product brands from the database -->
-                <?php 
-                    $sql = $pdo->prepare("SELECT * FROM product_brands");
-                    $sql->execute();
-                    $database_product_brands = $sql->rowCount();
-                ?>
-                Total Product Brands: <?php echo $database_product_brands; ?>
-            </a></h6>
+                        <!-- Prepare SELECT statement to get the total number of product brands from the database -->
+                        <?php
+                        $sql = $pdo->prepare("SELECT * FROM product_brands");
+                        $sql->execute();
+                        $database_product_brands = $sql->rowCount();
+                        ?>
+                        Total Product Brands: <?php echo $database_product_brands; ?>
+                    </a></h6>
             </div>
 
             <!-- Main Advertisement -->
             <div class="col-md-4 my-4">
                 <h4>Main Advertisement</h4>
                 <h6><a href="index.php?page=administrator/main_advertisement/main_advertisement_product">
-                    <!-- Prepare a SELECT statement to fetch the total number of products in the main_advertisement table in the database -->
-                    <?php
+                        <!-- Prepare a SELECT statement to fetch the total number of products in the main_advertisement table in the database -->
+                        <?php
                         $sql = $pdo->prepare("SELECT * FROM main_advertisement");
                         $sql->execute();
                         $database_main_advertisement = $sql->rowCount();
-                    ?>
-                    Total Advertisements: <?php echo $database_main_advertisement; ?>
-                </a></h6>
+                        ?>
+                        Total Advertisements: <?php echo $database_main_advertisement; ?>
+                    </a></h6>
             </div>
 
             <!-- Total Users -->
             <div class="col-md-4 my-4">
                 <h4>Total Users</h4>
                 <h6><a href="index.php?page=administrator/users/all_users">
-                    <!-- Prepare a  SELECT statement to fetch all the users from the database -->
-                    <?php 
+                        <!-- Prepare a  SELECT statement to fetch all the users from the database -->
+                        <?php
                         $sql = $pdo->prepare("SELECT * FROM users WHERE success = '1'");
                         $sql->execute();
                         $database_users = $sql->rowCount();
-                    ?>
-                    Total Users: <?php echo $database_users; ?>
-                </a></h6>
+                        ?>
+                        Total Users: <?php echo $database_users; ?>
+                    </a></h6>
             </div>
 
             <!-- Total Regions -->
             <div class="col-md-4 my-4">
                 <h4>Total Regions</h4>
                 <h6><a href="index.php?page=administrator/all_regions">
-                <!-- Prepare a SELECT statement to fetch the total number of regions -->
-                <?php 
-                    $sql = $pdo->prepare("SELECT * FROM region");
-                    $sql->execute();
-                    $database_region = $sql->rowCount();
-                ?>
-                Total Regions: <?php echo $database_region; ?>
-            </a></h6>
+                        <!-- Prepare a SELECT statement to fetch the total number of regions -->
+                        <?php
+                        $sql = $pdo->prepare("SELECT * FROM region");
+                        $sql->execute();
+                        $database_region = $sql->rowCount();
+                        ?>
+                        Total Regions: <?php echo $database_region; ?>
+                    </a></h6>
+            </div>
+
+            <!-- Total Product Categories -->
+            <div class="col-md-4 my-4">
+                <h4>Total Product Categories</h4>
+                <h6><a href="index.php?page=administrator/all_product_categories">
+                        <!-- Prepare a SELECT statement to fetch product categories from the database  -->
+                        <?php 
+                            $sql = $pdo->prepare("SELECT * FROM product_categories");
+                            $sql->execute();
+                            $database_product_categories = $sql->rowCount();
+                        ?>
+                        Total Product Categories: <?php echo $database_product_categories; ?>
+                    </a></h6>
             </div>
         </div>
     </div>
