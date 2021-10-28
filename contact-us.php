@@ -1,8 +1,5 @@
 <?php
 
-// Start session
-session_start();
-
 // Error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
@@ -15,12 +12,9 @@ $firstName = $lastName = $email = $subject = $message = $recaptcha = $success = 
 $firstName_error = $lastName_error = $email_error = $subject_error = $message_error = $recaptcha_error = $general_error = "";
 
 // Google reCAPTCHA API key configuration
+$site_key = "6LeyX04cAAAAAOZiUSPypBh5G-wwyC1jozGbU1qc";
+$secret_key = "6LeyX04cAAAAAEhgmzA9eE_FRr-y6qzyqnXcoUnX";
 
-// Go to goggle's reCAPTCHA, and request for a site key
-$site_key = "";
-
-// Go to goggle's reCAPTCHA, and request for a secret key
-$secret_key = "";
 
 $id = false;
 if (isset($_SESSION['id'])) {
@@ -81,8 +75,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // If the reCAPTCHA response is valid
             if ($response_data->success) {
                 //Prepare an INSERT statement
-                $sql = "INSERT INTO contact_queries(firstName, lastName, email, subject, message) VALUES(
-                    :firstName, :lastName, :email, :subject, :message)";
+                $sql = "INSERT INTO contact_queries(firstName, lastName, email, subject, message, is_read) VALUES(
+                    :firstName, :lastName, :email, :subject, :message, :is_read)";
 
                 if ($stmt = $pdo->prepare($sql)) {
                     // Bind variables to the prepared statement as parameters
@@ -91,6 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
                     $stmt->bindParam(":subject", $param_subject, PDO::PARAM_STR);
                     $stmt->bindParam(":message", $param_message, PDO::PARAM_STR);
+                    $stmt->bindParam(":is_read", $param_is_read, PDO::PARAM_STR);
 
                     // Set parameters
                     $param_firstName = $firstName;
@@ -98,6 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $param_email = $email;
                     $param_subject = $subject;
                     $param_message = $message;
+                    $param_is_read = 0;
 
                     // Attempt to execute
                     if ($stmt->execute()) {
