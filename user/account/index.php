@@ -36,6 +36,18 @@ $pdo = databaseConnect();
 <div class="container">
     <div id="account_overview">
         <div class="row">
+            <div class="col-md-4">
+                <div class="my_account">
+                    <div class="title">
+                    <h6>My Ecommerce. Account</h5>
+                    </div>
+                <i class="bi bi-shop-window"></i> <a href="index.php?page=user/order_history">Orders</a>
+                <hr>
+                <h6>Details</h6>
+                <a href="index.php?page=user/account/password_reset">Change Password</a>
+                <a href="index.php?page=user/logout"><input type="submit" value="Logout" class="btn w-100 my-3"></a>
+                </div>
+            </div>
             <div class="col-md-8">
                 <div class="overview_section">
                     <div class="row">

@@ -265,8 +265,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <input type="submit" value="Save" class="btn w-100">
                         </div>
                     </form>
-                <?php endforeach; ?>
             </div>
+        <?php endforeach; ?>
         </div>
     </div>
 </div>
