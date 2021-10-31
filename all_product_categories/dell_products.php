@@ -14,7 +14,7 @@ $database_dell_products = $sql->fetchAll(PDO::FETCH_ASSOC);
 <?php include_once "number_of_items_in_cart.php" ?>
 
 <!-- Header template -->
-<?= headerTemplate('SAMSUNG_PRODUCTS'); ?>
+<?= headerTemplate('DELL_PRODUCTS'); ?>
 
 <!-- Top bar -->
 <?php include_once "inc/top-bar.php"; ?>
