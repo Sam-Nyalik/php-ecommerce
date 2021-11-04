@@ -60,4 +60,20 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 });
 
+// Product Image change
+var mainImage = document.getElementById('mainProductImage');
+var smallImage = document.getElementsByClassName('smallProductImage');
+
+smallImage[0].onclick = function(){
+    mainImage.src = smallImage[0].src;
+}
+
+smallImage[1].onclick = function(){
+  mainImage.src = smallImage[1].src;
+}
+
+smallImage[2].onclick = function(){
+  mainImage.src = smallImage[2].src;
+}
+
 
