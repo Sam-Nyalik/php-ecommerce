@@ -39,7 +39,7 @@ $pdo = databaseConnect();
                     <div class="col-md-3">
                         <div class="card">
                             <div>
-                                <img src="<?=$recently_added_products['productImage'];?>" class="img-fluid card-img-top" alt="<?=$recently_added_products['productName'];?>">
+                                <img src="<?=$recently_added_products['productImage1'];?>" class="img-fluid card-img-top" alt="<?=$recently_added_products['productName'];?>">
                             </div>
                             <div class="card-body">
                                 <h5><?=$recently_added_products['productName'];?></h5>

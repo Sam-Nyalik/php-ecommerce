@@ -59,6 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $param_addType = $addType;
             // Attempt to execute
             if ($stmt->execute()) {
+                header("location: index.php?page=administrator/all_product_types");
                 $success = "The product type has been added successfully!";
             } else {
                 $addType_error = "There was an error. Please try again!";

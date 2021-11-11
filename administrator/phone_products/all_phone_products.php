@@ -38,7 +38,7 @@ $pdo = databaseConnect();
                     <a href="index.php?page=administrator/phone_products/single_phone_product&id=<?= $phone_products['id']; ?>">
                         <div class="card">
                             <div>
-                                <img src="<?= $phone_products['productImage']; ?>" class="img-fluid card-img-top" alt="<?= $phone_products['productName']; ?>" srcset="">
+                                <img src="<?= $phone_products['productImage1']; ?>" class="img-fluid card-img-top" alt="<?= $phone_products['productName']; ?>" srcset="">
                             </div>
                             <div class="card-body">
                                 <h5><?= $phone_products['productName']; ?></h5>

@@ -12,7 +12,7 @@ include_once "functions/functions.php";
 $pdo = databaseConnect();
 
 // Define variables and assign them empty values
-$fullName = $profileImage = "";
+$fullName = $profileImage = $oldProfileImage = "";
 $fullName_error = $profileImage_error = "";
 
 // Process form data when the form is submitted
@@ -24,6 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fullName = trim($_POST["fullName"]);
     }
 
+    
+    
     // Check for errors before dealing with the database
     if (empty($fullName_error)) {
         $id = false;
@@ -54,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Close the statement
                 unset($stmt);
             }
-        }
+        } 
     }
 }
 ?>
@@ -95,24 +97,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <?php endif; ?>
                         </h5>
 
-                        <!-- General Errors -->
-                        <div class="form-group">
-                            <span class="text-danger">
-                                <ul>
-                                    <!-- FullName Error -->
-                                    <li><?php
-                                        if ($fullName_error) {
-                                            echo $fullName_error;
-                                        }
-                                        ?></li>
-                                </ul>
-                            </span>
-                        </div>
                         <!-- Full Name -->
                         <div class="form-group">
                             <label for="fullName">Full Name</label>
                             <input type="text" name="fullName" placeholder="Enter Full Name" value="<?= $data['fullName']; ?>" class="form-control 
                             <?php echo (!empty($fullName_error)) ? 'is-invalid' : ''; ?>">
+                            <span class="errors text-danger"><?php echo $fullName_error; ?></span>
                         </div>
 
                         <!-- Profile Image -->
@@ -120,6 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <label for="profileImage">Profile Image</label>
                             <input type="file" accept=".jpeg, .jpg, .png" name="profileImage" class="form-control 
                             <?php echo (!empty($profileImage_error)) ? 'is-invalid' : ''; ?>">
+                            <span class="productImage_description" name="oldProfileImage" value="<?php echo $data['profileImage'];?>"><?php echo $data['profileImage'];?></span>
                         </div>
 
                         <!-- Email Address -->

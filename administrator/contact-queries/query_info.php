@@ -11,11 +11,6 @@ include_once "./administrator/includes/check_login.php";
 include_once "functions/functions.php";
 $pdo = databaseConnect();
 
-$id = false;
-if (isset($_GET['id']) && !empty($_GET['id'])) {
-    $id = $_GET['id'];
-}
-
 // Define variables and assign them empty values
 $admin_response = $success = "";
 $admin_response_error = "";
@@ -42,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             // Set parameters
             $param_admin_response = $admin_response;
             $param_is_read = 1;
-            $param_id = $id;
+            $param_id = $_GET['id'];
 
             // Attempt to execute
             if ($stmt->execute()) {
@@ -79,13 +74,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <div class="row">
             <div class="col-md-5">
                 <?php
-                $sql = $pdo->prepare("SELECT * FROM contact_queries WHERE id = '$id'");
+                $sql = $pdo->prepare("SELECT * FROM contact_queries WHERE id = '" . $_GET['id'] . "'");
                 $sql->execute();
                 $database_query_info = $sql->fetchAll(PDO::FETCH_ASSOC);
                 ?>
                 <?php foreach ($database_query_info as $query_info) : ?>
                     <form action="#" method="post" class="login-form">
-                            <!-- Success Message -->
+                        <!-- Success Message -->
                         <div class="form-group">
                             <span class="text-success">
                                 <ul>
