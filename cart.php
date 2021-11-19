@@ -37,12 +37,16 @@ if (isset($_POST['product_id'], $_POST['product_quantity']) && is_numeric($_POST
     }
 
     // Store product id and product quantity in session variables
-    $_SESSION['product_id']= $product_id;
+    $_SESSION['product_id'] = $product_id;
     $_SESSION['product_quantity'] = $product_quantity;
 
     // Prevent form resubmission
     header("location: index.php?page=cart");
     exit;
+
+    if (!empty($_POST['productColor'])) {
+        $productColor = $_POST['productColor'];
+    }
 }
 
 // Remove product from the cart, check for the product id(remove) in the url, ensure it's a number & check if it's in the cart
@@ -111,10 +115,38 @@ $total_items_in_cart = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light" id="header">
     <div class="container">
-        <h3 class="navbar-brand"><a href="index.php?page=home">E-Commerce.</a></h3>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="side_nav" id="bars_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="bars"></div>
+            <div class="bars"></div>
+            <div class="bars"></div>
+        </div>
+        <ul class="bars_drop dropdown-menu" aria-labelledby="bars_dropdown">
+            <a href="" class="dropdown-item"><img src="icons/restaurant.png" alt="food"> Food</a>
+            <a href="" class="dropdown-item"><img src="icons/soft-drink.png" alt="Beverages"> Beverages</a>
+            <a href="" class="dropdown-item"><img src="icons/shoes.png" alt="shoes"> Shoes</a>
+            <a href="" class="dropdown-item"><img src="icons/clothes-hanger.png" alt="clothes"> Clothes</a>
+            <a href="" class="dropdown-item"><img src="icons/work.png" alt="office"> Office</a>
+            <a href="" class="dropdown-item"><img src="icons/furnitures.png" alt="furniture"> Furniture</a>
+            <a href="" class="dropdown-item"><img src="icons/console.png" alt="games"> Gaming</a>
+            <a href="" class="dropdown-item"><img src="icons/open-book.png" alt="Books"> Education</a>
+        </ul>
+
+        <h3 class="navbar-brand"><a href="index.php?page=home">
+                <!-- Fetch company Name from the database -->
+                <?php
+                $sql = $pdo->prepare("SELECT companyName FROM company_details WHERE id = 1");
+                $sql->execute();
+                $database_company_name = $sql->fetchAll(PDO::FETCH_ASSOC);
+                ?>
+                <?php foreach ($database_company_name as $company_name) : ?>
+                    <?= $company_name['companyName']; ?>
+                <?php endforeach; ?>
+            </a></h3>
+        <div class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -148,7 +180,7 @@ $total_items_in_cart = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
                 </li>
             </ul>
             <span class="navbar-icons">
-                <a href="index.php?page=cart"><i class="bi bi-bag active" style="margin-right: 30px;"><span class="text-dark">(<?php echo $total_items_in_cart; ?>)</span></i></a>
+                <a href="index.php?page=cart"><i class="bi bi-cart4 active" style="margin-right: 30px;"><span class="text-dark">(<?php echo $total_items_in_cart; ?>)</span></i></a>
                 <i class="bi bi-heart" style="margin-right: 45px;"><span class="text-dark">(0)</span></i>
             </span>
         </div>
@@ -162,7 +194,15 @@ $total_items_in_cart = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
 <div class="section-title">
     <div class="container">
         <div class="row">
-            <h5><span>Shopping</span> Cart</h5>
+            <h5><span>Shopping</span> Cart (<?php
+                                            if ($total_items_in_cart > 1) {
+                                                echo $total_items_in_cart . " items";
+                                            } else if ($total_items_in_cart < 1) {
+                                                echo "No item";
+                                            } else {
+                                                echo $total_items_in_cart . " item";
+                                            }
+                                            ?>)</h5>
         </div>
     </div>
 </div>
@@ -202,19 +242,21 @@ $total_items_in_cart = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
                                             <!-- Item Column-->
                                             <td>
                                                 <a href="index.php?page=individual_product&id=<?= $product['id']; ?>">
-                                                    <img src="<?= $product['productImage']; ?>" class="" height="200" width="200" alt="" srcset="">
+                                                    <img src="<?= $product['productImage1']; ?>" class="" height="80" width="80" alt="" srcset="">
                                                 </a>
                                             </td>
-                                            <td>
-                                                <h5><a href="index.php?page=individual_product&id=<?= $product['id']; ?>"><?= $product['productName']; ?></a></h5>
-                                                <p><span>Brand: </span> <?= $product['productBrand']; ?></p>
 
-                                                <a href="index.php?page=cart&remove=<?= $product['id']; ?>" class="btn">Remove</a>
+                                            <td>
+                                                <h5><a style="color: #000; font-weight: 450;" href="index.php?page=individual_product&id=<?= $product['id']; ?>"><?= $product['productName']; ?> - <?= $product['storage']; ?> - <?= $product['memory']; ?> RAM</a></h5>
+                                                <p style="margin-bottom: 0;"><span>Brand: </span> <?= $product['productBrand']; ?></p>
+                                                <p><span>Network: </span><?= $product['network']; ?></p>
+
+                                                <a href="index.php?page=cart&remove=<?= $product['id']; ?>" class="text-danger" style="text-decoration:none"><i class="bi bi-trash-fill"></i> Remove</a>
                                             </td>
 
                                             <!-- Price Column -->
                                             <td>
-                                                &dollar;<?= $product['productPrice']; ?>
+                                                Ksh. <?= $product['productPrice']; ?>
                                             </td>
 
                                             <!-- Quantity Column -->
@@ -224,7 +266,7 @@ $total_items_in_cart = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
 
                                             <!-- Price Column -->
                                             <td>
-                                                &dollar;<?= $product['productPrice'] * $products_in_cart[$product['id']]; ?>
+                                                Ksh. <?= $product['productPrice'] * $products_in_cart[$product['id']]; ?>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -234,11 +276,11 @@ $total_items_in_cart = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
                     </div>
 
                     <div class="subtotal">
-                        <h5>Order Total: <span class="text-muted">&dollar;<?= $subtotal ?></span></h5>
+                        <h5>Order Total: <span class="text-muted">Ksh. <?= $subtotal ?></span></h5>
                     </div>
 
                     <div class="checkout">
-                        <button class="update-btn" name="update">Update</button>
+                        <button class="update-btn" name="update">Update Cart</button>
                         <input type="submit" name="checkout" value="Checkout" class="btn">
                     </div>
                 </form>

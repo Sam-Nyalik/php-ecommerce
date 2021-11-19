@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!-- Section title -->
 <!-- Fetch Product type name from the database -->
 <?php
-$sql = "SELECT productType FROM product_types WHERE id = '" . $_GET['id'] . "'";
+$sql = "SELECT * FROM product_types WHERE id = '" . $_GET['id'] . "'";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $database_product_type = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -68,7 +68,6 @@ $database_product_type = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </div>
     </div>
-<?php endforeach ?>
 
 <div class="container">
     <div id="add_product_type">
@@ -90,3 +89,4 @@ $database_product_type = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 </div>
+<?php endforeach ?>

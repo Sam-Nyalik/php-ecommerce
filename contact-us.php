@@ -134,10 +134,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light" id="header">
     <div class="container">
-        <h3 class="navbar-brand"><a href="index.php?page=home">E-Commerce.</a></h3>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="side_nav" id="bars_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="bars"></div>
+            <div class="bars"></div>
+            <div class="bars"></div>
+        </div>
+        <ul class="bars_drop dropdown-menu" aria-labelledby="bars_dropdown">
+            <a href="" class="dropdown-item"><img src="icons/restaurant.png" alt="food"> Food</a>
+            <a href="" class="dropdown-item"><img src="icons/soft-drink.png" alt="Beverages"> Beverages</a>
+            <a href="" class="dropdown-item"><img src="icons/shoes.png" alt="shoes"> Shoes</a>
+            <a href="" class="dropdown-item"><img src="icons/clothes-hanger.png" alt="clothes"> Clothes</a>
+            <a href="" class="dropdown-item"><img src="icons/work.png" alt="office"> Office</a>
+            <a href="" class="dropdown-item"><img src="icons/furnitures.png" alt="furniture"> Furniture</a>
+            <a href="" class="dropdown-item"><img src="icons/console.png" alt="games"> Gaming</a>
+            <a href="" class="dropdown-item"><img src="icons/open-book.png" alt="Books"> Education</a>
+        </ul>
+
+        <h3 class="navbar-brand"><a href="index.php?page=home">
+                <!-- Fetch company Name from the database -->
+                <?php
+                $sql = $pdo->prepare("SELECT companyName FROM company_details WHERE id = 1");
+                $sql->execute();
+                $database_company_name = $sql->fetchAll(PDO::FETCH_ASSOC);
+                ?>
+                <?php foreach ($database_company_name as $company_name) : ?>
+                    <?= $company_name['companyName']; ?>
+                <?php endforeach; ?>
+            </a></h3>
+        <div class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -148,11 +176,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         Categories
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a href="index.php?page=all_product_categories/apple_products" class="dropdown-item">Apple</a>
-                        <a href="index.php?page=all_product_categories/samsung_products" class="dropdown-item">Samsung</a>
-                        <a href="index.php?page=all_product_categories/huawei_products" class="dropdown-item">Huawei</a>
-                        <a href="index.php?page=all_product_categories/dell_products" class="dropdown-item">Dell</a>
-                        <a href="index.php?page=all_product_categories/hp_products" class="dropdown-item">Hp</a>
+                        <a href="index.php?page=all_product_categories/apple_products" class="dropdown-item"><img src="icons/apple.png" alt="apple"> Apple</a>
+                        <a href="index.php?page=all_product_categories/samsung_products" class="dropdown-item"><img src="icons/samsung.png" alt="samsung"> Samsung</a>
+                        <a href="index.php?page=all_product_categories/huawei_products" class="dropdown-item"><img src="icons/huawei.png" alt="huawei"> Huawei</a>
+                        <a href="index.php?page=all_product_categories/dell_products" class="dropdown-item"><img src="icons/dell.png" alt="dell"> Dell</a>
+                        <a href="index.php?page=all_product_categories/hp_products" class="dropdown-item"><img src="icons/hp.png" alt="hp"> Hp</a>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -171,7 +199,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </li>
             </ul>
             <span class="navbar-icons">
-                <a href="index.php?page=cart"><i class="bi bi-bag active" style="margin-right: 30px;"><span class="text-dark">(<?php echo $total_items_in_cart; ?>)</span></i></a>
+                <a href="index.php?page=cart"><i class="bi bi-cart4 active" style="margin-right: 30px;"><span class="text-dark">(<?php echo $total_items_in_cart; ?>)</span></i></a>
                 <i class="bi bi-heart" style="margin-right: 45px;"><span class="text-dark">(0)</span></i>
             </span>
         </div>
@@ -360,7 +388,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <!-- Google Maps -->
             <div class="col-md-5">
                 <div id="google_map"></div>
-                <div class="contact_description">
+                <!-- <div class="contact_description">
                     <h5><span>Reach us on the hotline:</span> +2547123456</h5>
                     <h5><span>Opening Hours: </span></h5>
                     <ul>
@@ -368,7 +396,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <li>Saturday: 10am - 4pm</li>
                         <li>Sunday: 10am - 1pm</li>
                     </ul>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

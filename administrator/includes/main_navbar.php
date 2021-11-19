@@ -18,7 +18,17 @@ $database_contact_queries = $sql->rowCount();
                 <div class="bar"></div>
             </div>
             <div class="col-4 text-center">
-                <h5 class="main_title"><a href="index.php?page=administrator/dashboard">E-Commerce Web App</a></h5>
+                <h5 class="main_title"><a href="index.php?page=administrator/dashboard">
+                <!-- Fetch company Name from the database -->
+                <?php 
+                    $sql = $pdo->prepare("SELECT companyName FROM company_details WHERE id = 1");
+                    $sql->execute();
+                    $database_company_name = $sql->fetchAll(PDO::FETCH_ASSOC);
+                ?>
+                <?php foreach($database_company_name as $company_name): ?>
+                        <?=$company_name['companyName']; ?>
+                    <?php endforeach; ?>
+            </a></h5>
             </div>
             <div class="col-4 d-flex justify-content-end align-items-center">
                 <div class="message_icon">
@@ -32,6 +42,15 @@ $database_contact_queries = $sql->rowCount();
                             $rowcount = $sql->rowCount();
                             $database_contact_queries = $sql->fetchAll(PDO::FETCH_ASSOC);
                             ?>
+                            <div class="row">
+                                <div class="col-6">
+                                <h5 class="text-uppercase">Notifications</h5>
+                                </div>
+                                <div class="col-6">
+                                    <h5 class="text-danger text-uppercase" style="float: right;">Clear All</h5>
+                                </div>
+                            </div>
+                            <hr>
                             <h2 class="dropdown-item text-muted" style="font-size: 20px">Unread Messages: <span style="color: #540b0e;"><?= $rowcount; ?></span> </h3>
                             <hr>
                             <hr>
@@ -87,6 +106,7 @@ $database_contact_queries = $sql->rowCount();
                     <hr>
                     <h6 class="dropdown-item"><a href="index.php?page=administrator/profile">Profile</a></h6>
                     <h6 class="dropdown-item"><a href="index.php?page=administrator/change_password">Change Password</a></h6>
+                    <h6 class="dropdown-item"><a href="index.php?page=administrator/details">Company Details</a></h6>
                     <hr>
                     <h6 class="dropdown-item"><a href="index.php?page=administrator/logout" onclick="logout()">Sign-Out</a></h6>
                 </div>

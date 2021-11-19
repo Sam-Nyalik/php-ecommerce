@@ -1,12 +1,12 @@
 <?php 
-
-    // Start a session
-    session_start();
     
     // Check if the user is logged in
     include_once "user/check_login.php";
     include_once "functions/functions.php";
     $pdo = databaseConnect();
+
+    // Unset the cart session
+    unset($_SESSION['cart']);
 
 ?>
 

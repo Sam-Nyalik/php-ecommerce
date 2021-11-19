@@ -87,7 +87,7 @@ include_once "inc/navbar.inc.php";
                     <a href="index.php?page=individual_product&id=<?= $latest_products['id']; ?>">
                         <div class="card">
                             <div>
-                                <img src="<?= $latest_products['productImage']; ?>" alt="<?= $latest_products['productName']; ?>" class="img-fluid card-img-top">
+                                <img src="<?= $latest_products['productImage1']; ?>" alt="<?= $latest_products['productName']; ?>" class="img-fluid card-img-top">
                             </div>
                             <div class="card-body">
                                 <h5><?= $latest_products['productName']; ?></h5>

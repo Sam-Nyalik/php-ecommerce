@@ -104,7 +104,7 @@ $pdo = databaseConnect();
                                     <td><?= $user_orders_info['productName']; ?></td>
                                     <td><?= $user_orders_info['order_id']; ?></td>
                                     <td><?= $user_orders_info['date_added']; ?></td>
-                                    <td>&dollar;<?= $user_orders_info['product_grand_price']; ?></td>
+                                    <td>Ksh. <?= $user_orders_info['product_grand_price']; ?></td>
                                 </tr>
                             </tbody>
                         <?php endforeach; ?>

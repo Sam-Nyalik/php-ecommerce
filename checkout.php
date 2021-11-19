@@ -1,8 +1,5 @@
 <?php
 
-// Start session
-session_start();
-
 // Error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
@@ -82,18 +79,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $address = trim($_POST['address']);
     }
 
-    // Validate Grand Price
-    if(empty(trim($_POST['grand_price']))){
-        $grand_price_error = "Grand Price cannot be empty!";
-    } else {
-        $grand_price = $_POST['grand_price'];
-    }
-
     // Check for errors before dealing with the database
     if (empty($firstName_error) && empty($lastName_error) && empty($email_error) && empty($phoneNumber_error) && empty($address_error)) {
         // Prepare an INSERT statement
-        $sql = "INSERT INTO orders(order_id, firstName, lastName, emailAddress, phoneNumber, user_id, product_id, product_grand_price) VALUES (
-            :order_id, :firstName, :lastName, :email, :phoneNumber, :user_id, :product_id, :grandPrice)";
+        $sql = "INSERT INTO orders(order_id, firstName, lastName, emailAddress, phoneNumber, user_id, product_id, product_grand_price, user_status) VALUES (
+            :order_id, :firstName, :lastName, :email, :phoneNumber, :user_id, :product_id, :grandPrice, :user_status)";
 
         if ($stmt = $pdo->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
@@ -105,6 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $stmt->bindParam(":user_id", $param_user_id, PDO::PARAM_INT);
             $stmt->bindParam(":product_id", $param_product_id, PDO::PARAM_INT);
             $stmt->bindParam(":grandPrice", $param_grandPrice, PDO::PARAM_INT);
+            $stmt->bindParam(":user_status", $param_user_status, PDO::PARAM_INT);
 
             // Set parameters
             $param_order_id = rand();
@@ -115,6 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $param_user_id = $id;
             $param_product_id = $_SESSION['product_id'];
             $param_grandPrice = $subtotal;
+            $param_user_status = 1;
 
             // Attempt to execute
             if ($stmt->execute()) {
@@ -211,8 +203,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                             <!-- Delivery Address -->
                             <div class="form-group">
-                                <label for="DeliveryAddress">delivery Address*</label>
-                                <textarea name="address" class="form-control"></textarea>
+                                <label for="DeliveryAddress">Delivery Address* <small class="text-danger" style="text-transform: lowercase;">(Please ensure this is correct)</small></label>
+                                <textarea name="address" class="form-control"><?=$user_info['address'];?></textarea>
                                 <span class="errors"><?php echo $address_error; ?></span>
                             </div>
 
@@ -254,12 +246,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             <div>
                                 <h5><?= $product['productName']; ?></h5>
                                 <h6 class="text-secondary">Quantity: <span class="text-muted"></span></h6>
-                                <h6 class="text-secondary">Price of each: <span class="text-muted">&dollar;<?= $product['productPrice']; ?></span></h6>
+                                <h6 class="text-secondary">Price of each: <span class="text-muted">Ksh. <?= $product['productPrice']; ?></span></h6>
                                 <hr>
                             </div>
                         <?php endforeach; ?>
                     <?php endif; ?>
-                    <h3 class="text-dark" name="grand_price">Grand Total: <span class="text-muted">&dollar;<?= $subtotal; ?></span></h3>
+                    <h3 class="text-dark" name="grand_price">Grand Total: <span class="text-muted">Ksh. <?= $subtotal; ?></span></h3>
                     <hr>
                     <a href="index.php?page=cart"><button class="btn w-100">Modify Cart</button></a>
                 </div>

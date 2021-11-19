@@ -105,8 +105,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 <div id="search_bar">
     <div class="container">
-        <div class="row">
-            <form action="index.php?page=product_search" method="post" class="search_bar_form">
+        <div class="row d-flex">
+           <div class="col-md-12">
+           <form action="index.php?page=product_search" method="post" class="search_bar_form">
                 <!-- General Error -->
                 <div class="form-group">
                     <span class="text-danger">
@@ -127,6 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     <input type="submit" class="btn rounded-pill" value="Search">
                 </div>
             </form>
+           </div>
         </div>
     </div>
 </div>

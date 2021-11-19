@@ -14,11 +14,12 @@ $pdo = databaseConnect();
 <!-- Header Template -->
 <?= headerTemplate('USER | ACCOUNT'); ?>
 
-<!-- Top Bar -->
-<?php include_once "inc/top-bar.php" ?>
-
-<!-- Navbar -->
-<?php include_once "inc/navbar.inc.php"; ?>
+<?php
+// Top Bar
+include_once "inc/top-bar.php";
+// Navbar
+include_once "inc/navbar.inc.php";
+?>
 
 <!-- Search bar -->
 <?= searchBarTemplate(); ?>
@@ -39,13 +40,14 @@ $pdo = databaseConnect();
             <div class="col-md-4">
                 <div class="my_account">
                     <div class="title">
-                    <h6>My Ecommerce. Account</h5>
+                        <h6>My Ecommerce. Account</h5>
                     </div>
-                <i class="bi bi-shop-window"></i> <a href="index.php?page=user/order_history">Orders</a>
-                <hr>
-                <h6>Details</h6>
-                <a href="index.php?page=user/account/password_reset">Change Password</a>
-                <a href="index.php?page=user/logout"><input type="submit" value="Logout" class="btn w-100 my-3"></a>
+                    <i class="bi bi-shop-window"></i> <a href="index.php?page=user/order_history">Orders</a>
+                    <hr>
+                    <h6>Details</h6>
+                    <a href="index.php?page=user/account/address">Address Book</a><br>
+                    <a href="index.php?page=user/account/deactivate" class="text-danger">Deactivate Account</a>
+                    <a href="index.php?page=user/logout"><input type="submit" value="Logout" class="btn w-100 my-3"></a>
                 </div>
             </div>
             <div class="col-md-8">
@@ -101,7 +103,7 @@ $pdo = databaseConnect();
                     <a href="index.php?page=individual_product&id=<?= $latest_products['id']; ?>">
                         <div class="card">
                             <div>
-                                <img src="<?= $latest_products['productImage']; ?>" alt="<?= $latest_products['productName']; ?>" class="img-fluid card-img-top">
+                                <img src="<?= $latest_products['productImage1']; ?>" alt="<?= $latest_products['productName']; ?>" class="img-fluid card-img-top">
                             </div>
                             <div class="card-body">
                                 <h5><?= $latest_products['productName']; ?></h5>

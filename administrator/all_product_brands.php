@@ -55,7 +55,7 @@ $pdo = databaseConnect();
                                     <td><?= $product_brand['productBrand']; ?></td>
                                     <td><?= $product_brand['dateAdded']; ?></td>
                                     <td><?= $product_brand['updationDate']; ?></td>
-                                    <td><a href="index.php?page=administrator/single_product_brand&id=<?= $product_brand['id']; ?>"><i class="bi bi-eye"></i></a> | <a href="index.php?page=administrator/delete_product_brand&id=<?= $product_brand['id']; ?>" onclick="return confirm('Are you sure you want to delete the <?= $product_brand['productBrand']; ?> as a product brand?')" class="text-danger tooltips" tooltip-placement="top" tooltip="remove"><i class="bi bi-trash"></i></a></td>
+                                    <td><a href="index.php?page=administrator/single_product_brand&id=<?= $product_brand['id']; ?>"><i class="bi bi-eye"></i></a> | <a href="index.php?page=administrator/delete_product_brand&id=<?= $product_brand['id']; ?>" onclick="return confirm('Are you sure you want to delete the <?= $product_brand['productBrand']; ?> as a product brand?')" class="text-danger tooltips" tooltip-placement="top" tooltip="Remove"><i class="bi bi-trash"></i></a></td>
                                 </tr>
                             </tbody>
                         <?php endforeach; ?>

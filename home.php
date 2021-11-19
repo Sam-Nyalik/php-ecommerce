@@ -1,6 +1,4 @@
 <?php
-// Start a session
-session_start();
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
@@ -23,15 +21,41 @@ $pdo = databaseConnect();
 
 
 <!-- Navbar -->
- <nav class="navbar navbar-expand-lg navbar-light" id="header">
+<nav class="navbar navbar-expand-lg navbar-light" id="header">
     <div class="container">
-        <h3 class="navbar-brand"><a href="index.php?page=home">E-Commerce.</a></h3>
+        <div class="side_nav" id="bars_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="bars"></div>
+            <div class="bars"></div>
+            <div class="bars"></div>
+        </div>
+        <ul class="bars_drop dropdown-menu" aria-labelledby="bars_dropdown">
+            <a href="" class="dropdown-item"><img src="icons/restaurant.png" alt="food"> Food</a>
+            <a href="" class="dropdown-item"><img src="icons/soft-drink.png" alt="Beverages"> Beverages</a>
+            <a href="" class="dropdown-item"><img src="icons/shoes.png" alt="shoes"> Shoes</a>
+            <a href="" class="dropdown-item"><img src="icons/clothes-hanger.png" alt="clothes"> Clothes</a>
+            <a href="" class="dropdown-item"><img src="icons/work.png" alt="office"> Office</a>
+            <a href="" class="dropdown-item"><img src="icons/furnitures.png" alt="furniture"> Furniture</a>
+            <a href="" class="dropdown-item"><img src="icons/console.png" alt="games"> Gaming</a>
+            <a href="" class="dropdown-item"><img src="icons/open-book.png" alt="Books"> Education</a>
+        </ul>
+
+        <h3 class="navbar-brand"><a href="index.php?page=home">
+                <!-- Fetch company Name from the database -->
+                <?php
+                $sql = $pdo->prepare("SELECT companyName FROM company_details WHERE id = 1");
+                $sql->execute();
+                $database_company_name = $sql->fetchAll(PDO::FETCH_ASSOC);
+                ?>
+                <?php foreach ($database_company_name as $company_name) : ?>
+                    <?= $company_name['companyName']; ?>
+                <?php endforeach; ?>
+            </a></h3>
         <div class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
-         <div class="collapse navbar-collapse" id="navbarText">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="index.php?page=home">Home</a>
@@ -41,11 +65,11 @@ $pdo = databaseConnect();
                         Categories
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a href="index.php?page=all_product_categories/apple_products" class="dropdown-item">Apple</a>
-                        <a href="index.php?page=all_product_categories/samsung_products" class="dropdown-item">Samsung</a>
-                        <a href="index.php?page=all_product_categories/huawei_products" class="dropdown-item">Huawei</a>
-                        <a href="index.php?page=all_product_categories/dell_products" class="dropdown-item">Dell</a>
-                        <a href="index.php?page=all_product_categories/hp_products" class="dropdown-item">Hp</a>
+                        <a href="index.php?page=all_product_categories/apple_products" class="dropdown-item"><img src="icons/apple.png" alt="apple"> Apple</a>
+                        <a href="index.php?page=all_product_categories/samsung_products" class="dropdown-item"><img src="icons/samsung.png" alt="samsung"> Samsung</a>
+                        <a href="index.php?page=all_product_categories/huawei_products" class="dropdown-item"><img src="icons/huawei.png" alt="huawei"> Huawei</a>
+                        <a href="index.php?page=all_product_categories/dell_products" class="dropdown-item"><img src="icons/dell.png" alt="dell"> Dell</a>
+                        <a href="index.php?page=all_product_categories/hp_products" class="dropdown-item"><img src="icons/hp.png" alt="hp"> Hp</a>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -64,12 +88,12 @@ $pdo = databaseConnect();
                 </li>
             </ul>
             <span class="navbar-icons">
-                <a href="index.php?page=cart"><i class="bi bi-bag active" style="margin-right: 30px;"><span class="text-dark">(<?php echo $total_items_in_cart; ?>)</span></i></a>
+                <a href="index.php?page=cart"><i class="bi bi-cart4 active" style="margin-right: 30px;"><span class="text-dark">(<?php echo $total_items_in_cart; ?>)</span></i></a>
                 <i class="bi bi-heart" style="margin-right: 45px;"><span class="text-dark">(0)</span></i>
             </span>
         </div>
     </div>
-</nav>  
+</nav>
 
 <!-- Search bar -->
 <?= searchBarTemplate(); ?>
@@ -149,7 +173,7 @@ $pdo = databaseConnect();
                     <a href="index.php?page=individual_product&id=<?= $recentProduct['id']; ?>">
                         <div class="card">
                             <div>
-                                <img src="<?= $recentProduct['productImage']; ?>" alt="<?= $recentProduct['productName']; ?>" class="img-fluid card-img-top">
+                                <img src="<?= $recentProduct['productImage1']; ?>" alt="<?= $recentProduct['productName']; ?>" class="img-fluid card-img-top">
                             </div>
                             <div class="card-body">
                                 <h5><?= $recentProduct['productName']; ?></h5>
@@ -162,9 +186,9 @@ $pdo = databaseConnect();
                                 </h6>
                                 <hr>
                                 <?php if ($recentProduct['productRetailPrice'] > 0) : ?>
-                                    <small class="text-muted"><s style="font-size: 16px;">&dollar;<?= $recentProduct['productRetailPrice']; ?></s></small>
+                                    <small class="text-muted"><s style="font-size: 16px;">Ksh. <?= $recentProduct['productRetailPrice']; ?></s></small>
                                 <?php endif; ?>
-                                <h6 class="text-dark" style="font-weight:600;">&dollar;<?= $recentProduct['productPrice']; ?></h6>
+                                <h6 class="text-dark" style="font-weight:600;">Ksh. <?= $recentProduct['productPrice']; ?></h6>
                             </div>
                         </div>
                     </a>
@@ -177,6 +201,94 @@ $pdo = databaseConnect();
                 <div class="col-md-12">
                     <a href="index.php?page=all_products" class="btn-outline rounded-pill">All Products</a>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Favorite Brands -->
+<div id="brands">
+    <div class="container">
+        <div class="row">
+            <h3 class="text-center">Shop from your favorite brands</h3>
+            <!-- Apple -->
+            <div class="col-md-2">
+                <a href="index.php?page=all_product_categories/apple_products">
+                    <h5>Apple</h5>
+                    <!-- Fetch Apple image from the database -->
+                    <?php
+                    $sql = $pdo->prepare("SELECT * FROM all_products WHERE productBrand = 'Apple' ORDER BY date_added ASC LIMIT 1");
+                    $sql->execute();
+                    $database_apple_brand = $sql->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
+                    <?php foreach ($database_apple_brand as $apple_brand) : ?>
+                        <img src="<?= $apple_brand['productImage1']; ?>" class="img-fluid" alt="">
+                    <?php endforeach; ?>
+                </a>
+            </div>
+
+            <!-- Huawei -->
+            <div class="col-md-2">
+                <a href="index.php?page=all_product_categories/huawei_products">
+                    <h5>Huawei</h5>
+                    <!-- Fetch Apple image from the database -->
+                    <?php
+                    $sql = $pdo->prepare("SELECT * FROM all_products WHERE productBrand = 'Huawei' ORDER BY date_added ASC LIMIT 1");
+                    $sql->execute();
+                    $database_apple_brand = $sql->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
+                    <?php foreach ($database_apple_brand as $apple_brand) : ?>
+                        <img src="<?= $apple_brand['productImage']; ?>" class="img-fluid" alt="">
+                    <?php endforeach; ?>
+                </a>
+            </div>
+
+            <!-- Samsung -->
+            <div class="col-md-2">
+                <a href="index.php?page=all_product_categories/samsung_products">
+                    <h5>Samsung</h5>
+                    <!-- Fetch Apple image from the database -->
+                    <?php
+                    $sql = $pdo->prepare("SELECT * FROM all_products WHERE productBrand = 'Samsung' ORDER BY date_added ASC LIMIT 1");
+                    $sql->execute();
+                    $database_apple_brand = $sql->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
+                    <?php foreach ($database_apple_brand as $apple_brand) : ?>
+                        <img src="<?= $apple_brand['productImage1']; ?>" class="img-fluid" alt="">
+                    <?php endforeach; ?>
+                </a>
+            </div>
+
+            <!-- Dell -->
+            <div class="col-md-2">
+                <a href="index.php?page=all_product_categories/dell_products">
+                    <h5>Dell</h5>
+                    <!-- Fetch Apple image from the database -->
+                    <?php
+                    $sql = $pdo->prepare("SELECT * FROM all_products WHERE productBrand = 'Dell' ORDER BY date_added ASC LIMIT 1");
+                    $sql->execute();
+                    $database_apple_brand = $sql->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
+                    <?php foreach ($database_apple_brand as $apple_brand) : ?>
+                        <img src="<?= $apple_brand['productImage']; ?>" class="img-fluid" alt="">
+                    <?php endforeach; ?>
+                </a>
+            </div>
+
+            <!-- HP -->
+            <div class="col-md-2">
+                <a href="index.php?page=all_product_categories/hp_products">
+                    <h5>HP</h5>
+                    <!-- Fetch Apple image from the database -->
+                    <?php
+                    $sql = $pdo->prepare("SELECT * FROM all_products WHERE productBrand = 'HP' ORDER BY date_added ASC LIMIT 1");
+                    $sql->execute();
+                    $database_apple_brand = $sql->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
+                    <?php foreach ($database_apple_brand as $apple_brand) : ?>
+                        <img src="<?= $apple_brand['productImage']; ?>" class="img-fluid" alt="">
+                    <?php endforeach; ?>
+                </a>
             </div>
         </div>
     </div>
@@ -253,7 +365,7 @@ $pdo = databaseConnect();
         <div class="row text-center">
             <div class="col-md-12">
                 <h3>Subscribe to our Newsletter</h3>
-                <form action="#" class="newsletter-form">
+                <form action="#" method="post" class="newsletter-form">
                     <?php
                     if (isset($_SESSION['loggedIn']) && ($_SESSION['loggedIn'] == true)) {
                         $id = false;

@@ -26,8 +26,7 @@ function headerTemplate($title)
             <title>$title</title>
             <meta charset=\"UTF-8\">
             <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-            <meta http-eqiuv=\"X-UA-Compatible\" content=\"IE=edge\">
-            <meta http-equiv=\"refresh\" content=\"900;url=index.php?page=user/logout\">            
+            <meta http-eqiuv=\"X-UA-Compatible\" content=\"IE=edge\">           
             <meta name=\"author\" content=\"Sam Nyalik\">
             <meta name=\"description\" content=\"This is an e-commerce web application built with php and SQL\">
             <meta name=\"keywords\" content=\"HTML5, CSS3, Javascript, PHP, MYSQL\">
@@ -87,14 +86,10 @@ function primary_footerTemplate(){
 function searchBarTemplate()
 {
     $element = "
-    <div id=\"search_bar\">
+    <div id=\"home_search_link\">
     <div class=\"container\">
         <div class=\"row\">
-            <form action=\"\" class=\"search_bar_form\">
-                <div class=\"form-group\">
-                    <input type=\"text\" name=\"search\" placeholder=\"Search here...\" class=\"form-control\">
-                </div>
-            </form>
+           <a href=\"index.php?page=product_search\">Search For Products Here...</a>
         </div>
     </div>
 </div>

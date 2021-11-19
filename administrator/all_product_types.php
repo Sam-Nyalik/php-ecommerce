@@ -7,20 +7,6 @@ include_once "includes/check_login.php";
 include_once "functions/functions.php";
 $pdo = databaseConnect();
 
-// Process form data when the del button is clicked
-if (isset($_GET['del'])) {
-    // Delete product type from the database
-    $sql = "DELETE FROM product_types WHERE id = '" . $_GET['id'] . "'";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$_GET['del']]);
-
-    if ($stmt) {
-        echo "<script>alert('You have successfully deleted this product type!');</script>";
-    } else {
-        echo "There was an error. Please try again!";
-    }
-}
-
 ?>
 
 <!-- Header Template -->
@@ -67,8 +53,8 @@ if (isset($_GET['del'])) {
                                     <td style="padding: 15px;"><?php echo $count++; ?></td>
                                     <td><?= $product_types['productType']; ?></td>
                                     <td><?= $product_types['date_added']; ?></td>
-                                    <td><?=$product_types['updation_date'];?></td>
-                                    <td><a href="index.php?page=administrator/single_product_type&id=<?= $product_types['id']; ?>"><i class="bi bi-eye"></i></a> | <a href="index.php?page=administrator/delete_product_type&id=<?= $product_types['id']; ?>" onclick="return confirm('Are you sure you want to delete <?=$product_types['productType'];?> as a product type?')" class="text-danger tooltips" tooltip-placement="top" tooltip="Remove"><i class="bi bi-trash"></i></a></td>
+                                    <td><?= $product_types['updation_date']; ?></td>
+                                    <td><a href="index.php?page=administrator/single_product_type&id=<?= $product_types['id']; ?>"><i class="bi bi-eye"></i></a> | <a href="index.php?page=administrator/delete_product_type&id=<?= $product_types['id']; ?>" onclick="return confirm('Are you sure you want to delete <?= $product_types['productType']; ?> as a product type?')" class="text-danger tooltips" tooltip-placement="top" tooltip="Remove"><i class="bi bi-trash"></i></a></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
