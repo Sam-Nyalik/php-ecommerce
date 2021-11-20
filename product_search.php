@@ -108,9 +108,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                         </h6>
                                         <hr>
                                         <?php if ($searched_product['productRetailPrice'] > 0) : ?>
-                                            <small class="text-muted"><s style="font-size: 16px;">&dollar;<?= $searched_product['productRetailPrice']; ?></s></small>
+                                            <small class="text-muted"><s style="font-size: 16px;">Ksh. <?= $searched_product['productRetailPrice']; ?></s></small>
                                         <?php endif; ?>
-                                        <h6 class="text-dark" style="font-weight: 600;">&dollar;<?= $searched_product['productPrice']; ?></h6>
+                                        <h6 class="text-dark" style="font-weight: 600;">Ksh. <?= $searched_product['productPrice']; ?></h6>
                                     </div>
                                 </div>
                             </a>
