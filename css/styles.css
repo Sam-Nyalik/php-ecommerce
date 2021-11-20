@@ -4,6 +4,7 @@
 /* Raleway Font */
 
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 :root {
   --main-color: #fff;
   --heading-color: #335c67;
@@ -130,9 +131,11 @@ html, body {
   #top-bar {
     padding: 5px;
   }
+
   #top-bar .topbar-left h5 {
     font-size: 12px;
   }
+
   #top-bar .topbar-right h6 {
     font-size: 14px;
   }
@@ -183,6 +186,7 @@ nav .side_nav .bars:nth-child(3) {
 
 .navbar .navbar-brand {
   margin-right: 60px;
+  margin-top: 10px;
 }
 
 .navbar .navbar-brand a {
@@ -227,7 +231,7 @@ nav .side_nav .bars:nth-child(3) {
   border-left: 3px solid var(--heading-color);
   transform: translate(10px, 0);
   transition: .2s ease-in;
-  
+
 }
 
 .navbar .navbar-nav .dropdown .dropdown-menu {
@@ -285,6 +289,7 @@ nav .side_nav .bars:nth-child(3) {
 
   nav .side_nav .bars {
     width: 20px;
+    margin-right: 0;
   }
 
   .navbar .navbar-brand {
@@ -297,6 +302,7 @@ nav .side_nav .bars:nth-child(3) {
     margin-top: 20px;
     z-index: 999999;
   }
+
   .navbar .navbar-icons {
     background-color: var(--main-color);
     padding: 10px;
@@ -304,14 +310,14 @@ nav .side_nav .bars:nth-child(3) {
   }
 
   .navbar .navbar-toggler .bar:nth-child(1), .navbar .navbar-toggler .bar:nth-child(3) {
-      width: 30px;
+    width: 30px;
   }
 
-  .navbar .navbar-toggler .bar:nth-child(2){
+  .navbar .navbar-toggler .bar:nth-child(2) {
     width: 15px;
   }
 
-  .navbar .navbar-brand a{
+  .navbar .navbar-brand a {
     font-size: 15px;
   }
 }
@@ -320,11 +326,13 @@ nav .side_nav .bars:nth-child(3) {
   .navbar .navbar-brand {
     margin-right: 0;
   }
+
   .navbar .navbar-nav {
     background-color: var(--secondary-color);
     padding: 30px;
     margin-top: 30px;
   }
+
   .navbar .navbar-icons {
     background-color: var(--main-color);
     padding: 30px;
@@ -345,7 +353,7 @@ nav .side_nav .bars:nth-child(3) {
 }
 
 #search_bar {
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 
 #search_bar .search_bar_form .form-control {
@@ -356,8 +364,8 @@ nav .side_nav .bars:nth-child(3) {
   width: 40%;
   /* border-bottom: 2px solid var(--border-color); */
   transition: 0.4s ease;
-  margin-bottom: 10px;
-  padding: 18px;
+  margin-bottom: 0px;
+  padding: 10px;
 }
 
 #search_bar .search_bar_form .form-control:focus {
@@ -375,7 +383,7 @@ nav .side_nav .bars:nth-child(3) {
   border: none;
   background: var(--border-color);
   color: var(--main-color);
-  padding: 12px 20px;
+  padding: 10px 20px;
   transition: .3s ease-in;
   width: 200px;
 }
@@ -399,7 +407,6 @@ nav .side_nav .bars:nth-child(3) {
 }
 
 /* Carousel-Caption 1 */
-
 #mainCarousel .carousel-caption-1 {
   font-family: "Raleway", sans-serif;
   text-align: left;
@@ -526,32 +533,39 @@ nav .side_nav .bars:nth-child(3) {
     margin-left: -40px;
     max-width: 300px;
   }
+
   #mainCarousel .carousel-caption-1 h5 {
     font-size: 25px;
   }
+
   #mainCarousel .carousel-caption-1 .btn {
     padding: 8px 18px;
   }
+
   /* Carousel-Caption-2 */
-  #mainCarousel .carousel-caption-2  {
+  #mainCarousel .carousel-caption-2 {
     margin-top: 0;
   }
 
   #mainCarousel .carousel-caption-2 h5 {
     font-size: 25px;
   }
+
   #mainCarousel .carousel-caption-2 .btn {
     padding: 8px 18px;
   }
+
   /* Carousel-Caption-3 */
   #mainCarousel .carousel-caption-3 {
     margin-left: -100px;
     width: 400px;
     margin-top: 0;
   }
+
   #mainCarousel .carousel-caption-3 h5 {
     font-size: 25px;
   }
+
   #mainCarousel .carousel-caption-3 .btn {
     padding: 8px 18px;
   }
@@ -658,36 +672,40 @@ nav .side_nav .bars:nth-child(3) {
   #featured-products .col-md-5 {
     margin-bottom: 45px;
   }
+
   #featured-products .col-md-5 img {
     height: 300px;
     width: 100%;
   }
+
   #featured-products .col-md-5 h5 {
     margin-top: 110px;
     font-size: 15px;
   }
+
   #featured-products .col-md-5 .btn {
     margin-top: -200px;
     padding: 8px 18px;
   }
+
   #featured-products .col-md-5 p {
     margin-top: -70px;
     font-size: 16px;
   }
 
-  #featured-products .col-md-7 {
-   
-  }
+  #featured-products .col-md-7 {}
 
   #featured-products .col-md-7 img {
     height: 250px;
     width: 100%;
     margin-top: -50px;
   }
+
   #featured-products .col-md-7 h5 {
     margin-top: -200px;
     font-size: 35px;
   }
+
   #featured-products .col-md-7 .btn {
     padding: 8px 18px;
   }
@@ -698,14 +716,17 @@ nav .side_nav .bars:nth-child(3) {
     margin-top: 70px;
     font-size: 25px;
   }
+
   #featured-products .col-md-5 img {
     height: 300px;
     width: 100%;
   }
+
   #featured-products .col-md-5 .btn {
     margin-top: -300px;
     padding: 8px 18px;
   }
+
   #featured-products .col-md-7 {
     margin-top: 40px;
   }
@@ -877,9 +898,11 @@ nav .side_nav .bars:nth-child(3) {
     right: 60px;
     width: 80%;
   }
+
   #main-advertisement .advertisement-description h1 {
     font-size: 25px;
   }
+
   #main-advertisement .advertisement-description p {
     width: 100%;
   }
@@ -889,14 +912,17 @@ nav .side_nav .bars:nth-child(3) {
   #main-advertisement {
     margin-bottom: 55px;
   }
+
   #main-advertisement .advertisement-description {
     padding: 50px;
     right: 10px;
     width: 100%;
   }
+
   #main-advertisement .advertisement-description h1 {
     font-size: 22px;
   }
+
   #main-advertisement .advertisement-description p {
     width: 100%;
     font-size: 15px;
@@ -938,17 +964,21 @@ nav .side_nav .bars:nth-child(3) {
   #about-orders {
     margin-bottom: 25px;
   }
+
   #about-orders .card i {
     font-size: 20px;
     padding: 20px 20px;
   }
+
   #about-orders .card .card-body h4 {
     font-size: 25px;
   }
+
   #about-orders .card .card-body p {
     font-size: 12px;
     font-weight: 400;
   }
+
   #about-orders .card {
     margin-bottom: 20px;
   }
@@ -1010,10 +1040,12 @@ nav .side_nav .bars:nth-child(3) {
     margin-bottom: 45px;
     margin-top: 15px;
   }
+
   #newsletter h3 {
     font-size: 25px;
     margin-bottom: 10px;
   }
+
   #newsletter .newsletter-form .btn {
     padding: 8px 18px;
   }
@@ -1165,13 +1197,16 @@ nav .side_nav .bars:nth-child(3) {
   #login .order_summary_title h5 {
     margin-top: 45px;
   }
+
   #login .order_summary {
     border: 1px solid rgb(88, 88, 88);
     padding: 10px;
   }
+
   #login .col-md-6:nth-child(2) {
     margin-top: 55px;
   }
+
   #login .col-md-6:nth-child(2) p {
     margin-bottom: 50px;
     padding: 0 50px;
@@ -1281,16 +1316,20 @@ nav .side_nav .bars:nth-child(3) {
   #main_navbar {
     height: 70px;
   }
+
   #main_navbar .col-4 .bar {
     width: 30px;
     margin-left: 10px;
   }
+
   #main_navbar .col-4 .bar:nth-child(2) {
     width: 15px;
   }
+
   #main_navbar .col-4 .main_title {
     font-size: 14px;
   }
+
   #main_navbar .col-4 .profileImage {
     margin-right: 10px;
     padding: 3px 10px;
@@ -1581,18 +1620,22 @@ nav .side_nav .bars:nth-child(3) {
   #profile .row {
     padding: 10px;
   }
+
   #profile h1 {
     margin: 0;
     font-size: 18px;
     margin-top: 15px;
   }
+
   #profile .profile_form .form-group {
     margin: 0;
     margin-bottom: 30px;
   }
+
   #profile .profile_form .form-group .btn {
     width: 100%;
   }
+
   #profile .profile_form h5 {
     margin: 0;
   }
@@ -1965,7 +2008,7 @@ nav .side_nav .bars:nth-child(3) {
 }
 
 #single_product .product_description .description {
- text-decoration: none;
+  text-decoration: none;
 }
 
 #single_product .product_description .description h6 {
@@ -2016,7 +2059,7 @@ nav .side_nav .bars:nth-child(3) {
 }
 
 #shopping_cart .shopping_cart_form .table {
-  border-top:none;
+  border-top: none;
   border-bottom: 1x solid var(--heading-color);
 }
 
@@ -2205,4 +2248,3 @@ nav .side_nav .bars:nth-child(3) {
   font-size: 10px;
   margin-top: 10px;
 }
-
