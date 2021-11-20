@@ -105,7 +105,7 @@ $pdo = databaseConnect();
 </nav>
 
 <!-- Search bar -->
-<?= searchBarTemplate(); ?>
+<?php include_once "product_search.php" ?>
 
 <!-- Main Carousel -->
 <div id="mainCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
