@@ -1,6 +1,4 @@
 <?php
-// Start session
-session_start();
 
 // error reporting
 error_reporting(E_ALL);
@@ -32,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 if ($stmt->rowCount() == 1) {
                     $search_item = trim($_POST['search']);
                 } else {
-                    $general_error = "Product does not exist!";
+                    $general_error = "";
                 }
             } else {
                 echo "There was an error. Please try again!";
@@ -45,90 +43,33 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 }
 ?>
 
-<!-- Total Number of items in the cart -->
-<?php include_once "number_of_items_in_cart.php"; ?>
-
-<!-- Header Template -->
-<?= headerTemplate('PRODUCT SEARCH'); ?>
-
-<!-- Top Bar -->
-<?php include_once "inc/top-bar.php"; ?>
-
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light" id="header">
-    <div class="container">
-        <h3 class="navbar-brand"><a href="index.php?page=home">E-Commerce.</a></h3>
-        <div class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="index.php?page=home">Home</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a href="" class="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        Categories
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a href="index.php?page=all_product_categories/apple_products" class="dropdown-item">Apple</a>
-                        <a href="index.php?page=all_product_categories/samsung_products" class="dropdown-item">Samsung</a>
-                        <a href="index.php?page=all_product_categories/huawei_products" class="dropdown-item">Huawei</a>
-                        <a href="index.php?page=all_product_categories/dell_products" class="dropdown-item">Dell</a>
-                        <a href="index.php?page=all_product_categories/hp_products" class="dropdown-item">Hp</a>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a href="" class="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        Products
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a href="index.php?page=all_products" class="dropdown-item">All Products</a>
-                        <a href="index.php?page=phone_products" class="dropdown-item">Phone Products</a>
-                        <a href="index.php?page=laptop_products" class="dropdown-item">Laptop Products</a>
-                    </ul>
-
-                </li>
-                <li class="nav-item">
-                    <a href="index.php?page=contact-us" class="nav-link">Contact</a>
-                </li>
-            </ul>
-            <span class="navbar-icons">
-                <a href="index.php?page=cart"><i class="bi bi-bag active" style="margin-right: 30px;"><span class="text-dark">(<?php echo $total_items_in_cart; ?>)</span></i></a>
-                <i class="bi bi-heart" style="margin-right: 45px;"><span class="text-dark">(0)</span></i>
-            </span>
-        </div>
-    </div>
-</nav>
 
 <div id="search_bar">
     <div class="container">
         <div class="row d-flex">
-           <div class="col-md-12">
-           <form action="index.php?page=product_search" method="post" class="search_bar_form">
-                <!-- General Error -->
-                <div class="form-group">
-                    <span class="text-danger">
-                        <ul>
-                            <li><?php
-                                if ($general_error) {
-                                    echo $general_error;
-                                }
-                                ?></li>
-                        </ul>
-                    </span>
-                </div>
-                <div class="form-group">
-                    <input type="text" name="search" placeholder="Search here..." class="form-control">
-                    <span class="text-danger"><?php echo $search_item_error; ?></span>
-                </div>
-                <div class="form-group my-3">
-                    <input type="submit" class="btn rounded-pill" value="Search">
-                </div>
-            </form>
-           </div>
+            <div class="col-md-12">
+                <form action="index.php?page=home" method="post" class="search_bar_form">
+                    <!-- General Error -->
+                    <div class="form-group">
+                        <span class="text-danger">
+                            <ul>
+                                <li><?php
+                                    if ($general_error) {
+                                        echo $general_error;
+                                    }
+                                    ?></li>
+                            </ul>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="search" placeholder="Search here..." class="form-control">
+                        <span class="text-danger"><?php echo $search_item_error; ?></span>
+                    </div>
+                    <div class="form-group my-3">
+                        <input type="submit" class="btn rounded-pill" value="Search">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -154,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                             <a href="index.php?page=individual_product&id=<?= $searched_product['id']; ?>">
                                 <div class="card">
                                     <div>
-                                        <img src="<?= $searched_product['productImage']; ?>" alt="<?= $searched_product['productName']; ?>" class="img-fluid img-responsive">
+                                        <img src="<?= $searched_product['productImage1']; ?>" alt="<?= $searched_product['productName']; ?>" class="img-fluid img-responsive">
                                     </div>
                                     <div class="card-body">
                                         <h5><?= $searched_product['productName']; ?></h5>
@@ -187,8 +128,3 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         </div>
     </div>
 </div>
-<!-- Primary Footer -->
-<?= primary_footerTemplate(); ?>
-
-<!-- Footer Section -->
-<?= footerTemplate(); ?>
