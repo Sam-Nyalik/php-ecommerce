@@ -4,20 +4,20 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 // Include the functions file
-include_once "functions/functions.php";
+require_once "functions/functions.php";
 $pdo = databaseConnect();
 
 
 ?>
 
 <!-- Total Number of items in the cart -->
-<?php include_once "number_of_items_in_cart.php"; ?>
+<?php require_once "number_of_items_in_cart.php"; ?>
 
 <!-- Include the header template -->
-<?= headerTemplate('HOME'); ?>
+<?php echo headerTemplate('HOME'); ?>
 
 <!-- TopBar -->
-<?php include_once "inc/top-bar.php"; ?>
+<?php require_once "inc/top-bar.php"; ?>
 
 
 <!-- Navbar -->
@@ -47,10 +47,11 @@ $pdo = databaseConnect();
                 $database_company_name = $sql->fetchAll(PDO::FETCH_ASSOC);
                 ?>
                 <?php foreach ($database_company_name as $company_name) : ?>
-                    <?= $company_name['companyName']; ?>
+                    <?php echo $company_name['companyName']; ?>
                 <?php endforeach; ?>
             </a></h3>
-        <div class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarContent" aria-expanded="false"
+         aria-label="Toggle navigation">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
@@ -77,7 +78,7 @@ $pdo = databaseConnect();
                             $database_product_categories = $sql->fetchAll(PDO::FETCH_ASSOC);
                         ?>
                         <?php foreach($database_product_categories as $product_categories): ?>
-                            <a href="index.php?page=all_product_categories&id=<?=$product_categories['id'];?>" class="dropdown-item"><?=$product_categories['productBrand'];?></a>
+                            <a href="index.php?page=all_product_categories&id=<?php echo $product_categories['id'];?>" class="dropdown-item"><?php echo $product_categories['productBrand'];?></a>
                         <?php endforeach; ?>
                     </ul>
                 </li>
@@ -105,7 +106,7 @@ $pdo = databaseConnect();
 </nav>
 
 <!-- Search bar -->
-<?php include_once "product_search.php" ?>
+<?php require_once "product_search.php" ?>
 
 <!-- Main Carousel -->
 <div id="mainCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -179,13 +180,13 @@ $pdo = databaseConnect();
             ?>
             <?php foreach ($recentlyAddedProducts as $recentProduct) : ?>
                 <div class="col-md-3 col-sm-6 my-3 my-md-0">
-                    <a href="index.php?page=individual_product&id=<?= $recentProduct['id']; ?>">
+                    <a href="index.php?page=individual_product&id=<?php echo $recentProduct['id']; ?>">
                         <div class="card">
                             <div>
-                                <img src="<?= $recentProduct['productImage1']; ?>" alt="<?= $recentProduct['productName']; ?>" class="img-fluid card-img-top">
+                                <img src="<?php echo $recentProduct['productImage1']; ?>" alt="<?php echo $recentProduct['productName']; ?>" class="img-fluid card-img-top">
                             </div>
                             <div class="card-body">
-                                <h5><?= $recentProduct['productName']; ?></h5>
+                                <h5><?php echo $recentProduct['productName']; ?></h5>
                                 <h6 class="ratings">
                                     <i class="bi bi-star-fill"></i>
                                     <i class="bi bi-star-fill"></i>
@@ -195,9 +196,9 @@ $pdo = databaseConnect();
                                 </h6>
                                 <hr>
                                 <?php if ($recentProduct['productRetailPrice'] > 0) : ?>
-                                    <small class="text-muted"><s style="font-size: 16px;">Ksh. <?= $recentProduct['productRetailPrice']; ?></s></small>
+                                    <small class="text-muted"><s style="font-size: 16px;">Ksh. <?php echo $recentProduct['productRetailPrice']; ?></s></small>
                                 <?php endif; ?>
-                                <h6 class="text-dark" style="font-weight:600;">Ksh. <?= $recentProduct['productPrice']; ?></h6>
+                                <h6 class="text-dark" style="font-weight:600;">Ksh. <?php echo $recentProduct['productPrice']; ?></h6>
                             </div>
                         </div>
                     </a>
@@ -231,7 +232,7 @@ $pdo = databaseConnect();
                     $database_apple_brand = $sql->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                     <?php foreach ($database_apple_brand as $apple_brand) : ?>
-                        <img src="<?= $apple_brand['productImage1']; ?>" class="img-fluid" alt="">
+                        <img src="<?php echo $apple_brand['productImage1']; ?>" class="img-fluid" alt="">
                     <?php endforeach; ?>
                 </a>
             </div>
@@ -247,7 +248,7 @@ $pdo = databaseConnect();
                     $database_apple_brand = $sql->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                     <?php foreach ($database_apple_brand as $apple_brand) : ?>
-                        <img src="<?= $apple_brand['productImage']; ?>" class="img-fluid" alt="">
+                        <img src="<?php echo $apple_brand['productImage']; ?>" class="img-fluid" alt="">
                     <?php endforeach; ?>
                 </a>
             </div>
@@ -263,7 +264,7 @@ $pdo = databaseConnect();
                     $database_apple_brand = $sql->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                     <?php foreach ($database_apple_brand as $apple_brand) : ?>
-                        <img src="<?= $apple_brand['productImage1']; ?>" class="img-fluid" alt="">
+                        <img src="<?php echo $apple_brand['productImage1']; ?>" class="img-fluid" alt="">
                     <?php endforeach; ?>
                 </a>
             </div>
@@ -279,7 +280,7 @@ $pdo = databaseConnect();
                     $database_apple_brand = $sql->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                     <?php foreach ($database_apple_brand as $apple_brand) : ?>
-                        <img src="<?= $apple_brand['productImage']; ?>" class="img-fluid" alt="">
+                        <img src="<?php echo $apple_brand['productImage3']; ?>" class="img-fluid" alt="">
                     <?php endforeach; ?>
                 </a>
             </div>
@@ -295,7 +296,7 @@ $pdo = databaseConnect();
                     $database_apple_brand = $sql->fetchAll(PDO::FETCH_ASSOC);
                     ?>
                     <?php foreach ($database_apple_brand as $apple_brand) : ?>
-                        <img src="<?= $apple_brand['productImage']; ?>" class="img-fluid" alt="">
+                        <img src="<?php echo $apple_brand['productImage']; ?>" class="img-fluid" alt="">
                     <?php endforeach; ?>
                 </a>
             </div>
@@ -315,11 +316,11 @@ $pdo = databaseConnect();
         <?php foreach ($main_advert as $advert) : ?>
             <div class="row">
                 <div class="col-md-12">
-                    <img src="<?= $advert['productImage']; ?>" class="img-fluid" alt="<?= $advert['productName']; ?>" srcset="" data-aos="fade-up">
+                    <img src="<?php echo $advert['productImage']; ?>" class="img-fluid" alt="<?php echo $advert['productName']; ?>" srcset="" data-aos="fade-up">
                     <div class="advertisement-description" data-aos="fade-down">
-                        <h1><?= $advert["productName"] ?></h1>
-                        <p><?= $advert["productDescription"]; ?></p>
-                        <a href="index.php?page=main_advert&id=<?= $advert['id']; ?>">See More</a>
+                        <h1><?php echo $advert["productName"] ?></h1>
+                        <p><?php echo $advert["productDescription"]; ?></p>
+                        <a href="index.php?page=main_advert&id=<?php echo $advert['id']; ?>">See More</a>
                     </div>
                 </div>
             </div>
@@ -385,9 +386,9 @@ $pdo = databaseConnect();
                         $sql = $pdo->prepare("SELECT * FROM users WHERE id = '$id'");
                         $sql->execute();
                         $database_user_email = $sql->fetchAll(PDO::FETCH_ASSOC);
-                    ?>
+                        ?>
                         <?php foreach ($database_user_email as $user_email) : ?>
-                            <input type="email" name="newsletter-email" autocomplete="off" placeholder="Email Address..." class="form-control" value="<?= $user_email['email']; ?>">
+                            <input type="email" name="newsletter-email" autocomplete="off" placeholder="Email Address..." class="form-control" value="<?php echo $user_email['email']; ?>">
                             <button class="btn">Subscribe</button>
                         <?php endforeach; ?>
                     <?php  } else { ?>
@@ -420,7 +421,7 @@ $pdo = databaseConnect();
 </div>
 
 <!-- Primary Footer -->
-<?= primary_footerTemplate(); ?>
+<?php echo primary_footerTemplate(); ?>
 
 <!-- Back to top -->
 <a href="#top-bar">
@@ -435,4 +436,4 @@ $pdo = databaseConnect();
 
 
 <!-- Footer Section -->
-<?= footerTemplate(); ?>
+<?php echo footerTemplate(); ?>

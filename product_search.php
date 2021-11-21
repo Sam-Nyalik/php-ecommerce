@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <div class="container">
         <div class="row d-flex">
             <div class="col-md-12">
-                <form action="index.php?page=home" method="post" class="search_bar_form">
+                <form action="#" method="post" class="search_bar_form">
                     <!-- General Error -->
                     <div class="form-group">
                         <span class="text-danger">

@@ -50,7 +50,17 @@ if (isset($_GET["id"])) {
             <a href="" class="dropdown-item"><img src="icons/open-book.png" alt="Books"> Education</a>
         </ul>
 
-        <h3 class="navbar-brand"><a href="index.php?page=home">E-Commerce.</a></h3>
+        <h3 class="navbar-brand"><a href="index.php?page=home">
+                <!-- Fetch company Name from the database -->
+                <?php
+                $sql = $pdo->prepare("SELECT companyName FROM company_details WHERE id = 1");
+                $sql->execute();
+                $database_company_name = $sql->fetchAll(PDO::FETCH_ASSOC);
+                ?>
+                <?php foreach ($database_company_name as $company_name) : ?>
+                    <?= $company_name['companyName']; ?>
+                <?php endforeach; ?>
+            </a></h3>
         <div class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <div class="bar"></div>
             <div class="bar"></div>
@@ -144,18 +154,18 @@ if (isset($_GET["id"])) {
                 </div>
                 <hr>
                 <div class="row">
-                  <div class="product_description">
-                  <div class="col-md-12">
-                        <h5>Product Description</h5>
-                      <div class="row">
-                          <div class="col-md-8">
-                          <div class="description">
-                            <h6><?=$single_product['productDescription'];?></h6>
+                    <div class="product_description">
+                        <div class="col-md-12">
+                            <h5>Product Description</h5>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="description">
+                                        <h6><?= $single_product['productDescription']; ?></h6>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                          </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
             <?php endforeach; ?>
         </div>

@@ -247,7 +247,7 @@ $total_items_in_cart = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
                                             </td>
 
                                             <td>
-                                                <h5><a style="color: #000; font-weight: 450;" href="index.php?page=individual_product&id=<?= $product['id']; ?>"><?= $product['productName']; ?> - <?= $product['storage']; ?> - <?= $product['memory']; ?> RAM</a></h5>
+                                                <h5><a style="color: #000; font-weight: 450;" href="index.php?page=individual_product&id=<?= $product['id']; ?>"><?= $product['productName']; ?>, <?= $product['storage']; ?> - <?= $product['memory']; ?> RAM</a></h5>
                                                 <p style="margin-bottom: 0;"><span>Brand: </span> <?= $product['productBrand']; ?></p>
                                                 <p><span>Network: </span><?= $product['network']; ?></p>
 

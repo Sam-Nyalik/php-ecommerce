@@ -161,9 +161,9 @@ $total_number_of_products = $pdo->query("SELECT * FROM all_products")->rowCount(
                                 </h6>
                                 <hr>
                                 <?php if ($products['productRetailPrice'] > 0) : ?>
-                                    <small class="text-muted"><s style="font-size: 16px;"><?= $products['productRetailPrice']; ?></s></small>
+                                    <small class="text-muted"><s style="font-size: 16px;">Ksh. <?= $products['productRetailPrice']; ?></s></small>
                                 <?php endif; ?>
-                                <h6 class="text-dark" style="font-weight: 600;">&dollar;<?= $products['productPrice']; ?></h6>
+                                <h6 class="text-dark" style="font-weight: 600;">Ksh. <?= $products['productPrice']; ?></h6>
                             </div>
                         </div>
                     </a>

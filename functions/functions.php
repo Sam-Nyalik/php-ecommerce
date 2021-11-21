@@ -43,17 +43,25 @@ function headerTemplate($title)
 }
 
 // Primary Footer
-function primary_footerTemplate(){
+function primary_footerTemplate()
+{
     $date = date('Y');
+    $pdo = databaseConnect();
+    $sql = $pdo->prepare("SELECT companyName FROM company_details WHERE id = 1");
+    $sql->execute();
+    $database_company_name = $sql->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($database_company_name as $company_name) :
+       $companyName = $company_name['companyName'];
+    endforeach;
     $element = "
     <div id=\"primary_footer\">
     <div class=\"container\">
         <div class=\"row\">
             <div class=\"col-md-4\">
                <div class=\"title_footer\">
-               <h2>E-commerce.</h2>
+               <h2>$companyName</h2>
                 <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam voluptas quasi, corporis laboriosam suscipit architecto, corrupti ipsam porro explicabo amet ratione vero a dolor fuga? Repellendus, labore totam!</p>
-                <h5>E-commerce. | All Rights Reserved &copy; $date </h5>
+                <h5>$companyName | All Rights Reserved &copy; $date </h5>
                </div>
             </div>
             <div class=\"col-md-4\">
@@ -69,6 +77,7 @@ function primary_footerTemplate(){
                     <h2>Login Links</h2>
                     <h5><a href=\"index.php?page=administrator/login\">Administrator</a></h5>
                     <h5><a href=\"index.php?page=user/login\">Visitor</a></h5>
+                    <h5><a href=\"\">Sell with us</a></h5>
                 </div>
             </div>
             <div class=\"col-md-4\">

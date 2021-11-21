@@ -3,18 +3,24 @@
 include_once "functions/functions.php";
 $pdo = databaseConnect();
 
+// Prepare a SELECT statement to fetch products from the database whose productBrand = Apple
+$id = $_GET['id'];
+$sql = $pdo->prepare("SELECT * FROM all_products WHERE id = '$id' ORDER BY date_added DESC");
+$sql->execute();
+$database_all_products = $sql->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!-- Total Number of items in the cart -->
 <?php include_once "number_of_items_in_cart.php" ?>
 
 <!-- Header Template -->
-<?= headerTemplate('LAPTOP_PRODUCTS'); ?>
+<?= headerTemplate('APPLE_PRODUCTS'); ?>
 
-<!-- Top Bar -->
+<!-- Top Bar Template -->
 <?php include_once "inc/top-bar.php"; ?>
 
-<!-- Navbar -->
+<!-- Main Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light" id="header">
     <div class="container">
         <div class="side_nav" id="bars_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -55,25 +61,33 @@ $pdo = databaseConnect();
                     <a class="nav-link" aria-current="page" href="index.php?page=home">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="" class="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a href="" class="nav-link dropdown-toggle active" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         Categories
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a href="index.php?page=all_product_categories/apple_products" class="dropdown-item"><img src="icons/apple.png" alt="apple"> Apple</a>
+                        <!-- <a href="index.php?page=all_product_categories/apple_products" class="dropdown-item active"><img src="icons/apple.png" alt="apple"> Apple</a>
                         <a href="index.php?page=all_product_categories/samsung_products" class="dropdown-item"><img src="icons/samsung.png" alt="samsung"> Samsung</a>
                         <a href="index.php?page=all_product_categories/huawei_products" class="dropdown-item"><img src="icons/huawei.png" alt="huawei"> Huawei</a>
                         <a href="index.php?page=all_product_categories/dell_products" class="dropdown-item"><img src="icons/dell.png" alt="dell"> Dell</a>
-                        <a href="index.php?page=all_product_categories/hp_products" class="dropdown-item"><img src="icons/hp.png" alt="hp"> Hp</a>
+                        <a href="index.php?page=all_product_categories/hp_products" class="dropdown-item"><img src="icons/hp.png" alt="hp"> Hp</a> -->
+                        <?php 
+                            $sql = $pdo->prepare("SELECT * FROM all_products");
+                            $sql->execute();
+                            $database_product_categories = $sql->fetchAll(PDO::FETCH_ASSOC);
+                        ?>
+                        <?php foreach($database_product_categories as $product_categories): ?>
+                            <a href="index.php?page=all_product_categories&id=<?=$product_categories['id'];?>" class="dropdown-item"><?=$product_categories['productBrand'];?></a>
+                        <?php endforeach; ?>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="" class="nav-link dropdown-toggle active" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a href="" class="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         Products
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a href="index.php?page=all_products" class="dropdown-item">All Products</a>
                         <a href="index.php?page=phone_products" class="dropdown-item">Phone Products</a>
-                        <a href="index.php?page=laptop_products" class="dropdown-item active">Laptop Products</a>
+                        <a href="index.php?page=laptop_products" class="dropdown-item">Laptop Products</a>
                     </ul>
 
                 </li>
@@ -82,7 +96,7 @@ $pdo = databaseConnect();
                 </li>
             </ul>
             <span class="navbar-icons">
-                <a href="index.php?page=cart"><i class="bi bi-cart4 active" style="margin-right: 30px;"><span class="text-dark">(<?php echo $total_items_in_cart; ?>)</span></i></a>
+                <a href="index.php?page=cart"> <i class="bi bi-cart4" style="margin-right: 30px;"><span class="text-dark">(<?php echo $total_items_in_cart; ?>)</span></i></a>
                 <i class="bi bi-heart" style="margin-right: 45px;"><span class="text-dark">(0)</span></i>
             </span>
         </div>
@@ -90,36 +104,30 @@ $pdo = databaseConnect();
 </nav>
 
 <!-- Search bar -->
-<?= searchBarTemplate(); ?>
+<?php include_once "product_search.php" ?>
 
 <!-- Section Title -->
 <div class="section-title">
     <div class="container">
+    <?php foreach ($database_all_products as $all_products) : ?>
         <div class="row">
-            <h5><span>Laptop</span> Products</h5>
+            <h5><span><?=$all_products['productBrand'];?></span> Products</h5>
         </div>
     </div>
 </div>
 
-<!-- Laptop Products -->
+<!-- Apple Products -->
 <div id="products">
     <div class="container">
         <div class="row text-center">
-            <!-- Prepare a SELECT statement to fetch laptop products from the database  -->
-            <?php
-            $sql = $pdo->prepare("SELECT * FROM all_products WHERE productType = 'Laptop' ORDER BY date_added DESC");
-            $sql->execute();
-            $database_laptop_products = $sql->fetchAll(PDO::FETCH_ASSOC);
-            ?>
-            <?php foreach ($database_laptop_products as $laptop_products) : ?>
-                <div class="col-md-3 col-sm-6">
-                    <a href="index.php?page=individual_product&id=<?= $laptop_products['id']; ?>">
+                <div class="col-md-3">
+                    <a href="index.php?page=individual_product&id=<?= $all_products['id']; ?>">
                         <div class="card">
                             <div>
-                                <img src="<?= $laptop_products['productImage1']; ?>" alt="<?= $laptop_products['productName']; ?>" class="img-card-top img-fluid">
+                                <img src="<?= $all_products['productImage1']; ?>" alt="<?= $all_products['productName']; ?>" class="img-fluid card-img-top">
                             </div>
                             <div class="card-body">
-                                <h5><?= $laptop_products['productName']; ?></h5>
+                                <h5><?= $all_products['productName']; ?></h5>
                                 <h6 class="ratings">
                                     <i class="bi bi-star-fill"></i>
                                     <i class="bi bi-star-fill"></i>
@@ -128,10 +136,10 @@ $pdo = databaseConnect();
                                     <i class="bi bi-star-fill"></i>
                                 </h6>
                                 <hr>
-                                <?php if ($laptop_products['productRetailPrice'] > 0) : ?>
-                                    <small class="text-muted"><s style="font-size: 16px;"><?= $laptop_products['productRetailPrice']; ?></s></small>
+                                <?php if ($all_products['productRetailPrice'] > 0) : ?>
+                                    <small class="text-muted"><s style="font-size: 16px">Ksh. <?= $all_products['productRetailPrice']; ?></s></small>
                                 <?php endif; ?>
-                                <h6 class="text-dark" style="font-weight: 600;">&dollar;<?= $laptop_products['productPrice']; ?></h6>
+                                <h6 class="text-dark" style="font-weight: 600;">Ksh. <?= $all_products['productPrice']; ?></h6>
                             </div>
                         </div>
                     </a>
@@ -141,8 +149,9 @@ $pdo = databaseConnect();
     </div>
 </div>
 
-<!-- Primary Footer Template -->
+<!-- Primary Footer -->
 <?= primary_footerTemplate(); ?>
 
-<!-- Footer Template -->
+
+<!-- Main Footer Template -->
 <?= footerTemplate(); ?>
