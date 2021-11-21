@@ -66,20 +66,11 @@ $pdo = databaseConnect();
                         Categories
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <!-- <a href="index.php?page=all_product_categories/apple_products" class="dropdown-item"><img src="icons/apple.png" alt="apple"> Apple</a>
+                         <a href="index.php?page=all_product_categories/apple_products" class="dropdown-item"><img src="icons/apple.png" alt="apple"> Apple</a>
                         <a href="index.php?page=all_product_categories/samsung_products" class="dropdown-item"><img src="icons/samsung.png" alt="samsung"> Samsung</a>
                         <a href="index.php?page=all_product_categories/huawei_products" class="dropdown-item"><img src="icons/huawei.png" alt="huawei"> Huawei</a>
                         <a href="index.php?page=all_product_categories/dell_products" class="dropdown-item"><img src="icons/dell.png" alt="dell"> Dell</a>
-                        <a href="index.php?page=all_product_categories/hp_products" class="dropdown-item"><img src="icons/hp.png" alt="hp"> Hp</a> -->
-                        <!-- Fetch product categories from the database -->
-                        <?php 
-                            $sql = $pdo->prepare("SELECT * FROM all_products");
-                            $sql->execute();
-                            $database_product_categories = $sql->fetchAll(PDO::FETCH_ASSOC);
-                        ?>
-                        <?php foreach($database_product_categories as $product_categories): ?>
-                            <a href="index.php?page=all_product_categories&id=<?php echo $product_categories['id'];?>" class="dropdown-item"><?php echo $product_categories['productBrand'];?></a>
-                        <?php endforeach; ?>
+                        <a href="index.php?page=all_product_categories/hp_products" class="dropdown-item"><img src="icons/hp.png" alt="hp"> Hp</a> 
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
