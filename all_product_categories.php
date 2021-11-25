@@ -4,8 +4,8 @@ include_once "functions/functions.php";
 $pdo = databaseConnect();
 
 // Prepare a SELECT statement to fetch products from the database whose productBrand = Apple
-$id = $_GET['id'];
-$sql = $pdo->prepare("SELECT * FROM all_products WHERE id = '$id' ORDER BY date_added DESC");
+$brand = $_GET['brand'];
+$sql = $pdo->prepare("SELECT * FROM all_products WHERE productBrand = '$brand' ORDER BY date_added DESC");
 $sql->execute();
 $database_all_products = $sql->fetchAll(PDO::FETCH_ASSOC);
 
@@ -116,7 +116,7 @@ $database_all_products = $sql->fetchAll(PDO::FETCH_ASSOC);
     </div>
 </div>
 
-<!-- Apple Products -->
+<!-- All Products -->
 <div id="products">
     <div class="container">
         <div class="row text-center">
@@ -124,7 +124,7 @@ $database_all_products = $sql->fetchAll(PDO::FETCH_ASSOC);
                     <a href="index.php?page=individual_product&id=<?= $all_products['id']; ?>">
                         <div class="card">
                             <div>
-                                <img src="<?= $all_products['productImage1']; ?>" alt="<?= $all_products['productName']; ?>" class="img-fluid card-img-top">
+                                <img src="<?= $all_products['productImage1']; ?>" alt="<?= $products['productName']; ?>" class="img-card-top img-fluid">
                             </div>
                             <div class="card-body">
                                 <h5><?= $all_products['productName']; ?></h5>
@@ -137,9 +137,9 @@ $database_all_products = $sql->fetchAll(PDO::FETCH_ASSOC);
                                 </h6>
                                 <hr>
                                 <?php if ($all_products['productRetailPrice'] > 0) : ?>
-                                    <small class="text-muted"><s style="font-size: 16px">Ksh. <?= $all_products['productRetailPrice']; ?></s></small>
+                                    <small class="text-muted"><s style="font-size: 16px;">Ksh. <?= $all_products['productRetailPrice']; ?></s></small>
                                 <?php endif; ?>
-                                <h6 class="text-dark" style="font-weight: 600;">Ksh. <?= $all_products['productPrice']; ?></h6>
+                                <h6 class="text-dark" style="font-weight: 600;">Ksh. <?= $products['productPrice']; ?></h6>
                             </div>
                         </div>
                     </a>
@@ -148,6 +148,7 @@ $database_all_products = $sql->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 </div>
+
 
 <!-- Primary Footer -->
 <?= primary_footerTemplate(); ?>

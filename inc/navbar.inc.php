@@ -45,7 +45,7 @@ $total_items_in_cart = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
                 </li>
             </ul>
             <span class="navbar-icons">
-                <a href="index.php?page=cart"><i class="bi bi-bag active" style="margin-right: 30px;"><span class="text-dark">(<?php echo $total_items_in_cart; ?>)</span></i></a>
+                <a href="index.php?page=cart"><i class="bi bi-cart4" style="margin-right: 30px;"><span class="text-dark">(<?php echo $total_items_in_cart; ?>)</span></i></a>
                 <i class="bi bi-heart" style="margin-right: 45px;"><span class="text-dark">(0)</span></i>
             </span>
         </div>

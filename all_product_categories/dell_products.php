@@ -92,6 +92,9 @@ $database_dell_products = $sql->fetchAll(PDO::FETCH_ASSOC);
     </div>
 </nav>
 
+<!-- Product Search  -->
+<?php include_once "product_search.php"; ?>
+
 <!-- Section Title -->
 <div class="section-title">
     <div class="container">
@@ -110,7 +113,7 @@ $database_dell_products = $sql->fetchAll(PDO::FETCH_ASSOC);
                     <a href="index.php?page=individual_product&id=<?= $dell_products['id']; ?>">
                         <div class="card">
                             <div>
-                                <img src="<?= $dell_products['productImage']; ?>" alt="<?= $dell_products['productName']; ?>" class="img-fluid card-img-top">
+                                <img src="<?= $dell_products['productImage1']; ?>" alt="<?= $dell_products['productName']; ?>" class="img-fluid card-img-top">
                             </div>
                             <div class="card-body">
                                 <h5><?= $dell_products['productName']; ?></h5>

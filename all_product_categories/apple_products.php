@@ -94,6 +94,9 @@ $database_apple_products = $sql->fetchAll(PDO::FETCH_ASSOC);
     </div>
 </nav>
 
+<!-- Product Search  -->
+<?php include_once "product_search.php"; ?>
+
 <!-- Section Title -->
 <div class="section-title">
     <div class="container">

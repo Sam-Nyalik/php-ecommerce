@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <?php
                 } else {
                 ?>
-                    <h3 class="text-center">Product with the name "<?php echo $product_data; ?>" wasn't found</h3>
+                    <h3 class="text-center">Product results with the name "<?php echo $product_data; ?>" wasn't found</h3>
             <?php
                 }
             }

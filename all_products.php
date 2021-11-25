@@ -117,7 +117,7 @@ $total_number_of_products = $pdo->query("SELECT * FROM all_products")->rowCount(
 </nav>
 
 <!-- Search bar -->
-<?= searchBarTemplate(); ?>
+<?php include_once "product_search.php"; ?>
 
 <!-- Section Title -->
 <div class="section-title">

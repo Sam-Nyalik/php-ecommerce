@@ -90,7 +90,7 @@ $pdo = databaseConnect();
 </nav>
 
 <!-- Search bar -->
-<?= searchBarTemplate(); ?>
+<?php include_once "product_search.php"; ?>
 
 <!-- Section Title -->
 <div class="section-title">

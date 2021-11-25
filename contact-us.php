@@ -207,7 +207,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </nav>
 
 <!-- Search bar -->
-<?= searchBarTemplate(); ?>
+<?php include_once "product_search.php"; ?>
 
 <!-- Contact Header -->
 <div id="contact_header">

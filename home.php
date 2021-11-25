@@ -50,8 +50,7 @@ $pdo = databaseConnect();
                     <?php echo $company_name['companyName']; ?>
                 <?php endforeach; ?>
             </a></h3>
-        <div class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarContent" aria-expanded="false"
-         aria-label="Toggle navigation">
+        <div class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
@@ -66,11 +65,11 @@ $pdo = databaseConnect();
                         Categories
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                         <a href="index.php?page=all_product_categories/apple_products" class="dropdown-item"><img src="icons/apple.png" alt="apple"> Apple</a>
+                        <a href="index.php?page=all_product_categories/apple_products" class="dropdown-item"><img src="icons/apple.png" alt="apple"> Apple</a>
                         <a href="index.php?page=all_product_categories/samsung_products" class="dropdown-item"><img src="icons/samsung.png" alt="samsung"> Samsung</a>
                         <a href="index.php?page=all_product_categories/huawei_products" class="dropdown-item"><img src="icons/huawei.png" alt="huawei"> Huawei</a>
                         <a href="index.php?page=all_product_categories/dell_products" class="dropdown-item"><img src="icons/dell.png" alt="dell"> Dell</a>
-                        <a href="index.php?page=all_product_categories/hp_products" class="dropdown-item"><img src="icons/hp.png" alt="hp"> Hp</a> 
+                        <a href="index.php?page=all_product_categories/hp_products" class="dropdown-item"><img src="icons/hp.png" alt="hp"> Hp</a>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -97,7 +96,7 @@ $pdo = databaseConnect();
 </nav>
 
 <!-- Search bar -->
-<?php require_once "product_search.php" ?>
+<?php include_once "product_search.php" ?>
 
 <!-- Main Carousel -->
 <div id="mainCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -377,7 +376,7 @@ $pdo = databaseConnect();
                         $sql = $pdo->prepare("SELECT * FROM users WHERE id = '$id'");
                         $sql->execute();
                         $database_user_email = $sql->fetchAll(PDO::FETCH_ASSOC);
-                        ?>
+                    ?>
                         <?php foreach ($database_user_email as $user_email) : ?>
                             <input type="email" name="newsletter-email" autocomplete="off" placeholder="Email Address..." class="form-control" value="<?php echo $user_email['email']; ?>">
                             <button class="btn">Subscribe</button>

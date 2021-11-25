@@ -1,6 +1,4 @@
 <?php
-// Start a session
-session_start();
 
 // Error reporting
 error_reporting(E_ALL);
